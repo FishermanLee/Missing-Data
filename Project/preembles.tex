@@ -1,0 +1,121 @@
+%%%%%%%% usage of the package {bm} %%%%%%%%
+\newcommand{\ubar}[1]{\text{\b{$#1$}}}
+\newcommand{\bmu}[1]{\ubar{\bm{#1}}}
+\newcommand{\bmb}[1]{\bar{\bm{#1}}}
+\newcommand{\bmh}[1]{\hat{\bm{#1}}}
+\newcommand{\bmc}[1]{\check{\bm{#1}}}
+\newcommand{\bmbh}[1]{\hat{\bar{\bm{#1}}}}
+\newcommand{\bmbt}[1]{\tilde{\bar{\bm{#1}}}}
+\newcommand{\bmt}[1]{\tilde{\bm{#1}}}
+\newcommand{\bmo}[1]{\overline{\bm{#1}}}
+\newcommand{\nmbs}[1]{{\mbox{\scriptsize{$#1$}}}}
+\newcommand{\nmbst}[1]{{\mbox{\scriptsize{$\tilde{#1}$}}}}
+\newcommand{\nmbss}[1]{{\mbox{\tiny{$#1$}}}}
+
+%%%%%%%% expectation and probability %%%%%%%%
+\newcommand{\ep}[1]{\mathbb{E}_{\mathbb{P}}\left[#1\right]}
+\newcommand{\ephat}[1]{\mathbb{E}_{\hat{\mathbb{P}}}\left[#1\right]}
+\newcommand{\ephati}[1]{\mathbb{E}_{\hat{\mathbb{P}}_i}\left[#1\right]}
+\newcommand{\epdag}[1]{\mathbb{E}_{\mathbb{P}^\dag}\left[#1\right]}
+\newcommand{\epcheck}[1]{\mathbb{E}_{\check{\mathbb{P}}}\left[#1\right]}
+\newcommand{\epstar}[1]{\mathbb{E}_{{\mathbb{P}^\star}}\left[#1\right]}
+\newcommand{\eq}[1]{\mathbb{E}_{\mathbb{Q}}\left[#1\right]}
+%\newcommand{\ee}[2]{\mathbb{E}_{#1}\left[#2\right]}
+%\newcommand{\supp}[1] {\sup\limits_ {\mathbb{P} \in #1}}
+%\newcommand{\supq}[1] {\sup\limits_ {\mathbb{Q} \in #1}}
+\newcommand{\infp}[1] {\inf\limits_ {\mathbb{P} \in #1}}
+\newcommand{\infq}[1] {\inf\limits_ {\mathbb{Q} \in #1}}
+\newcommand{\epbar}[1]{\mathbb{E}_{\bar{\mathbb{P}}}\left[#1\right]}
+\newcommand{\pp}[1]{\mathbb{P}\left\{#1\right\}}
+\newcommand{\ppdag}[1]{\mathbb{P}^\dag\left\{#1\right\}}
+\newcommand{\ppcheck}[1]{\check{\mathbb{P}}\left\{#1\right\}}
+\newcommand{\pphat}[1]{\hat{\mathbb{P}}\left\{#1\right\}}
+\newcommand{\pphati}[1]{\hat{\mathbb{P}_i}\left\{#1\right\}}
+\newcommand{\pphatj}[1]{\hat{\mathbb{P}_j}\left\{#1\right\}}
+\newcommand{\pphatw}[1]{\hat{\mathbb{P}}_{\bm w} \left\{#1\right\}}
+\newcommand{\pqhatw}[1]{\hat{\mathbb{Q}}_{\bm w} \left\{#1\right\}}
+\newcommand{\ppstar}[1]{\mathbb{P}^\star\left\{#1\right\}}
+\newcommand{\pqstar}[1]{\mathbb{Q}^\star\left\{#1\right\}}
+\newcommand{\pq}[1]{\mathbb{Q}\left\{#1\right\}}
+\newcommand{\ppbar}[1]{\bar{\mathbb{P}}\left\{#1\right\}}
+\newcommand{\bbe}[1]{\mathbb{E}\!\left[#1\right]}
+\newcommand{\bbq}{\mathbb{Q}}
+\newcommand{\bbp}{\mathbb{P}}
+\newcommand{\bbphat}{\hat{\mathbb{P}}}
+\newcommand{\bbphati}{\hat{\mathbb{P}}_i}
+\newcommand{\bbpcheck}{\check{\mathbb{P}}}
+\newcommand{\bbr}{\mathbb{R}}
+\newcommand{\bbs}{\mathbb{S}}
+\newcommand{\bbphatw}{\hat{\mathbb{P}}_{\bm w}}
+\newcommand{\bbpstar}{\mathbb{P}^\star}
+\newcommand{\bbqstar}{\mathbb{Q}^\star}
+\newcommand{\bbqhat}{\hat{\mathbb{Q}}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+% \mb for mathbf
+\newcommand{\mb}[1]{{\mathbf{#1}}}
+\newcommand{\mbh}[1]{{\hat{\mathbf{#1}}}}
+\newcommand{\mbb}[1]{{\bar{\mathbf{#1}}}}
+\newcommand{\mbu}[1]{{\ubar}{\mathbf{#1}}}
+
+\newcommand{\subj}{\rm{s.t.}}
+\newcommand{\sign}{\mathop{\rm{sign}}}
+\newcommand{\epi}{\mathop{\rm{epi}}}
+\newcommand{\hypo}{\mathop{\rm{hypo}}}
+\newcommand{\levelp}[1]{{{\overline{\rm{level}}}_{#1}}}
+\newcommand{\levelm}[1]{{{\underline{\rm{level}}}_{#1}}}
+\newcommand{\dom}{\mathop{\rm{dom}}}
+\newcommand{\conv}{\mathop{\rm{conv}}}
+\newcommand{\persp}{\mathop{\rm{persp}}}
+\newcommand{\proj}{{\rm{proj}}}
+\newcommand{\vect}{\mathop{\rm{vec}}}
+\newcommand{\Diag}{\mathop{\rm{Diag}}}
+\newcommand{\DiagIVS}{\mathop{{\rm{Diag}}^{-1}}}
+\newcommand{\cl}{\mathop{\rm{cl}}}
+\newcommand{\tr}{\mathop{\rm{tr}}}
+\newcommand{\interior}{\mathop{\rm{int}}}
+\newcommand{\ie}{\textit{i.e.},~}
+\newcommand{\eg}{\textit{e.g.},}
+\newcommand{\key}[1]{{\tt [index: #1]}} % for keywords in the index
+
+% Theorem styles 
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section] % [section] refers to "X.1" for Section X.
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+% \newtheorem{definition}[theorem]{Definition} % [theorem] means that "definition" and "theorem" count together
+\newtheorem{definition}{Definition}[section]
+\newtheorem{condition}{Condition}[section]
+
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{notation}[remark]{Notation}
+\newtheorem{case}{Case}
+
+

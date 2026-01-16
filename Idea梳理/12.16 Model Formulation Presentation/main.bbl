@@ -1,0 +1,63 @@
+\begin{thebibliography}{}
+
+\bibitem[Ban and Rudin, 2019]{Ban_Rudin_2019big}
+Ban, G.-Y. and Rudin, C. (2019).
+\newblock The big data newsvendor: Practical insights from machine learning.
+\newblock {\em Operations Research}, 67(1):90--108.
+
+\bibitem[Bastani, 2021]{bastani2021predicting}
+Bastani, H. (2021).
+\newblock Predicting with proxies: Transfer learning in high dimension.
+\newblock {\em Management Science}, 67(5):2964--2984.
+
+\bibitem[Guo et~al., 2025]{guo2025statistical}
+Guo, Z., Wang, Z., Hu, Y., and Bach, F. (2025).
+\newblock Statistical inference for conditional group distributionally robust optimization with cross-entropy loss.
+\newblock {\em arXiv preprint arXiv:2507.09905}.
+
+\bibitem[Hu et~al., 2025]{hu2025budget}
+Hu, J., Chen, Z., and Wang, S. (2025).
+\newblock Budget-driven multiperiod hub location: A robust time-series approach.
+\newblock {\em Operations Research}, 73(2):613--631.
+
+\bibitem[Kannan et~al., 2024]{kannan2024residuals}
+Kannan, R., Bayraksan, G., and Luedtke, J.~R. (2024).
+\newblock Residuals-based distributionally robust optimization with covariate information.
+\newblock {\em Mathematical Programming}, 207(1):369--425.
+
+\bibitem[Kannan et~al., 2025]{kannan2025data}
+Kannan, R., Bayraksan, G., and Luedtke, J.~R. (2025).
+\newblock Data-driven sample average approximation with covariate information.
+\newblock {\em Operations Research}.
+
+\bibitem[Lou et~al., 2024]{lou2024estimation}
+Lou, Z., Chen, Z., Sim, M., Xie, J., and Xiong, P. (2024).
+\newblock Estimation and prediction procedures for unified robust decision models.
+\newblock {\em Available at SSRN 4890089}.
+
+\bibitem[Marfoq et~al., 2021]{marfoq2021federated}
+Marfoq, O., Neglia, G., Bellet, A., Kameni, L., and Vidal, R. (2021).
+\newblock Federated multi-task learning under a mixture of distributions.
+\newblock {\em Advances in neural information processing systems}, 34:15434--15447.
+
+\bibitem[Mo et~al., 2024]{mo2024minimax}
+Mo, W., Tang, W., Xue, S., Liu, Y., and Zhu, J. (2024).
+\newblock Minimax regret learning for data with heterogeneous subgroups.
+\newblock {\em arXiv preprint arXiv:2405.01709}.
+
+\bibitem[Notz and Pibernik, 2022]{notz2022prescriptive}
+Notz, P.~M. and Pibernik, R. (2022).
+\newblock Prescriptive analytics for flexible capacity management.
+\newblock {\em Management Science}, 68(3):1756--1775.
+
+\bibitem[Sim et~al., 2024]{sim2024analytics}
+Sim, M., Tang, Q., Zhou, M., and Zhu, T. (2024).
+\newblock The analytics of robust satisficing: predict, optimize, satisfice, then fortify.
+\newblock {\em Operations Research}.
+
+\bibitem[Wang et~al., 2025]{wang2025distributionally}
+Wang, Z., B{\"u}hlmann, P., and Guo, Z. (2025).
+\newblock Distributionally robust learning for multi-source unsupervised domain adaptation.
+\newblock {\em The Annals of Statistics}.
+
+\end{thebibliography}

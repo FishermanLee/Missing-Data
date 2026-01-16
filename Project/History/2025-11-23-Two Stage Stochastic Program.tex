@@ -1,0 +1,572 @@
+%new version
+\documentclass[mnsc, nonblindrev]{informswp}
+%old version
+%\documentclass[opre, nonblindrev]{informswp}
+\OneAndAHalfSpacedXI % current default line spacing
+%\usepackage{endnotes}
+%\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+	\leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{yhmath}
+%\usepackage{mathrsfs}
+%\usepackage{graphicx}
+%\usepackage{subfig}
+%\usepackage{epsfig}
+%\usepackage{bbm}
+%\usepackage{color}
+\usepackage{multirow}
+\usepackage{booktabs,comment}
+\usepackage{soul}
+%\usepackage{longtable}
+\usepackage{float}
+%\usepackage{epstopdf} 
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{CJKutf8}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+%\usepackage{enumitem}
+\usepackage{array,makecell}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref,footnote}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=black!70!green,          % color of internal links
+	citecolor=black!70!green,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=black!70!green,           % color of external links
+	linktocpage=true
+}
+\usepackage{mathtools}
+
+\usepackage{mathrsfs}
+%%%%%%%% Bigger dot that is smaller than bullet %%%%%%%%%%
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.75}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%%%%%%%% Table cell stretch %%%%%%%%
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{tabularx}
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+
+\usepackage{color-edits}
+\addauthor{zy}{magenta}
+\addauthor{zc}{cyan}
+\addauthor{ms}{blue}
+\addauthor{jx}{brown}
+\addauthor{px}{purple}
+
+
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+%%%%%%%% indicator function, need the package ''dsfont'' %%%%%%%%
+\newcommand{\1}[1]{\mathds{1}{\left(#1\right)}}
+
+%%%%%%%% between otimes and bigotimes %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\midotimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}}
+
+%%%%%%%% vectorization, argsup & argmin %%%%%%%%
+\def\vec{\text{vec}}
+\DeclareMathOperator*{\argsup}{\arg\!\sup}
+\DeclareMathOperator*{\arginf}{\arg\!\inf}
+\DeclareMathOperator*{\esssup}{\mathbb{Q}\text{-ess\;}\!\sup}
+
+%%%%%%%%% Box at the end of the proof %%%%%%%%%
+\renewcommand{\Box}{\hfill \rule{2.3mm}{2.3mm}}
+
+%%%%%%%%% Tabular %%%%%%%%% 
+\usepackage{tabularx}
+%\usepackage{slashbox}
+%\usepackage{pict2e}
+\newcolumntype{J}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% color packages
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\code}[1]{\texttt{\bfseries{#1}}}
+\usepackage{listings}
+\lstset{
+	emph={julia},emphstyle={\color{strcolor}\bfseries},
+	keywordstyle={\color{blue}\bfseries},
+	commentstyle={\color{commentcolor}},
+	stringstyle={\color{strcolor}\bfseries},
+	language=Python, % choose the language of the code
+	basicstyle={\ttfamily\footnotesize}, % the size of the fonts that are used for the code
+	%numbers=left, % where to put the line-numbers
+	%numberstyle=\footnotesize, % the size of the fonts that are used for the line-numbers
+	%stepnumber=1, % the step between two line-numbers. If it's 1 each line will be numbered
+	%numbersep=5pt, % how far the line-numbers are from the code
+	backgroundcolor=\color{white}, % choose the background color. You must add \usepackage{color}
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+	escapeinside={\#*}{*)}, % if you want to add a comment within your code
+	keywords=[1]{for, end, if, else, function}
+}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={\$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+%\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{commentgreen}{rgb}{0, 0.475, 0.475}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	keywords = {for, in , as, import, abs, from, def},
+	morecomment=[l]{\#},%
+	commentstyle=\color[rgb]{0, 0.475, 0.475},
+	keywordstyle=\color{codegreen}\textbf,
+	stringstyle=\color{codepurple},
+	basicstyle=\linespread{1.1}\ttfamily\small, %\footnotesize,
+	breakatwhitespace=false,      
+	frame=single,	 
+	breaklines=true,       
+	numbers=left,
+	numberstyle=\scriptsize,
+	% numbersep=50pt,
+	xleftmargin=1.0ex,
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle, basewidth=0.5em}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Natbib setup for author-year style
+\usepackage{natbib}
+\bibpunct[, ]{(}{)}{,}{a}{}{,}%
+\def\bibfont{\small}%
+\def\bibsep{\smallskipamount}%
+\def\bibhang{24pt}%
+\def\newblock{\ }%
+\def\BIBand{and}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lemma 1.1, Theorem 1.2)
+\ECRepeatTheorems
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.80}
+
+%%%% import formatting file
+\include{preembles}
+\usepackage{bbm}
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%%%%%%%%%%%%%%%%
+	%\RUNAUTHOR{Sim et al.}
+	\RUNTITLE{Estimation and Prediction for Robust Models}
+	%\TITLE{Robust Decision Models \\ \Large A Unifying Framework with Estimation and Prediction}
+        \TITLE{Estimation and Prediction Procedures for \\
+        Unified Robust Decision Models}
+	\ARTICLEAUTHORS{%
+} % end of the block
+
+\ABSTRACT{}
+
+\KEYWORDS{}
+\HISTORY{\today.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent\textbf{Notation.} $\;$
+We use boldface uppercase and lowercase letters for matrices (\textit{e.g.}, $\mb D$) and vectors (\textit{e.g.}, $\bm v$), respectively. We denote by $\bbs_+^n$ ($\bbs_{++}^n$) the space of $n \times n$ positive semidefinite (positive definite) matrices, \ie $\bbs_+^n = \{ \mb D \in \bbr^{n \times n} | \mb D \succeq \bm 0 \}$. For $N$ a positive integer, $[N] = \{1,2,3,\ldots,N\}$ denotes the running indices. The operator $x^+ = \max\{x, 0\}$ (resp., $x^- = \max\{-x, 0\}$) signifies the positive (resp., negative) part of a variable, and can be applied element-wise to vectors, \textit{i.e.}, $\bm{v}^+$. A random variable is denoted with a tilde sign such as ${z} \sim \mathbb{P}$, $\mathbb{P} \in \mathcal{P}_0(\cZ)$, where $\mathcal{P}_0$ to represent the set of all possible distributions supported on a set $\cZ$ in the real space. We use $\mathbb{E}_{\mathbb{P}}\,[\cdot]$ to signify the corresponding expectation.
+
+% {\color{red}\noindent\textbf{A Note to Reviewers.} $\;$
+% The reviewers may be aware of the recent work by \cite{chen2023occam}, where the MVCS approach was briefly introduced for estimating only $\mb D$ given $\bmh z$ and for the case of the $L_1$-norm. Additionally, there were technical issues with asymmetric uncertainty that were not rigorous. Consequently, that work is currently under revision. Given the overlap in coauthors between the two papers, we ensure there is no duplication of results. Since the core of the work by \cite{chen2023occam} is not about estimation and prediction procedures (\ie the MVCS approach), these elements will be removed from that paper and will be fully attributed to this paper.
+% }
+
+\section{Model and Problem Formulation}
+Consider a company that manages inventory in a distribution system composed of one warehouse and $J$ nonidentical retailers. Each retailer $j \in [J]$ faces random demand ${d}_j$ dependent on contextual information (covariates, features), such as promotions, weather and holidays. Let ${\bm x}_j \in \cX \subseteq \bbr^p$ denote retailer $j$'s random covariates associated with demand, where $p$ is the dimension of covariate vector. For notational convenience, let ${\bm d} = ({d}_j)_{j \in [J]}$ and ${\mb X} = ({\bm x}_j)_{j \in [J]}$ be the demand vector and covariate matrix respectively. We represent the joint distribution of $( {\mb X}, {\bm d})$ by $\bbp{(\mb X, \bm d)}$, and the distribution of $\bm d$ conditioned on $\mb X$ by $\bbp_{\bm d \mid \mb X}$. We also let $\bbp_{\mb X}$ denote the marginal distribution of $\mb X$. Retailers satisfy demands using on-hand inventory replenished from the warehouse. For each retailer $j$, there is overage cost $h_j>0$ for each unit on-hand inventory and a lost-sale penalty $b_j>0$ for each unit unmet demand.
+% Independence assumption, if independent between retailers, then \Pi_j P(d,x) = P(d_j, x_j).
+% Or assume demand are correlated only through random noise. 和Taylor的区别，允许dependent demand
+
+To fulfill the replenishment order from retailer $j$, the company places order from an outside source with unlimited supply. The company has to determine the order quantity for warehouse and allocation quantity for $J$ retailers to minimize the expected costs. A typical planning cycle is composed of two periods as follows (e.g., one day per period): At the beginning of first period $t=1$, the central planner places an order $w$ to replenish the warehouse before the random demand is realized. The order will arrive at the beginning of next period $t=2$. Then, the planner observes covariate matrix $\mb X$, which affect the demand in period $t=2$, and makes allocation decision $\bm z = (z_j)_{j \in [J]}$ for retailers. After allocation, the holding cost $h_0>0$ is incurred for each unit on-hand inventory at the warehouse. During the period $t=2$, demand $\bm d$ realizes and incurs the overage cost $h_j$ per unit unsold inventory and lost-sale penalty cost $b_j > 0$ per unit unmet demand for retailer $j$. If the planner knows the joint distribution $\bbp{(\mb X, \bm d)}$, the incurred expected total costs in two periods can be calculated as:
+%% Expectation放在哪里, two-stage problem 和 single-stage problem不同
+%% 第二，确定two-stage contextual optimization是否满足条件； 如果提前知道X,则相当于常见contextual problem; 第二阶段决策是知道covariate的
+\[
+h_0 w + \mathbb{E}_{\bbp{(\mb X, \bm d)}} \left[ { \sum_{j \in [J]} \left(-h_0 z_j + h_j (z_j - d_j)^+ + b_j (d_j -b_j)^+ \right)} \right]
+\]
+We assume that cost parameters must satisfy $0 < h_0 \leq h_{\min} \leq h_j \leq b_{\min} \leq b_j < \infty $ for all $j \in [J]$, where $ h_{\min} = \min_j h_j,h_{\max} = \max_j h_j, b_{\min} =  \min_j b_j$. 
+The expected total cost can be expressed in a more compact form:
+\[
+h_0 w + \mathbb{E}_{\bbp{_{\mb X}}} \left[ G(w, \bm d \mid \mb X ) \right]
+\]
+where $G(w, \bm d \mid \mb X)$ is the echelon-form expected cost conditioned on a given covariate matrix $\mb X$:
+\[
+G(w, \bm d \mid \mb X) = \mathbb{E}_{\bbp_{\bm d \mid \mb X}} \left[ 
+\sum_{j \in [J]} \left( 
+    -h_0 d_j + (h_j - h_0) (z_j -d_j)+(b_j - h_j)(d_j-z_j)^+
+\right)
+ \right]
+\]
+
+The optimal inventory management problem  can be solved via the following two-stage \textit{conditional stochastic optimization}. 
+\begin{align}
+\text{Stage 1:}  \
+& \min_{w \ge 0} \ h_0 w + \mathbb{E}_{\bbp_{\mb X}}\left[ C(w, \bm d \mid \mb X ) \right] \label{eq: stage 1} \\
+\text{Stage 2:} \ 
+& C(w, \bm d \mid \mb X) =  \min_{\bm z \ge 0, \bm 1 ^ \top \bm z \leq w } \ G(w, \bm d \mid \mb X) \label{eq: stage 2} 
+\end{align}
+% A special case of Bi-level Problem: second-stage problem is contextual stochastic problem, or conditional stochastic optimization. 
+Specifically, the planner determines the warehouse's order quantity $w$ in the first stage, and then determines the allocation decision $\bm z$ after observing the realized covariate $\mb X$. The expectation in \eqref{eq: stage 1} is with respect to $\mb X$, and the expectation in \eqref{eq: stage 2} is with respect to $\hm d$ given $\mb X$. The summation of allocation quantity $\bm z$ must be less than inventory at the warehouse. This problem is different from classical two-stage stochastic optimization, as it contains nested expectation.
+% 这种方式不好求解，问题变得复杂；可以分成两部分，第一部分，对w使用SAA求解，得到估计的w；第二部分，使用Contextual DRO求解，在w的限制下得到每个特征X下的分配策略
+% 改成Notz的提前知道Covariate信息, 求解一个contextual distribution的问题
+
+\section{The Robust Decision Model}
+We focus on a decision model expressed in the following optimization format:
+\[
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau \\
+& \bm x \in \cX,
+\end{array}
+\]
+where the second element ${\bm z} \in \cZ \subset \mathbb{R}^{L}$ is the input vector of model parameters whose outcome could be uncertain. 
+Here, $\cZ$ is referred to as the \textit{input support set}, typically a convex set that delineates the underlying physical limits and includes provisions for unforeseen rare events or even \textit{black swans}---scenarios that have never occurred in the past. 
+
+For simplicity, our discussion is limited to a linear cost function while maintaining the attribute function within the constraint. However, our approach can be expanded to include models with multiple attributes, some of which may also be minimized within the decision's objective function. Note that the attribute function can be articulated as a linear optimization problem:
+$$
+f(\bm x, \bm z) = \min\left\{ \bm d^\top \bm y \;|\; \mb B \bm y \geq \mb A(\bm z) \bm x + \bm b(\bm z), \; \bm y \in \bbr^{D_2} \right\},
+$$
+where the maps $\mb A(\bm z):\bbr^{L}\rightarrow \bbr^{M_2\times D}$, $\bm b(\bm z):\bbr^{L}\rightarrow \bbr^{M_2}$ are affinely dependent on $\bm z$. Here, $\bm y$ is called the \textit{wait-and-see recourse vector} associated with the attribute function because whenever the input vector is uncertain, its optimal solution is only determined after the input vector materializes.  
+
+\subsection{Uncertainty in the Decision Model}
+\label{sec:uncertainty_metric_RO}
+
+At one end, in a deterministic decision model, uncertainty in model parameters is typically ignored, and the input vector is captured by a specified input vector $\bmh z \in \cZ$ as exemplified as follows:
+\begin{equation}
+\label{mod:DetermisticModel}
+V = \left\{
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bmh z) \leq \tau \\
+&\bm x \in \cX.
+\end{array}
+\right.
+\end{equation}
+However, the solution to the deterministic decision model is fragile as it cannot even ensure the constraint feasibility when model parameters deviate from the specified input vector. 
+
+On the other end, the worst-case model replaces the deterministic constraint with the worst-case constraint
+\[
+f(\bm x, \bm z) \leq \tau ~~~\forall \bm z \in \cZ
+\]
+and solves the following problem 
+$$
+\bar V = \left\{
+\begin{array}{cll}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \\
+&\bm x \in \cX.
+\end{array}
+\right.
+$$
+Yet, if the worst-case cost $\bar V$ is significantly higher than $V$, the worst-case solution is arguably conservative and may be deemed unacceptable. 
+
+\subsection*{Disparity Budget and Tolerance}
+
+The above discussion raises the need to balance both ends of deterministic and worst-case decision models and, more specifically, to ensure constraint feasibility while controlling the model's conservativeness. Our first attempt introduces the following comprehensive outcome robust constraint:
+\begin{equation}
+\label{equ:ROC}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ ~~~\forall \bm z \in \cZ,
+\end{equation}
+Here, $\gamma \in [0,\infty]$, referred to as \textit{outcome disparity budget}, governs the size of the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ around the specified input vector, within which feasibility of the constraint $f(\bm x, \bm z) \leq \tau$ is ensured; while $\kappa \in [0, \infty]$, referred to as \textit{outcome disparity tolerance}, articulates the tolerance to potential violations when the actual input vector does not reside in the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ and by tolerating such violations, it help mitigate the conservativeness of the worst-case decision model that must obey the constraint for all $\bm z \in \cZ$. 
+
+Lying at the core of the robust constraint~\eqref{equ:ROC} is a disparity metric $\Delta(\cdot,\cdot)$ that measures the discrepancy between the actual input vector $\bm z$ and specified input vector $\bmh z$. 
+
+\begin{definition}[\textnormal{{\sc Disparity Metric}}]
+\textnormal{A function $\Delta:\bbr^L \times \bbr^{L} \rightarrow [0,\infty]$ is a disparity metric if it satisfies the following properties:
+\begin{itemize}
+\item {\bf Positive Definite}: For all $\bm z,\bm \zeta \in \bbr^L$,  $\Delta(\bm z,\bm \zeta) \geq 0$. Moreover, $\Delta(\bm z,\bm \zeta) =  0$ if and only if $\bm z = \bm \zeta$. 
+\item {\bf Convex}: $\Delta(\bm z,\bm \zeta)$ is a convex function in $\bm z,\bm \zeta \in \cZ$. 
+\end{itemize}
+A  disparity metric is coherent if it also satisfies the following properties:
+\begin{itemize}
+\item {\bf Translation Invariant}: $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \xi,\bm \zeta-\bm \xi)$ for all $\bm \xi \in  \bbr^L$.
+\item {\bf Positive Homogeneous}: $\Delta(k\bm z,k\bm \zeta) = k\Delta(\bm z,\bm \zeta)$ for all $k \geq 0$. 
+\end{itemize}
+A disparity metric is symmetric if $\Delta(\bm z,\bm \zeta)= \Delta(\bm \zeta,\bm  z)$ for all $\bm z,\bm \zeta \in \bbr^L$.
+% Any translation invariant disparity metric satisfies $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \zeta,\bm 0)$ and hence, can be specified by the difference $\bm z-\bm \zeta$ between input vectors.
+}
+\end{definition}
+
+\subsection*{Outcome and Estimation Uncertainties}
+
+Equipped with the disparity metric, the robust constraint~\eqref{equ:ROC} accounts for \textit{outcome uncertainty}---the first layer of uncertainty we identify---that pertains to how the actual input vector $\bm z$ may deviate from the specified input vector $\bmh z$.
+
+Quite notably, we identify and emphasize a second layer of uncertainty, termed \textit{estimation uncertainty}, which pertains to the potential discrepancies between the specified input vector and the latent input vector that we denote as $\bm{\zeta} \in \hat{\cZ} \subseteq \mathbb{R}^L$. In this context, outcome uncertainty is now associated with how the actual input vector $\bm z$ may deviate from this latent input vector $\bm{\zeta}$ instead of the specified input vector $\bmh z$. The latent vector is typically associated with the underlying random process that generates input uncertainty, and the specified input vector $\bmh z \in \cZ$ is determined through an estimation process designed to identify this latent vector. For instance, if the input uncertainty originates from a distribution whose mean is $\bm \zeta$, then $\bmh z$ might represent the mean estimated from data. It is crucial to note that while historical samples of the input vector may be available to assess outcome uncertainty, empirical data for the latent input $\bm \zeta$ are typically not accessible.
+
+Throughout this paper, we will use the \textit{outcome disparity metric} $\Delta(\bm z, \hat{\bm z})$ to measure the discrepancy between the actual input vector $\bm z$ and the specified input vector $\hat{\bm z}$, and likewise, use the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta, \hat{\bm z})$ to measure the discrepancy between the latent input vector $\bm \zeta$ and the specified input vector $\hat{\bm z}$. These disparity metrics are fundamental building blocks for developing different types of robust decision models, and they hedge against uncertainty while ensuring that the solutions are not overly conservative compared to worst-case scenarios. For this propose, we also define the {\em outcome confidence set}
+$$
+\cB(\bmh z, \gamma) = \{ \bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma \}
+$$
+and the {\em estimation confidence set}
+$$
+\hat \cB(\bmh z, 
+\hat \gamma) = \{ \bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \}. 
+$$
+Centered at $\bmh z$, the radii of the two confidence sets are controlled by $\gamma$ and $\hat \gamma$, respectively.
+
+\subsection*{Comprehensive Robust Constraint with Joint Uncertainties}
+
+Consolidating disparity budget and tolerance as well as outcome and estimation uncertainty, in this paper we introduce the comprehensive robust constraint with both outcome and estimation uncertainties as follows:
+\begin{equation}
+\label{eq:ComprehensiveRobustConstraint}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ
+\end{equation}
+with $\gamma, \hat \gamma, \kappa, \hat \kappa \in [0, \infty]$. Interpretations of the term $\kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+$ related to outcome uncertainty remain similar to that of the outcome robust constraint~\eqref{equ:ROC}, except now that outcome uncertainty is associated with how the actual input vector $\bm z$ would deviate from this latent input vector $\bm{\zeta}$. 
+It is noteworthy that keeping $\Delta(\bm z,\bmh z)$ will reduce constraint~\eqref{eq:ComprehensiveRobustConstraint} to constraint~\eqref{equ:ROC}, thereby eliminating the buffer against estimation uncertainty.
+Additionally, estimation uncertainty is addressed by the term 
+$\hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+$, wherein analogously, $\hat \gamma$ and $\hat \kappa$ respectively account for \textit{estimation disparity budget} and \textit{estimation disparity  tolerance}, and the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta,\bmh z)$ expresses the deviation from the specified input vector $\bmh z$ to the latent input vector $\bm \zeta$. The following observations illustrate the generality of the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}.
+
+\begin{itemize}
+\item Whenever we have zero disparity tolerance (\textit{i.e.}, $\kappa = \hat \kappa = 0$) or extreme disparity budget (\textit{i.e.}, $\gamma = \hat \gamma =\infty$),  the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would recover the worst-case constraint:
+\[
+f(\bm x,\bm z) \leq \tau ~~~\forall \bm z \in \cZ.
+\]
+
+\item The case of $\hat \kappa = \infty$ and $\gamma = 0$ yields the tolerated robust constraint as in \cite{BenTal_et_al_2017globalized}:
+$$
+f({\bm x},{\bm z}) \leq \tau + \kappa  \min_{\bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \hat \gamma)} \Delta(\bm z,\bm \zeta)  ~~~\forall \bm z \in \cZ.
+$$
+
+\item When $\kappa, \hat \kappa = \infty$ and $\hat \gamma=0$ (which would enforce $\bm \zeta = \bmh z$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would be equivalent to the following classical budgeted robust constraint:
+$$
+f({\bm x},{\bm z}) \leq \tau ~~~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma);
+$$ 
+see, \textit{e.g.}, \cite{bertsimas2004price}.
+
+\item When $\kappa, \hat \kappa = \infty$ and $\gamma = 0$ (which would enforce $\bm z = \bm \zeta$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} leads to another budgeted robust constraint:
+$$
+f({\bm x},{\bm \zeta}) \leq \tau \quad \quad \forall \bm \zeta \in \hat \cZ\cap \hat \cB(\bmh z, \hat \gamma),
+$$
+which appears in the joint estimation and robustness optimization framework of \cite{Zhu_Xie_Sim_2021joint} that mitigates estimation uncertainty in optimization problems with the integration of the parameter estimation procedure and the optimization problem.
+
+\item More recently, the tolerance robust satisficing model described by \cite{sim2024analytics} represents a special case of~\eqref{eq:ComprehensiveRobustConstraint} with $\gamma = \hat \gamma = 0$. Outside of the authors' focal data-driven context, this special case can be explicitly defined as the following tolerated robust constraint:
+$$
+f(\bm x,\bm z) \leq \tau + \kappa \Delta(\bm z,\bm \zeta) + \hat \kappa \hat \Delta(\bm \zeta,\bmh z) ~~~\forall \bm z \in \cZ , \; \bm \zeta \in \hat \cZ.
+$$
+\end{itemize}
+
+Indeed, any $\bm x$ feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} guarantees its feasibility to the following robust constraints:
+$$
+\begin{cases}
+f(\bm x, \bm z) \leq \tau &~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma) \\
+f(\bm x, \bm \zeta) \leq \tau &~\forall \bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \gamma) \\
+f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ &~\forall \bm z \in \cZ \setminus  \cB(\bmh z, \gamma) \\
+f(\bm x,\bm \zeta) \leq \tau +  \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ &~\forall  \bm\zeta \in \hat \cZ \setminus \hat \cB(\bmh z, \hat \gamma). 
+\end{cases}
+$$
+Beyond these feasibility realms, the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} also possesses strong statistical justifications.
+
+\begin{theorem}
+\label{thm:StatisticalJustification}
+Consider the random variable $\bmt z\sim \bbp$, $\bbp \in \cP_0(\cZ)$, which denotes the random outcomes of the actual input vector. Suppose $\bm x$ is feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}. Then the following infeasibility likelihood profile holds:
+$$
+\pp{f(\bm x,\bmt z) > \tau + \kappa r  + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} ~~~\forall r \geq 0, \; \bm \zeta \in \hat \cZ.
+$$
+\end{theorem}
+
+\Cref{thm:StatisticalJustification} implies that 
+$$
+\begin{cases}
+\pp{f(\bm x,\bmt z) > \tau } \leq   \pp{\bmt z \notin \cB(\bm \zeta,\gamma)} & \forall \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma) \\
+\pp{f(\bm x,\bmt z) > \tau + \kappa r } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} & \forall r \geq 0, \; \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma).
+\end{cases}
+$$
+At a greater deviation, $\hat \Delta(\bm \zeta,\bmh z)>\hat \gamma$, a greater constraint violation moderated by $\hat \kappa$ is necessary to ensure the same infeasibility probability bound. It should be noted that establishing the probability bound depends on knowledge of the true distribution. Even when the distribution is known, relying on a generic probability bound based on the likelihood of infeasibility within the outcome confidence set may overestimate the actual probability of infeasibility. 
+
+This is a generic bound that holds true for all attribute functions. As a result, the established probabilistic guarantees tend to be conservative. Better bounds can be obtained for specific attribute functions by imposing assumptions on the distributions, which we aim to avoid. However, this issue can be addressed through robust satisficing decision models, where the modeler can directly control the level of conservativeness by specifying performance targets.  
+
+\subsection{A Unifying Sequential Robust Satisficing Decision Framework}
+\label{sec:robust_satisficing_decision_framework}
+
+Armed with the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} parameterized by $\gamma, \kappa, \hat \gamma, \hat \kappa$---budgets and tolerances to outcome and estimation uncertainties, our unifying decision framework follows the spirit of robust satisficing (see, \textit{e.g.}, \citealt{BenTal_et_al_2017globalized}, \citealt{Long_Sim_Zhou_2023robust}) to optimize these parameters sequentially, rather than pre-specifying them as fixed. Specifically, we advocate solving sequential robust satisficing problems with \textit{intermediate} targets as follows.
+
+\begin{enumerate}[Step 1.]\addtocounter{enumi}{-1}
+\item Solve the deterministic decision model and obtain its objective value $V$ to be used as the reference for setting the intermediate targets for the subsequent robust satisficing models.
+
+\item Solve a budgeted robust satisficing problem for the first intermediate target $V_{1}\geq V$:
+\[
+\begin{array}{cll}
+\max & \gamma  \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \cap \{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma\} \\
+& \bm c^\top \bm x \leq V_{1} \\
+& \bm x \in \cX, \; \gamma \geq 0,
+\end{array}
+\]
+and obtain the optimal $\gamma^\star$. 
+
+\item Solve a tolerated robust satisficing model that minimizes $\kappa$ for the second intermediate target $V_{2} \geq V_{1}$: 
+\[
+\begin{array}{cll} 
+\min & \kappa   \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma^\star)^+ &~\forall \bm z \in \cZ \\
+& \bm c^\top \bm x \leq V_{2} \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal $\kappa^\star$.
+
+\item Solve a budgeted robust satisficing model that maximizes $\hat \gamma$ for the third intermediate target $V_{3}\geq V_{2}$: 
+\[
+\begin{array}{cll} 
+\max & \hat \gamma \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \cap \{\bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \} \\
+& \bm c^\top \bm x \leq V_{3} \\
+& \bm x \in  \cX, \; \hat \gamma \geq 0,
+\end{array}
+\]
+and obtain its optimal $\hat \gamma^\star$. 
+
+\item Solve a robust satisficing model that minimizes $\bmh \kappa$ for the forth intermediate target $V_{4} \geq V_{3}$: 
+\[
+\begin{array}{cll} 
+\min & \hat \kappa \\
+{\subj} &  f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ + \hat \kappa (\hat \Delta(\bmh z,\bm \zeta) - \hat \gamma^\star)^+  &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \\
+& \bm c^\top \bm x \leq V_{4} \\
+& \bm x \in \cX, \; \hat \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal solution $\bm x^\star$. 
+\end{enumerate} 
+
+This approach of solving sequential robust satisficing models for tuning multiple parameters is attributed to \cite{sim2024analytics}. The approach 
+starts by solving a deterministic optimization problem to establish the minimum feasible cost $V$. This initialization presumes the specified input vector $\bmh z$ accurately mirrors the actual (uncertain) input vector.
+Progressively, the approach optimizes budgets and tolerances to outcome and estimation uncertainties. The optimization occurs sequentially with increasing intermediate target $V_{4} \geq V_{3} \geq V_{2} \geq V_{1}$ relative to $V$. This structured, incremental approach effectively addresses outcome and estimation uncertainties, informing a robust, comprehensive decision-making solution. It also simplifies parameter specification, offering decision-makers a clear and manageable progression through the model's complexities. Nevertheless, decision-makers can always articulate their budgets and tolerances to outcome and estimation uncertainties by specifying the value of any parameter among $\gamma, \hat \gamma, \kappa, \hat \kappa$. When doing so, they should skip the corresponding step among Steps~$1$-$4$.
+
+Note that in the \textit{budgeted robust satisficing} phase (Steps~$1$ and $3$), disparity budgets $\gamma$ and $\hat \gamma$ are maximized, typically by a bisection search due to the quasiconcave objective; whereas in the \textit{tolerated robust satisficing} phase (Steps~$2$ and $4$), the tolerance parameters $\kappa$ and $\hat \kappa$ are minimized through a convex optimization problem. It is also worth noting that the framework is readily applied to the reward context wherein the attribute function $f(\bm x, \bm z)$ is reward-based. Accordingly, the comprehensive robust constraint shall read as
+\[
+f(\bm x,\bm z) \geq \tau - \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ - \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ.
+\]
+
+\subsection*{An Illustration from Portfolio Optimization}
+
+Using portfolio optimization in the reward context as an example, we illustrate the rich expressiveness of the sequential robust satisficing decision framework. In the portfolio optimization problem, the random stock returns, denoted by $\bmt z \sim \bbp$, $\bbp \in \cP_0(\bbr^L)$, follow an ambiguous distribution with an unknown true mean and covariance $\bmh \Sigma \in \bbs^L_{++}$. Suppose first that the sample mean well estimates the true mean, so that the specified input vector $\bmh z$ is aligned with the sample mean $\bmh \mu$. Consider the investment decision $\bm x \in \bbr^L$ residing in $\cX = \{\bm x \in \bbr^L \;|\; \bm 1 ^\top \bm x = 1\}$. The tolerated robust satisficing model for portfolio optimization has the following representation:
+$$
+\kappa^\star = \left\{
+\begin{array}{cll}
+\min & \kappa \\
+\subj& \bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) &~\forall \bm z \in \bbr^L \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\right.
+$$
+which corresponds to Step~$2$ of the framework with $\cZ = \bbr^L$ that specifies $\gamma^\star = 0$ and skips Step~$1$. Here, $V$ can be viewed as some risk-free return. Suppose the outcome disparity metric is $\Delta(\bm z, \bmh z) = \|\bmh \Sigma^{-1/2}(\bm z - \bmh z)\|_2$. Using standard techniques in robust optimization to transform the constraint
+\[
+\bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) ~~~\forall \bm z \in \bbr^L,
+\]
+the representation can be expressed as follows:
+\begin{equation}
+\label{mod:MinStdProblem}    
+\kappa^\star = \left\{ 
+\begin{array}{cll}
+\min & \displaystyle \sqrt{\bm x^\top \bmh \Sigma \bm x} \\
+\subj& \bm x^\top \bmh \mu \geq V \\
+& \bm x \in \cX,
+\end{array}
+\right.
+\end{equation}
+which turns out to be the celebrated Markowitz portfolio model that minimizes the portfolio's standard deviation.
+
+We next extend to consider estimation uncertainty where the sample mean does not coincide with the true mean and the latent vector $\bm \zeta$ is aligned with the true mean, \textit{i.e.}, $\ep{\bmt z} = \bm \zeta$. In executing the sequential robust satisficing decision framework, we can continue with the solution of the Markowitz portfolio model~\eqref{mod:MinStdProblem} for an intermediate target of $V_2$, and solve for the following tolerated robust satisficing model---Step~$4$ of the framework that specifies $\hat \gamma^\star = 0$ and skips Step~$3$---to achieve a desired return target of $V_4 \leq V_2$:
+$$
+\begin{array}{cll}
+\min & \hat \kappa \\
+\subj& \bm x^\top \bm z  \geq V_4 - \kappa^\star \Delta(\bm z,\bm \zeta) - \hat \kappa \hat \Delta(\bm \zeta,\bmh z) &~\forall \bm z, \; \bm \zeta \in \bbr^L \\
+& \bm x \in \cX, \; \hat \kappa \geq 0.
+\end{array}
+$$
+Suppose the estimation disparity metric is $\hat \Delta(\bm \zeta,\bmh z) = \|\bm \zeta -\bmh z \|_2$. We can express the above model as
+\begin{equation}
+\label{mod:MinInfiniteNormPortfolioProblem}    
+\begin{array}{cll}
+\min & \displaystyle  \|\bm x\|_2 \\
+\subj & \bm x^\top \bmh z \geq V_4 \\
+& \sqrt{\bm x^\top \bmh \Sigma \bm x} \leq \kappa^\star \\
+& \bm x \in \cX.
+\end{array}
+\end{equation}
+A well-known empirical study by \cite{demiguel2009optimal} has demonstrated that an equal-weighted portfolio $\bm x = \bm 1/L$ can potentially outperform the Markowitz portfolio. Interestingly, if the equal-weighted portfolio has an expected return exceeding $V_4$ and a standard deviation lower than $\kappa^\star$, then it would emerge as an optimal solution to Problem~\eqref{mod:MinInfiniteNormPortfolioProblem}. That being said, by adjusting $V_2$ and $V_4$ within the range of $V_4 \leq V_2$, the nature of the optimal portfolio can shift, ranging from the solution proposed by the Markowitz portfolio to an equal-weighted portfolio. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{informs2014}
+\bibliography{reference}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+%%%%%%%%%%%%%%%%%\\

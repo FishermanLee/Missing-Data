@@ -1,0 +1,52 @@
+%%%%%%%% usage of the package {bm} %%%%%%%%
+\usepackage{bm}
+
+% underline + bold (safe)
+\newcommand{\ubar}[1]{\underline{\bm{#1}}}
+
+\newcommand{\bmu}[1]{\bm{#1}}          % 建议：向量就是粗体
+\newcommand{\bmb}[1]{\bar{\bm{#1}}}
+\newcommand{\bmh}[1]{\hat{\bm{#1}}}
+\newcommand{\bmc}[1]{\check{\bm{#1}}}
+\newcommand{\bmbh}[1]{\hat{\bar{\bm{#1}}}}
+\newcommand{\bmbt}[1]{\tilde{\bar{\bm{#1}}}}
+\newcommand{\bmt}[1]{\tilde{\bm{#1}}}
+\newcommand{\bmo}[1]{\overline{\bm{#1}}}
+
+% small math symbols (no mbox)
+\newcommand{\nmbs}[1]{{\scriptsize $#1$}}
+\newcommand{\nmbst}[1]{{\scriptsize $\tilde{#1}$}}
+\newcommand{\nmbss}[1]{{\tiny $#1$}}
+
+%%%%%%%% expectation and probability %%%%%%%%
+\newcommand{\ep}[1]{\mathbb{E}_{\mathbb{P}}\!\left[#1\right]}
+\newcommand{\ephat}[1]{\mathbb{E}_{\hat{\mathbb{P}}}\!\left[#1\right]}
+\newcommand{\ephati}[1]{\mathbb{E}_{\hat{\mathbb{P}}_i}\!\left[#1\right]}
+\newcommand{\epdag}[1]{\mathbb{E}_{\mathbb{P}^\dag}\!\left[#1\right]}
+\newcommand{\epcheck}[1]{\mathbb{E}_{\check{\mathbb{P}}}\!\left[#1\right]}
+\newcommand{\epstar}[1]{\mathbb{E}_{\mathbb{P}^\star}\!\left[#1\right]}
+
+\newcommand{\pp}[1]{\mathbb{P}\!\left\{#1\right\}}
+\newcommand{\ppstar}[1]{\mathbb{P}^\star\!\left\{#1\right\}}
+
+\newcommand{\bbp}{\mathbb{P}}
+\newcommand{\bbq}{\mathbb{Q}}
+\newcommand{\bbr}{\mathbb{R}}
+
+%%%%%%%% calligraphic sets %%%%%%%%
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+%%%%%%%% operators %%%%%%%%
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\tr}{\operatorname{tr}}
+
+%%%%%%%% theorem styles %%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Definition}[section]

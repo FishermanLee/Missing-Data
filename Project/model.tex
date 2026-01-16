@@ -1,0 +1,869 @@
+%new version
+\documentclass[mnsc, nonblindrev]{informswp}
+%old version
+%\documentclass[opre, nonblindrev]{informswp}
+\OneAndAHalfSpacedXI % current default line spacing
+%\usepackage{endnotes}
+%\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+	\leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{yhmath}
+%\usepackage{mathrsfs}
+%\usepackage{graphicx}
+%\usepackage{subfig}
+%\usepackage{epsfig}
+%\usepackage{bbm}
+%\usepackage{color}
+\usepackage{multirow}
+\usepackage{booktabs,comment}
+\usepackage{soul}
+%\usepackage{longtable}
+\usepackage{float}
+%\usepackage{epstopdf} 
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{CJKutf8}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+%\usepackage{enumitem}
+\usepackage{array,makecell}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref,footnote}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=black!70!green,          % color of internal links
+	citecolor=black!70!green,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=black!70!green,           % color of external links
+	linktocpage=true
+}
+\usepackage{mathtools}
+
+\usepackage{mathrsfs}
+%%%%%%%% Bigger dot that is smaller than bullet %%%%%%%%%%
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.75}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%%%%%%%% Table cell stretch %%%%%%%%
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{tabularx}
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+
+\usepackage{color-edits}
+\addauthor{zy}{magenta}
+\addauthor{zc}{cyan}
+\addauthor{ms}{blue}
+\addauthor{jx}{brown}
+\addauthor{px}{purple}
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+%%%%%%%% indicator function, need the package ''dsfont'' %%%%%%%%
+\newcommand{\1}[1]{\mathds{1}{\left(#1\right)}}
+
+%%%%%%%% between otimes and bigotimes %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\midotimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}}
+
+%%%%%%%% vectorization, argsup & argmin %%%%%%%%
+\def\vec{\text{vec}}
+\DeclareMathOperator*{\argsup}{\arg\!\sup}
+\DeclareMathOperator*{\arginf}{\arg\!\inf}
+\DeclareMathOperator*{\esssup}{\mathbb{Q}\text{-ess\;}\!\sup}
+
+%%%%%%%%% Box at the end of the proof %%%%%%%%%
+\renewcommand{\Box}{\hfill \rule{2.3mm}{2.3mm}}
+
+%%%%%%%%% Tabular %%%%%%%%% 
+\usepackage{tabularx}
+%\usepackage{slashbox}
+%\usepackage{pict2e}
+\newcolumntype{J}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% color packages
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\code}[1]{\texttt{\bfseries{#1}}}
+\usepackage{listings}
+\lstset{
+	emph={julia},emphstyle={\color{strcolor}\bfseries},
+	keywordstyle={\color{blue}\bfseries},
+	commentstyle={\color{commentcolor}},
+	stringstyle={\color{strcolor}\bfseries},
+	language=Python, % choose the language of the code
+	basicstyle={\ttfamily\footnotesize}, % the size of the fonts that are used for the code
+	%numbers=left, % where to put the line-numbers
+	%numberstyle=\footnotesize, % the size of the fonts that are used for the line-numbers
+	%stepnumber=1, % the step between two line-numbers. If it's 1 each line will be numbered
+	%numbersep=5pt, % how far the line-numbers are from the code
+	backgroundcolor=\color{white}, % choose the background color. You must add \usepackage{color}
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+	escapeinside={\#*}{*)}, % if you want to add a comment within your code
+	keywords=[1]{for, end, if, else, function}
+}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={\$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+%\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{commentgreen}{rgb}{0, 0.475, 0.475}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	keywords = {for, in , as, import, abs, from, def},
+	morecomment=[l]{\#},%
+	commentstyle=\color[rgb]{0, 0.475, 0.475},
+	keywordstyle=\color{codegreen}\textbf,
+	stringstyle=\color{codepurple},
+	basicstyle=\linespread{1.1}\ttfamily\small, %\footnotesize,
+	breakatwhitespace=false,      
+	frame=single,	 
+	breaklines=true,       
+	numbers=left,
+	numberstyle=\scriptsize,
+	% numbersep=50pt,
+	xleftmargin=1.0ex,
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle, basewidth=0.5em}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Natbib setup for author-year style
+\usepackage{natbib}
+\bibpunct[, ]{(}{)}{,}{a}{}{,}%
+\def\bibfont{\small}%
+\def\bibsep{\smallskipamount}%
+\def\bibhang{24pt}%
+\def\newblock{\ }%
+\def\BIBand{and}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lemma 1.1, Theorem 1.2)
+\ECRepeatTheorems
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+
+%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.80}
+
+%%%% import formatting file
+\include{preembles}
+\usepackage{bbm}
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%%%%%%%%%%%%%%%%
+	%\RUNAUTHOR{Sim et al.}
+	\RUNTITLE{Estimation and Prediction for Robust Models}
+	%\TITLE{Robust Decision Models \\ \Large A Unifying Framework with Estimation and Prediction}
+        \TITLE{Estimation and Prediction Procedures for \\
+        Unified Robust Decision Models}
+	\ARTICLEAUTHORS{%
+} % end of the block
+
+\ABSTRACT{}
+
+\KEYWORDS{}
+\HISTORY{\today.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent\textbf{Notation.} $\;$
+We use boldface uppercase and lowercase letters for matrices (\textit{e.g.}, $\mb D$) and vectors (\textit{e.g.}, $\bm v$), respectively. We denote by $\bbs_+^n$ ($\bbs_{++}^n$) the space of $n \times n$ positive semidefinite (positive definite) matrices, \ie $\bbs_+^n = \{ \mb D \in \bbr^{n \times n} | \mb D \succeq \bm 0 \}$. For $N$ a positive integer, $[N] = \{1,2,3,\ldots,N\}$ denotes the running indices. The operator $x^+ = \max\{x, 0\}$ (resp., $x^- = \max\{-x, 0\}$) signifies the positive (resp., negative) part of a variable, and can be applied element-wise to vectors, \textit{i.e.}, $\bm{v}^+$. A random variable is denoted with a tilde sign such as ${z} \sim \mathbb{P}$, $\mathbb{P} \in \mathcal{P}_0(\cZ)$, where $\mathcal{P}_0$ to represent the set of all possible distributions supported on a set $\cZ$ in the real space. We use $\mathbb{E}_{\mathbb{P}}\,[\cdot]$ to signify the corresponding expectation.
+
+% Related Literature;$
+% Multi-product newsvendor; Multilocation newsvendor
+
+\section{Model and Problem Formulation}
+Consider a company that manages inventory in a distribution system composed of $J$ nonidentical retailers. Each retailer $j \in [J]$ faces random demand ${d}_j$ dependent on observable contextual information (covariates, features), such as promotions, weather and holidays. Let ${\bm x}_j \in \cX \subseteq \bbr^p$ denote retailer $j$'s random covariates associated with demand, where $p$ is the dimension of covariate vector. For notational convenience, let ${\bm d} = ({d}_j)_{j \in [J]}$ and ${\mb X} = ({\bm x}_j)_{j \in [J]}$ be the demand vector and covariate matrix respectively. We represent the joint distribution of $( {\mb X}, {\bm d})$ by $\bbp$, and let $\bbp_{\bm d \mid \mb X}$ denote the distribution of $\bm d$ conditioned on $\mb X$. The company has to determine the replenishment quantity $\bm z = (z_j)_{j \in [J]}$ for $J$ retailers before demand realizes.
+During the selling season, demand $\bm d$ realizes and incurs the overage cost $h_j$ per unit unsold inventory and lost-sale penalty cost $b_j > 0$ per unit unmet demand for retailer $j$. The total cost is $\sum_{j \in [J]} C_j (z_j,  d_j)$, where $C_j (\bm z_j, \bm d_j)$ is the sum of holding cost and underage cost:
+\[
+ C_j (z_j,  d_j) =  h_j (z_j - d_j)^+ + b_j (d_j -b_j)^+ 
+\]
+Suppose, before making the order decision, the planner observes covariate matrix $\mb X$ that is predictive of demand. Then, we can solve the following contextual stochastic optimization problem to find the optimal order quantity $\bm z$ conditioned on observed covariate $\mb X$ \citep{Ban_Rudin_2019big}: 
+\begin{align}
+\min_{\bm z \geq \bm 0} \  \mathbb{E}_{\bbp_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+= \min_{\bm z \geq \bm 0} \ \sum_{j \in [J]} \mathbb{E}_{\bbp^{(j)}_{\bm d \mid \mb X}} \left[  C_j (z_j,  d_j)  \mid \mb X \right]
+\label{problem: contextual stochastic optimization}
+\end{align}
+where $ {\bbp^{(j)}_{\bm d \mid \mb X}}$ denotes the marginal distribution of $d_j$ in $\bbp_{\bm d \mid \mb X}$. The equality holds true due to linearity of expectation.
+% Independence assumption, if independent between retailers, then \Pi_j P(d,x) = P(d_j, x_j).
+% Or assume demand are correlated only through random noise. 和Taylor的区别，允许dependent demand
+
+\subsection {Separate Data Sets}  % Heterogeneous Sub-groups; Sub Population
+The true contextual distribution $\bbp_{\bm d \mid \mb X}$ is unknown, however, the decision maker can leverage historical data sets to prescribe data-driven decisions. Instead of assuming an aggregated data set at disposal \citep{notz2022prescriptive}, we consider the setting that the decision maker has access to $J$ disjoint data sets collected by retailers individually. Each retailer $j$ is associated with a separate data set $S^{(j)}=\{({\bm x}_i^{(j)},{d}_i^{(j)})\}_{i = 1}^{N_j}$, where $({\bm x}_i^{(j)},{ d}_i^{(j)})$ is i.i.d. samples generated from a distinct distribution:
+\[
+{\bm x}_i^{(j)} \sim \bbp^{(j)}_{\mb X}, { d}_i^{(j)} \mid {\bm x}_i^{(j)} \sim \bbp^{(j)}_{\bm d \mid \mb X}, \quad \forall j \in [J]
+\]
+where $\bbp^{(j)}_{\mb X}$ denotes the distribution of $\bm x_j$, and $\bbp^{(j)}_{\bm d \mid \mb X}$ denotes the marginal distribution of ${\bm d \mid \mb X}$ for retailer $j$. For ease of exposition, let $\mb D^{(j)} = ({ d}_{1}^{(j)}, \ldots, { d}_{N_j}^{(j)}) \in \bbr^{N_j}$, $\mb X^{(j)} = ({\bm x}_{1}^{(j)}, \ldots, {\bm x}_{N_j}^{(j)})^\top \in \bbr^{N_j \times p} $ and $N = \sum_{j \in [J]} N_j$ the total sample size. We suppose that $\bbp^{(j)}_{\mb X}$ and $\bbp^{(j)}_{\bm d \mid \mb X}$  can be heterogenous among retailers, and hence induce distributional heterogeneity. We call $S^{(j)}$ the \textit{local} data set and $\cup_{j \in [J]} S^{(j)}$ the \textit{global} data set. The decision is made in two steps: First, we estimate the conditional distribution $\bbp_{\bm d \mid \mb X}$ given covariate $\mb X$. Second, we adopt a DRO approach to find a decision immunized against distribution ambiguity.
+% Justification: Unbalanced and Statistical heterogeneity
+% Extension: Linear Regression -> Random Forest, boosting, neural networks, general regression model
+
+To obtain an estimate of marginal distribution $\bbp^{(j)}_{\bm d \mid \mb X}$, we assume the demand $d$ and the covariates $\bm x$ of a single retailer is governed by a global model shared across all retailers and a local model specific to retailer $j$ respectively:
+\begin{align*}
+d_{\text{global}} & = \bm x ^ \top {\bm \beta}_{\text{global}}  + \varepsilon_{\text{global}} \\
+d_{\text{local}}^{(j)} & = \bm x ^ \top {\bm \beta}^{(j)}_{\text{local}}  + \varepsilon_{\text{local}}^{(j)}
+\end{align*}
+where $x^1 =1$ to allow for an intercept term, ${\bm \beta}_{\text{global}}, {\bm \beta}^{(j)}_{\text{local}} \in \bbr^p$ are the nonzero linear regression coefficients with $\|{\bm \beta}_{\text{global}}  \|_2 \leq B$ and $\| {\bm \beta}^{(j)}_{\text{local}} \|_2 \leq B$, and $\varepsilon_{\text{global}}, \varepsilon_{\text{local}}^{(j)}$ are bounded random noise with zero mean, independent of covariate $\bm x$.  The global model and local models are closely related, in the sense that they follow simiar demand pattern in a market.
+\[
+{\bm \beta}^{(j)}_{\text{local}} =  {\bm \beta}_{\text{global}}  + \xi^{(j)}
+\]
+where $\xi^{(j)}$ is the bias between the global model and local model. This relation indicates that we can leverage global data set $\cup_{j \in [J]} S^{(j)}$ to help predict the local demand $d_{\text{local}}^{(j)}$ with careful debias. Note that we do not impose that $\varepsilon_{\text{local}}^{(j)}$ is independent over $j \in [J]$. Any pair of random noise can be correlated. 
+The linear demand assumption is widely used in the literature for simplicity and generality, see \citet{Ban_Rudin_2019big} and \citet{huang2025taylor}. If the true parameters $ {\bm \beta}^{(j)}_{\text{local}}$ and ${\varepsilon}^{(j)}_{\text{local}}$ are known, then the conditional stochatic program \eqref{problem: contextual stochastic optimization} is equivalent to:
+\begin{equation}
+\bm v^*({\mb X}) = \ 
+\min_{ z_j \geq 0, j\in[J]}
+ \sum_{j=1}^J 
+\mathbb{E} \left[\,C_j \left( \bm z_j, \bm x_j^\top  {\bm \beta}^{(j)}_{\text{local}} + \varepsilon_{\text{local}}^{(j)} \right) \right]
+\label{problem: CSP with regression}
+\end{equation}
+where the expectation is taken with respect to the distribution of $\varepsilon_{\text{local}}^{(j)}$. $\bm x_j$ denotes the current observed covariate for retailer $j$.
+
+\subsection* {Joint Estimator}  % Heterogeneous Sub-groups; Sub Population
+
+We cannot solve Problem \eqref{problem: contextual stochastic optimization} or \eqref{problem: CSP with regression} directly because the $ {\bm \beta}^{(j)}_{\text{local}}$ and $\varepsilon_{\text{local}}^{(j)}$ are unknown. Our goal is to estimate $ {\bm \beta}^{(j)}_{\text{local}}$ and $\varepsilon_{\text{local}}^{(j)}$ accurately from separate data sets $S^{(j)}$ for $j \in [J]$. 
+
+% Empirical Regret/Risk, MInmax Regret, mean square error loss
+Since we have a linear model, the ordinary least square (OLS) estimator is the most prevalent choice \citet{bastani2021predicting}. To ensure the idenfication of estimators, we make the following assumptions: 
+\begin{enumerate}
+	\item  {\bf Standardization:} 
+	we standardize each column ${\bm x}_i^{(j)}$ of $\mb X^{(j)}$ so that $ \| {\bm x}_i^{(j)} \|_2^2 = N_j$. We further define the \textit{sample covariance matrix} for each $S^{(j)}$:
+	\[
+	\Sigma^{(j)} = \frac{1}{N_j} \mb X^{(j)^\top} \mb X^{(j)}
+	\]
+	The diagonal of $\Sigma^{(j)}$ follows $\Diag(\Sigma^{(j)}) = \bm 1 \in \bbr^d$. 
+	\item {\bf Positive Definite:} The covariate sample covariance matrix $\Sigma^{(j)} = \frac{1}{N_j} \mb X^{(j)^\top} \mb X^{(j)}$ is positive semidefinite with the smallest eigenvalue $\psi > 0$.
+	\item {\bf Sparsity:} The bias $\xi^{(j)}$ is sparse, that is, $\| \xi^{(j)} \|_0 = s << p$ for each $j$.
+\end{enumerate}
+The first assumption is standard practice to normalize covariates when using regularized regression. The second assumption is standard in statistics for idenfication. It is stronger than the compatibility condition for $\Sigma^{(j)}$ in \citet{bastani2021predicting}, so we can drop the compatibility condition. This condition also indicates that the sample covariance matrix $\Sigma = \frac{1}{N} \sum_{j \in [J]} \mb X^{(j)^\top} \mb X^{(j)}$ for the global data is positive definite. The third assumption requires that only a small number of elements of bias $\xi^{(j)}$ is nonzero. The joint estimator of \citet{bastani2021predicting} is most effective when sparsity is present.
+
+A natural way is to solve a regression problem for each local data set $S^{(j)}$. 
+\[
+    \hat{\bm \beta}_{\text{local}} = \arg \min_{\bm \beta} \left\{\frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 \right\}
+\]
+However, local data sets often face data scarcity, which may lead to high-variance estimation. To obtain a better generalization performance, an alternative way is to collaboratively train a single global estimator model on the global data set $\cup_{j \in [J]} S^{(j)}$. 
+\[
+\hat{\bm \beta}_{\text{global}} = \arg \min_{\bm \beta} \left\{ \sum_{j \in [J]} \frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 \right\}
+\]
+However, such a global model may perform well on average but generalize poorly for a particular retailer $j$, because there are distributional heterogeneity \citep{guo2025statistical, mo2024minimax}. We aim to provide a two-step estimator to balance generalization and personalization. We adapt the joint estimator from \citet{bastani2021predicting} on the global and local data as follows:
+
+\textbf{Step 1}: We run a OLS regression on the global data set $\cup_{j \in [J]} S^{(j)}$ and obtain a \textit{global estimator} $\hat{\beta}_{\text{global}}$ as: 
+\begin{equation}
+\hat{\bm \beta}_{\text{global}} = \argmin_{\bm \beta} \left\{ \sum_{j \in [J]} \frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 \right\}
+\label{eq: global estimator}
+\end{equation}
+
+% Step 2: Regularization, joint estimator
+\textbf{Step 2}: For each data set $S^{(j)}$, we obtain a joint estimator $\hat{\beta}_{\text{joint}}^{(j)}$ using a LASSO regression. The regularization term is based on the difference between the estimated coefficient $\hat{\bm \beta}_{\text{joint}}^{(j)}$ and global estimator $\hat{\bm \beta}_{\text{global}}$. 
+\begin{equation}
+\hat{\bm \beta}_{\text{joint}}^{(j)} = \argmin_{\bm \beta} \left\{ \frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 + \lambda^{(j)} \|\bm \beta -  \hat{\bm \beta}_{\text{global}} \|_1 \right\}
+\label{eq: joint estimator}
+\end{equation}
+where $\lambda^{(j)} > 0$ is a regularization parameter that controls the relative weight of $\hat{\bm \beta}_{\text{global}}$ to the joint model. The $\ell_1-$norm penalty term exploits the sparse structure of bias term $\xi^{(j)}$. 
+
+\subsection{Residual-based SAA}
+For a given ${\bm \beta}$, we define the following mapping $\hat{\varepsilon}({\bm \beta}, j, i)$:
+\[
+\hat{\varepsilon}({\bm \beta}, j, i)  = {d}_i^{(j)} - {\bm x}_i^{(j) \top} {\bm \beta}
+\]
+which show that empirical residual is dependent on the regression coefficient ${\bm \beta}$. Likewise, we also define the following mapping $\hat{d}$ to predict the demand at any retailer:
+\[
+\hat{d}({\bm \beta}, {\bm x}, j, i) = \bm x ^\top \bm \beta + \hat{\varepsilon}({\bm \beta}, j, i) = (\bm x - {\bm x}_i^{(j)})^ \top {\bm \beta} + {d}_i^{(j)}
+\]
+Hence, the predicted demand $\hat{d}({\bm \beta}, {\bm x}, j, i)$ is obtained by adjusting the historical demand at ${\bm x}_i^{(j)}$ with the predicted demand change induced by covariate shift $(\bm x - {\bm x}_i^{(j)})$. Accordingly, for given ${\bm \beta}$ and covriate ${\bm x}$, we can construct the predicted empirical distribution of local demand $d_j$, using empirical residuals on the data set $S^{(j)}$:
+\[
+\hat{\bbp}(\bm \beta,\bm x, j) = \frac{1}{N_j} \sum_{i=1}^{N_j} \delta_{\hat{d}({\bm \beta}, {\bm x}, j, i)}
+\]
+where $\delta_{\hat{d}({\bm \beta}, {\bm x}, j, i)}$ is a Dirac measture that places a unit mass at ${\hat{d}({\bm \beta}, {\bm x}, j, i)}$.
+
+If all the joint estimators $\hat{\bm \beta}_{\text{joint}}^{(j)}$ are known, the empirical optimization problem corresponding to Problem \eqref{problem: CSP with regression} is defined as: 
+\begin{equation}
+\begin{aligned}
+\hat{\bm v}^{\text{ER}}({\mb X}) & = \ 
+\min_{\bm z \geq \bm 0} \ \sum_{j \in [J]} \mathbb{E} \left[  C_j (z_j,  d_j)  \mid \mb X \right]
+ \\
+& = \ 
+\min_{ z_j \geq 0, j\in[J]}
+ \sum_{j=1}^J 
+ \frac{1}{N_j} \sum_{i = 1}^{N_j} 
+C_j \left( \bm z_j, \hat{d}(\hat{\bm \beta}_{\text{joint}}^{(j)}, \bm x_j, j, i)  \right) 
+\label{problem: Empirical Optimization Problem}
+\end{aligned}
+\end{equation}
+where the expectation is taken with respect to the predicted empirical distribution $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(j)},\bm x_j, j)$. \citet{kannan2025data} presents an in-depth analysis of this approach on convergence rate and finite sample guarantee. A limitation of the empirical optimization approach may exhibit disappointing out-of-sample performance when the sample size is limited \citep{Kannan_Bayraksan_Luedtke_2020residuals}. In our context, we may not have enough samples in each local data set $S^{(j)}$ to achieve desired performance. To address such small-data issue, we develop a DRO model to leverage predicted empirical distributions from multiple data sets, ensuring generalization to the specific retailer $j$.
+% Mixture Distribution, estimate weight q; MLE estimation; 重点在于是否Regularization; especially when the result 
+% Residual-based DRO
+
+% Mixture weight, 必须先指定分布的类型
+% Method 1: 可以先tranfer learning，然后将相似的distribution组成CG-DRO；Mixed Model, 必须先指定分布的assumption, 
+% 上次进度：参考Transfer Learning Targeting Mixed Population建一个CG-DRO，观察一下效果； AOS论文及其重要，
+% A weighted average of the source distributions, weight learned by the convex optimization; then a bias correcation to get accurate aggregation weights. 先估计各个分布（可以不是linear model)，确定一个大致的weight, 再进行DRO, 而不直接建单纯形；第二步的regularization可以加上 
+\subsection{Conditional Group DRO Approach}
+We borrow ideas from the conditional group DRO framework and feaderate learning  \citep{marfoq2021federated, wang2025distributionally}, to define the local distribution as mixtures from the predicted empirical distributions. \citet{wang2025distributionally} focus on robust learning under a multi-source unsupervised domain adaptation setting, where multiple labeled source domains are used to learn a single predictive model. In contrast, we develop a predict-then-optimize approach, where multiple labeled source datasets are leveraged for multiple predictive tasks, and then support downstream decision-making problems. 
+
+The core assumption of conditional group DRO model is that the conditional distribution $\bbp^{(j)}_{\bm d \mid \mb X}$ to be estimated is a mixture of the estimated empirical distribution from diffent datasets. Based on input covariate $\mb X$, we define the mixture conditional distribution $\bbq^{(j)}_{\bm d \mid \mb X}$ as:
+\[
+\bbq^{(j)}_{\bm d \mid \mb X} = \sum_{l \in [J]} q_l^{(j)} \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)
+\]
+where $\bm q^{(j)} \in \Delta^J$ and $\Delta^J$ denotes $(J-1)$-dimensional probability simplex. We first fix the input covariate $\mb X$, and estimate the empirical distribution $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)$ using data set $S^{l}$ for $l \in [J]$. Then we define $\bbq^{(j)}_{\bm d \mid \mb X}$ as a mixture representation of $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)$. We can construct an ambiguity set of $d_j$ conditioning on the observed covariate $\mb X$:
+\[
+\mathcal{F}_j(\mb X, \theta) = \left \{ 
+	\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{P}_0(\bbr_+) \ 
+	\begin{array}{|ll} 
+	\ d_j \sim \bbq^{(j)}_{\bm d \mid \mb X}	\\ 
+	\
+	\bbq^{(j)}_{\bm d \mid \mb X} = \sum_{l \in [J]} q_l^{(j)} \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)  \\
+	\ \bm q^{(j)} \in \mathcal{H}(\hat{\bm q}^{(j)} , \theta)
+	\end{array}
+	\right  \}
+\]
+where $(\hat{\bm q}, \theta)$ is defined as:
+\[
+\mathcal{H}(\hat{\bm q}, \theta) = \left \{ \bm q \in \bbr^J \
+\begin{array}{|ll} \
+	\bm 1^\top q_j = 1 \\
+	\ \bm q \geq 0 & \forall j \in [J] \\
+	\ \|\bm q - \hat{\bm q} \| \leq \theta
+\end{array}
+\right \} 
+\]
+The uncertainty set $\mathcal{H}(\hat{\bm q}, \theta)$ requires that mixture weight $\bm q$ reside in the $\theta$-neighborhood of $\hat{\bm q}$ with respect to the general norm. $\hat{\bm q}$ is a pre-specified weight obtained from training. If we choose $\ell_2$-norm, then $\mathcal{H}(\hat{\bm q}, \theta)$ is the intersection of a polyhedron and a Euclidean ball. Here, $\theta \geq 0$ is the \textit{robustness budget} that controls the size of $\mathcal{H}(\theta)$.
+When $\theta=0$, then $\bm q^{(j)} = \hat{\bm q}^{(j)}$ and $\mathcal{F}_j(\mb X, \theta) = \{ \hat{\bbq}^{(j)}_{\bm d \mid \mb X} \}$ where 
+\[
+\hat{\bbq}^{(j)}_{\bm d \mid \mb X} = \sum_{l \in [J]} \hat{q}_l^{(j)} \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)
+\]
+$\mathcal{H}(\theta) \subseteq \Delta^{J}$ contains the prior knowledge regarding the mixture weight $\bm q$, and hence reduce the conservatism of the ambiguity set.  By varing $\theta$, we have the flexibility of adjusting the robustness of the method against the level of conservatism of the solution \citep{bertsimas2004price}.
+
+% How to estimate weight;
+Then, the ambiguity set for the joint distribution of demand $\bm d$ given covariate $\mb X$ is:
+\begin{equation}
+\mathcal{F}(\mb X, \theta) = \left \{ 
+	\bbq_{\bm d \mid \mb X} \in \mathcal{P}(\bbr^J_+) \ 
+	\begin{array}{|ll} 
+	\ (d_1, \ldots, d_J) \sim \bbq_{\bm d \mid \mb X} \\ 
+	\ d_j \sim \bbq^{(j)}_{\bm d \mid \mb X} & \forall j \in [J] \\ \
+	\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta) & \forall j \in [J]
+	\end{array}
+	\right  \}
+\label{Conditioanl Ambiguity Set}
+\tag{\sc{Mixture}}
+\end{equation}
+% 可以用 WASSERSTEIN Distance; Empirical Distribution
+With the defined ambiguity set and observed covariate $\mb X$, we formulate the following contextual DRO model to minimize the worst-case expected total cost:
+\begin{equation}
+\hat{\bm v}^{\text{DRO}}({\mb X})  = \min_{\bm z \geq \bm 0} \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+\label{Problem: DRO model}
+\tag{\sc{DRO}}
+\end{equation}
+We also denote an optimal solution to Problem \eqref{Problem: DRO model} as $\hat{\bm z}^{\text{DRO}}({\mb X})$.
+
+% We could also formulatie Budget-driven model: 
+% \begin{equation}
+% \begin{aligned}
+% \theta^*(\bm \tau) = \left \{
+% \begin{array}{cll}
+% \min &  \theta \\
+% \subj & \displaystyle \sup_{\substack{
+% \bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)
+% }}
+%  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[C_j (\bm z_j,  d_j)  \mid \mb X \right] \leq \tau_j &~\forall j \in [J] \\
+% & \theta \geq 0
+% \end{array}
+% \right.
+% \end{aligned}
+% \end{equation}	
+
+% Or to consider Joint robust Constraint; \beta and q; additional robustness
+
+\section{Reformulation}
+In this section, we derive the tractable reformulation of the DRO model \eqref{Problem: DRO model}.
+
+% Proposition 1 in Budget-Driven Multiperiod Hub Location
+Given the \eqref{Conditioanl Ambiguity Set} ambiguity set $\mathcal{F}(\mb X, \theta)$, we can reexpress the DRO model \eqref{Problem: DRO model} with a summation of worst-case expected cost for each $j$.
+
+\begin{proposition}
+Given $\mathcal{F}(\mb X, \theta)$ in \eqref{Conditioanl Ambiguity Set}, we have:
+\begin{equation}
+\hat{\bm v}^{\text{DRO}}({\mb X}) = \left \{
+\begin{array}{cll}
+\min & \sum_{j \in [J]} \tau_j\\
+\subj & \displaystyle 
+\sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq^{(j)}_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \tau_j &~\forall j \in [J] \\
+& \bm z \geq \bm 0, \bm \tau \geq \bm 0
+\end{array}
+\right.
+\end{equation}
+
+
+\label{chap2:Prop:Reformulation}
+\end{proposition}
+
+\begin{proof}{\bf Proof of \Cref{chap2:Prop:Reformulation}.}
+By linearity of expectation, we can write \eqref{Problem: DRO model} as:
+\[
+\hat{\bm v}^{\text{DRO}}({\mb X})  = \min_{\bm z \geq \bm 0} \sum_{j \in [J]} \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[  C_j (z_j,  d_j)  \mid \mb X \right] 
+\]
+We introduce epigraphical decision variable $\tau_j$ for all $j \in [J]$ to represent the worst-case expected cost for retailer $j$, then we have:  
+\[
+\hat{\bm v}^{\text{DRO}}({\mb X}) = \left \{
+\begin{array}{cll}
+\min & \sum_{j \in [J]} \tau_j\\
+\subj & \displaystyle 
+\sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \tau_j &~\forall j \in [J] \\
+& \bm z \geq \bm 0, \bm \tau \geq \bm 0
+\end{array}
+\right.
+\]
+By the definition of \eqref{Conditioanl Ambiguity Set} ambiguity set, for any $\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)$, there exist $\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta) ,\forall j\in [J]$ to constitute the joint distribution $\bbq_{\bm d \mid \mb X} $. It follows that:
+\[
+\sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right]
+\]
+Conversely, for any $\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta), \forall j\in [J]$, we can construct a joint distribution $\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)$ so that:
+\[
+\sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right]
+\]
+This completes the proof.
+\hfill \Halmos
+\end{proof}
+
+% Closed-form solution; empirical quantile solution; budget-driven； Separable function
+Next, we derive the tractable reformulation of Problem \eqref{Problem: Summation DRO model}.
+
+\begin{theorem}
+Given $\mathcal{F}(\mb X, \theta)$ in \eqref{Conditioanl Ambiguity Set},
+the Problem \eqref{Problem: Summation DRO model} is equivalent to the following convex optimization problem:
+\begin{equation}
+\hat{\bm v}^{\text{DRO}}({\mb X}) = \left \{
+\begin{array}{cll}
+\min & \sum_{j \in [J]} \tau_j\\
+\subj 
+& \lambda_j - (\mb E - \lambda_j \bm 1 + \bm \nu_j)^\top \hat{\bm q}+ \theta \leq \tau &~\forall j \in [J] \\
+& \|\mb E_j - \lambda_j \bm 1 + \bm \nu_j \|_*\leq 1 &~\forall j \in [J]  \\
+& \lambda_j \in \bbr, \bm \nu_j \geq \bm 0 &~\forall j \in [J] \\
+& \bm z \geq \bm 0, \bm \tau \geq \bm 0
+\end{array}
+\right.
+\label{Problem: Summation DRO model}
+\end{equation}
+\label{thm: Problem Reformulation}
+\end{theorem}
+where  $ \mb E_j =(\mathbb{E}_{\hat{\bbp}^{(j)}_l}[C_j (z_j,  d_j)])_{l\in [J]}$
+
+\begin{proof}{\bf Proof of \Cref{thm: Problem Reformulation}.}
+	We consider the reformulation of the following constraint:
+	\begin{equation}
+	\sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq^{(j)}_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \tau_j
+	\label{eq: formulated constraint}
+	\end{equation}
+	We drop the subscript $j$ when the context is clear. By definition, $\bbq_{\bm d \mid \mb X}$is a mixture distribution of $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x, l)$. For notational simplicity, we denote $\hat{\bbp}^{(j)}_l = \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)$. Then the expectation in the left is rewritten as:
+	\[
+	\mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C (\bm z,  d)  \mid \mb X \right] = \sum_{l \in [J]}  {q}_l \mathbb{E}_{\hat{\bbp}_l}[C (\bm z,  d)]
+	\]
+	Then the left term is simplified as:
+	\[
+	\begin{array}{cll}
+	\displaystyle \sup_{\bm q} & \sum_{l \in [J]}  {q}_l \mathbb{E}_{\hat{\bbp}^{}_l}[C (\bm z,  d)] \\
+	\subj 	& \bm 1^\top \bm q = 1 \\
+	& \ \|\bm q - \hat{\bm q} \| \leq \theta\\
+	& \bm q \geq \bm 0
+\end{array}
+	\]
+	By the definition of dual norm, we substitute the second constraint by the following:
+	\[
+	\bm y ^ \top (\bm q - \hat{\bm q}) \leq \theta \quad \forall \bm y : \|\bm y\|_* \leq 1 \\
+	\]
+	Then we can write the Lagrangian of the problem by introducing dual variable $\lambda \in \bbr$ and $\bm \nu \in \bbr^J_+$:
+	\[
+	L(\bm q, \lambda, \bm \nu, \bm y)= \mb E ^\top \bm q + \lambda (1 -  \bm 1^\top \bm q) + \theta - \bm y ^ \top (\bm q - \hat{\bm q})  + \bm \nu^\top \bm q 
+	\]
+	where we use $ \mb E ^\top \bm q $ to denote $\sum_{l \in [J]}  {q}_l \mathbb{E}_{\hat{\bbp}^{}_l}[C (\bm z,  d)]$ for short. By rearranging the terms, we have:
+	\[
+	L(\bm q, \lambda, \bm \nu, \bm y) = (\mb E - \lambda \bm 1 - \bm y + \bm \nu )^\top \bm q + \lambda + \theta - \bm y ^\top \hat{\bm q}
+	\]
+	The result dual problem is:
+	\[
+	\begin{array}{cll}
+	\displaystyle \inf_{\lambda, \bm \nu, \bm y} & \lambda + \theta - \bm y ^\top \hat{\bm q} \\
+	\subj 	& \mb E - \lambda \bm 1 - \bm y + \bm \nu = 0 \\
+	& \|\bm y\|_* \leq 1\\
+	& \bm \nu \geq \bm 0
+	\end{array}
+	\]
+	Eliminating $\bm y$, then we have:
+	\[
+	\begin{array}{cll}
+	\displaystyle \inf_{\lambda, \bm \nu \geq \bm 0} & \lambda - (\mb E - \lambda \bm 1 + \bm \nu)^\top \hat{\bm q}+ \theta\\
+	\subj 	& \|\mb E - \lambda \bm 1 + \bm \nu\|_*\leq 1 \\
+	\end{array}
+	\]
+	Due to strong duality, we can plug this into the orignal constraint \eqref{eq: formulated constraint} to obtain the constraints:
+	\[
+	\begin{array}{cll}
+	& \lambda - (\mb E - \lambda \bm 1 + \bm \nu)^\top \hat{\bm q}+ \theta \leq \tau \\
+	& \|\mb E - \lambda \bm 1 + \bm \nu\|_*\leq 1 \\
+	& \lambda \in \bbr, \bm \nu \geq \bm 0
+	\end{array}
+	\]
+\end{proof}
+
+
+% Method 2: 经典方法，先Regualarization + Wasserstein.
+%  First, a global model is tranined based on the global data set $\cup_{j \in [J]}$. Then, a joint model is trained on local data sets using method from Transfer Learning and Federate Learning \citep{bastani2021predicting, hanzely2020federated}.
+
+
+\section{The Robust Decision Model}
+We focus on a decision model expressed in the following optimization format:
+\[
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau \\
+& \bm x \in \cX,
+\end{array}
+\]
+where the second element ${\bm z} \in \cZ \subset \mathbb{R}^{L}$ is the input vector of model parameters whose outcome could be uncertain. 
+Here, $\cZ$ is referred to as the \textit{input support set}, typically a convex set that delineates the underlying physical limits and includes provisions for unforeseen rare events or even \textit{black swans}---scenarios that have never occurred in the past. 
+
+For simplicity, our discussion is limited to a linear cost function while maintaining the attribute function within the constraint. However, our approach can be expanded to include models with multiple attributes, some of which may also be minimized within the decision's objective function. Note that the attribute function can be articulated as a linear optimization problem:
+$$
+f(\bm x, \bm z) = \min\left\{ \bm d^\top \bm y \;|\; \mb B \bm y \geq \mb A(\bm z) \bm x + \bm b(\bm z), \; \bm y \in \bbr^{D_2} \right\},
+$$
+where the maps $\mb A(\bm z):\bbr^{L}\rightarrow \bbr^{M_2\times D}$, $\bm b(\bm z):\bbr^{L}\rightarrow \bbr^{M_2}$ are affinely dependent on $\bm z$. Here, $\bm y$ is called the \textit{wait-and-see recourse vector} associated with the attribute function because whenever the input vector is uncertain, its optimal solution is only determined after the input vector materializes.  
+
+\subsection{Uncertainty in the Decision Model}
+\label{sec:uncertainty_metric_RO}
+
+At one end, in a deterministic decision model, uncertainty in model parameters is typically ignored, and the input vector is captured by a specified input vector $\bmh z \in \cZ$ as exemplified as follows:
+\begin{equation}
+\label{mod:DetermisticModel}
+V = \left\{
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bmh z) \leq \tau \\
+&\bm x \in \cX.
+\end{array}
+\right.
+\end{equation}
+However, the solution to the deterministic decision model is fragile as it cannot even ensure the constraint feasibility when model parameters deviate from the specified input vector. 
+
+On the other end, the worst-case model replaces the deterministic constraint with the worst-case constraint
+\[
+f(\bm x, \bm z) \leq \tau ~~~\forall \bm z \in \cZ
+\]
+and solves the following problem 
+$$
+\bar V = \left\{
+\begin{array}{cll}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \\
+&\bm x \in \cX.
+\end{array}
+\right.
+$$
+Yet, if the worst-case cost $\bar V$ is significantly higher than $V$, the worst-case solution is arguably conservative and may be deemed unacceptable. 
+
+\subsection*{Disparity Budget and Tolerance}
+
+The above discussion raises the need to balance both ends of deterministic and worst-case decision models and, more specifically, to ensure constraint feasibility while controlling the model's conservativeness. Our first attempt introduces the following comprehensive outcome robust constraint:
+\begin{equation}
+\label{equ:ROC}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ ~~~\forall \bm z \in \cZ,
+\end{equation}
+Here, $\gamma \in [0,\infty]$, referred to as \textit{outcome disparity budget}, governs the size of the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ around the specified input vector, within which feasibility of the constraint $f(\bm x, \bm z) \leq \tau$ is ensured; while $\kappa \in [0, \infty]$, referred to as \textit{outcome disparity tolerance}, articulates the tolerance to potential violations when the actual input vector does not reside in the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ and by tolerating such violations, it help mitigate the conservativeness of the worst-case decision model that must obey the constraint for all $\bm z \in \cZ$. 
+
+Lying at the core of the robust constraint~\eqref{equ:ROC} is a disparity metric $\Delta(\cdot,\cdot)$ that measures the discrepancy between the actual input vector $\bm z$ and specified input vector $\bmh z$. 
+
+\begin{definition}[\textnormal{{\sc Disparity Metric}}]
+\textnormal{A function $\Delta:\bbr^L \times \bbr^{L} \rightarrow [0,\infty]$ is a disparity metric if it satisfies the following properties:
+\begin{itemize}
+\item {\bf Positive Definite}: For all $\bm z,\bm \zeta \in \bbr^L$,  $\Delta(\bm z,\bm \zeta) \geq 0$. Moreover, $\Delta(\bm z,\bm \zeta) =  0$ if and only if $\bm z = \bm \zeta$. 
+\item {\bf Convex}: $\Delta(\bm z,\bm \zeta)$ is a convex function in $\bm z,\bm \zeta \in \cZ$. 
+\end{itemize}
+A  disparity metric is coherent if it also satisfies the following properties:
+\begin{itemize}
+\item {\bf Translation Invariant}: $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \xi,\bm \zeta-\bm \xi)$ for all $\bm \xi \in  \bbr^L$.
+\item {\bf Positive Homogeneous}: $\Delta(k\bm z,k\bm \zeta) = k\Delta(\bm z,\bm \zeta)$ for all $k \geq 0$. 
+\end{itemize}
+A disparity metric is symmetric if $\Delta(\bm z,\bm \zeta)= \Delta(\bm \zeta,\bm  z)$ for all $\bm z,\bm \zeta \in \bbr^L$.
+% Any translation invariant disparity metric satisfies $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \zeta,\bm 0)$ and hence, can be specified by the difference $\bm z-\bm \zeta$ between input vectors.
+}
+\end{definition}
+
+\subsection*{Outcome and Estimation Uncertainties}
+
+Equipped with the disparity metric, the robust constraint~\eqref{equ:ROC} accounts for \textit{outcome uncertainty}---the first layer of uncertainty we identify---that pertains to how the actual input vector $\bm z$ may deviate from the specified input vector $\bmh z$.
+
+Quite notably, we identify and emphasize a second layer of uncertainty, termed \textit{estimation uncertainty}, which pertains to the potential discrepancies between the specified input vector and the latent input vector that we denote as $\bm{\zeta} \in \hat{\cZ} \subseteq \mathbb{R}^L$. In this context, outcome uncertainty is now associated with how the actual input vector $\bm z$ may deviate from this latent input vector $\bm{\zeta}$ instead of the specified input vector $\bmh z$. The latent vector is typically associated with the underlying random process that generates input uncertainty, and the specified input vector $\bmh z \in \cZ$ is determined through an estimation process designed to identify this latent vector. For instance, if the input uncertainty originates from a distribution whose mean is $\bm \zeta$, then $\bmh z$ might represent the mean estimated from data. It is crucial to note that while historical samples of the input vector may be available to assess outcome uncertainty, empirical data for the latent input $\bm \zeta$ are typically not accessible.
+
+Throughout this paper, we will use the \textit{outcome disparity metric} $\Delta(\bm z, \hat{\bm z})$ to measure the discrepancy between the actual input vector $\bm z$ and the specified input vector $\hat{\bm z}$, and likewise, use the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta, \hat{\bm z})$ to measure the discrepancy between the latent input vector $\bm \zeta$ and the specified input vector $\hat{\bm z}$. These disparity metrics are fundamental building blocks for developing different types of robust decision models, and they hedge against uncertainty while ensuring that the solutions are not overly conservative compared to worst-case scenarios. For this propose, we also define the {\em outcome confidence set}
+$$
+\cB(\bmh z, \gamma) = \{ \bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma \}
+$$
+and the {\em estimation confidence set}
+$$
+\hat \cB(\bmh z, 
+\hat \gamma) = \{ \bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \}. 
+$$
+Centered at $\bmh z$, the radii of the two confidence sets are controlled by $\gamma$ and $\hat \gamma$, respectively.
+
+\subsection*{Comprehensive Robust Constraint with Joint Uncertainties}
+
+Consolidating disparity budget and tolerance as well as outcome and estimation uncertainty, in this paper we introduce the comprehensive robust constraint with both outcome and estimation uncertainties as follows:
+\begin{equation}
+\label{eq:ComprehensiveRobustConstraint}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ
+\end{equation}
+with $\gamma, \hat \gamma, \kappa, \hat \kappa \in [0, \infty]$. Interpretations of the term $\kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+$ related to outcome uncertainty remain similar to that of the outcome robust constraint~\eqref{equ:ROC}, except now that outcome uncertainty is associated with how the actual input vector $\bm z$ would deviate from this latent input vector $\bm{\zeta}$. 
+It is noteworthy that keeping $\Delta(\bm z,\bmh z)$ will reduce constraint~\eqref{eq:ComprehensiveRobustConstraint} to constraint~\eqref{equ:ROC}, thereby eliminating the buffer against estimation uncertainty.
+Additionally, estimation uncertainty is addressed by the term 
+$\hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+$, wherein analogously, $\hat \gamma$ and $\hat \kappa$ respectively account for \textit{estimation disparity budget} and \textit{estimation disparity  tolerance}, and the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta,\bmh z)$ expresses the deviation from the specified input vector $\bmh z$ to the latent input vector $\bm \zeta$. The following observations illustrate the generality of the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}.
+
+\begin{itemize}
+\item Whenever we have zero disparity tolerance (\textit{i.e.}, $\kappa = \hat \kappa = 0$) or extreme disparity budget (\textit{i.e.}, $\gamma = \hat \gamma =\infty$),  the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would recover the worst-case constraint:
+\[
+f(\bm x,\bm z) \leq \tau ~~~\forall \bm z \in \cZ.
+\]
+
+\item The case of $\hat \kappa = \infty$ and $\gamma = 0$ yields the tolerated robust constraint as in \cite{BenTal_et_al_2017globalized}:
+$$
+f({\bm x},{\bm z}) \leq \tau + \kappa  \min_{\bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \hat \gamma)} \Delta(\bm z,\bm \zeta)  ~~~\forall \bm z \in \cZ.
+$$
+
+\item When $\kappa, \hat \kappa = \infty$ and $\hat \gamma=0$ (which would enforce $\bm \zeta = \bmh z$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would be equivalent to the following classical budgeted robust constraint:
+$$
+f({\bm x},{\bm z}) \leq \tau ~~~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma);
+$$ 
+see, \textit{e.g.}, \cite{bertsimas2004price}.
+
+\item When $\kappa, \hat \kappa = \infty$ and $\gamma = 0$ (which would enforce $\bm z = \bm \zeta$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} leads to another budgeted robust constraint:
+$$
+f({\bm x},{\bm \zeta}) \leq \tau \quad \quad \forall \bm \zeta \in \hat \cZ\cap \hat \cB(\bmh z, \hat \gamma),
+$$
+which appears in the joint estimation and robustness optimization framework of \cite{Zhu_Xie_Sim_2021joint} that mitigates estimation uncertainty in optimization problems with the integration of the parameter estimation procedure and the optimization problem.
+
+\item More recently, the tolerance robust satisficing model described by \cite{sim2024analytics} represents a special case of~\eqref{eq:ComprehensiveRobustConstraint} with $\gamma = \hat \gamma = 0$. Outside of the authors' focal data-driven context, this special case can be explicitly defined as the following tolerated robust constraint:
+$$
+f(\bm x,\bm z) \leq \tau + \kappa \Delta(\bm z,\bm \zeta) + \hat \kappa \hat \Delta(\bm \zeta,\bmh z) ~~~\forall \bm z \in \cZ , \; \bm \zeta \in \hat \cZ.
+$$
+\end{itemize}
+
+Indeed, any $\bm x$ feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} guarantees its feasibility to the following robust constraints:
+$$
+\begin{cases}
+f(\bm x, \bm z) \leq \tau &~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma) \\
+f(\bm x, \bm \zeta) \leq \tau &~\forall \bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \gamma) \\
+f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ &~\forall \bm z \in \cZ \setminus  \cB(\bmh z, \gamma) \\
+f(\bm x,\bm \zeta) \leq \tau +  \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ &~\forall  \bm\zeta \in \hat \cZ \setminus \hat \cB(\bmh z, \hat \gamma). 
+\end{cases}
+$$
+Beyond these feasibility realms, the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} also possesses strong statistical justifications.
+
+\begin{theorem}
+\label{thm:StatisticalJustification}
+Consider the random variable $\bmt z\sim \bbp$, $\bbp \in \cP_0(\cZ)$, which denotes the random outcomes of the actual input vector. Suppose $\bm x$ is feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}. Then the following infeasibility likelihood profile holds:
+$$
+\pp{f(\bm x,\bmt z) > \tau + \kappa r  + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} ~~~\forall r \geq 0, \; \bm \zeta \in \hat \cZ.
+$$
+\end{theorem}
+
+\Cref{thm:StatisticalJustification} implies that 
+$$
+\begin{cases}
+\pp{f(\bm x,\bmt z) > \tau } \leq   \pp{\bmt z \notin \cB(\bm \zeta,\gamma)} & \forall \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma) \\
+\pp{f(\bm x,\bmt z) > \tau + \kappa r } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} & \forall r \geq 0, \; \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma).
+\end{cases}
+$$
+At a greater deviation, $\hat \Delta(\bm \zeta,\bmh z)>\hat \gamma$, a greater constraint violation moderated by $\hat \kappa$ is necessary to ensure the same infeasibility probability bound. It should be noted that establishing the probability bound depends on knowledge of the true distribution. Even when the distribution is known, relying on a generic probability bound based on the likelihood of infeasibility within the outcome confidence set may overestimate the actual probability of infeasibility. 
+
+This is a generic bound that holds true for all attribute functions. As a result, the established probabilistic guarantees tend to be conservative. Better bounds can be obtained for specific attribute functions by imposing assumptions on the distributions, which we aim to avoid. However, this issue can be addressed through robust satisficing decision models, where the modeler can directly control the level of conservativeness by specifying performance targets.  
+
+\subsection{A Unifying Sequential Robust Satisficing Decision Framework}
+\label{sec:robust_satisficing_decision_framework}
+
+Armed with the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} parameterized by $\gamma, \kappa, \hat \gamma, \hat \kappa$---budgets and tolerances to outcome and estimation uncertainties, our unifying decision framework follows the spirit of robust satisficing (see, \textit{e.g.}, \citealt{BenTal_et_al_2017globalized}, \citealt{Long_Sim_Zhou_2023robust}) to optimize these parameters sequentially, rather than pre-specifying them as fixed. Specifically, we advocate solving sequential robust satisficing problems with \textit{intermediate} targets as follows.
+
+\begin{enumerate}[Step 1.]\addtocounter{enumi}{-1}
+\item Solve the deterministic decision model and obtain its objective value $V$ to be used as the reference for setting the intermediate targets for the subsequent robust satisficing models.
+
+\item Solve a budgeted robust satisficing problem for the first intermediate target $V_{1}\geq V$:
+\[
+\begin{array}{cll}
+\max & \gamma  \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \cap \{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma\} \\
+& \bm c^\top \bm x \leq V_{1} \\
+& \bm x \in \cX, \; \gamma \geq 0,
+\end{array}
+\]
+and obtain the optimal $\gamma^\star$. 
+
+\item Solve a tolerated robust satisficing model that minimizes $\kappa$ for the second intermediate target $V_{2} \geq V_{1}$: 
+\[
+\begin{array}{cll} 
+\min & \kappa   \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma^\star)^+ &~\forall \bm z \in \cZ \\
+& \bm c^\top \bm x \leq V_{2} \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal $\kappa^\star$.
+
+\item Solve a budgeted robust satisficing model that maximizes $\hat \gamma$ for the third intermediate target $V_{3}\geq V_{2}$: 
+\[
+\begin{array}{cll} 
+\max & \hat \gamma \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \cap \{\bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \} \\
+& \bm c^\top \bm x \leq V_{3} \\
+& \bm x \in  \cX, \; \hat \gamma \geq 0,
+\end{array}
+\]
+and obtain its optimal $\hat \gamma^\star$. 
+
+\item Solve a robust satisficing model that minimizes $\bmh \kappa$ for the forth intermediate target $V_{4} \geq V_{3}$: 
+\[
+\begin{array}{cll} 
+\min & \hat \kappa \\
+{\subj} &  f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ + \hat \kappa (\hat \Delta(\bmh z,\bm \zeta) - \hat \gamma^\star)^+  &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \\
+& \bm c^\top \bm x \leq V_{4} \\
+& \bm x \in \cX, \; \hat \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal solution $\bm x^\star$. 
+\end{enumerate} 
+
+This approach of solving sequential robust satisficing models for tuning multiple parameters is attributed to \cite{sim2024analytics}. The approach 
+starts by solving a deterministic optimization problem to establish the minimum feasible cost $V$. This initialization presumes the specified input vector $\bmh z$ accurately mirrors the actual (uncertain) input vector.
+Progressively, the approach optimizes budgets and tolerances to outcome and estimation uncertainties. The optimization occurs sequentially with increasing intermediate target $V_{4} \geq V_{3} \geq V_{2} \geq V_{1}$ relative to $V$. This structured, incremental approach effectively addresses outcome and estimation uncertainties, informing a robust, comprehensive decision-making solution. It also simplifies parameter specification, offering decision-makers a clear and manageable progression through the model's complexities. Nevertheless, decision-makers can always articulate their budgets and tolerances to outcome and estimation uncertainties by specifying the value of any parameter among $\gamma, \hat \gamma, \kappa, \hat \kappa$. When doing so, they should skip the corresponding step among Steps~$1$-$4$.
+
+Note that in the \textit{budgeted robust satisficing} phase (Steps~$1$ and $3$), disparity budgets $\gamma$ and $\hat \gamma$ are maximized, typically by a bisection search due to the quasiconcave objective; whereas in the \textit{tolerated robust satisficing} phase (Steps~$2$ and $4$), the tolerance parameters $\kappa$ and $\hat \kappa$ are minimized through a convex optimization problem. It is also worth noting that the framework is readily applied to the reward context wherein the attribute function $f(\bm x, \bm z)$ is reward-based. Accordingly, the comprehensive robust constraint shall read as
+\[
+f(\bm x,\bm z) \geq \tau - \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ - \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ.
+\]
+
+\subsection*{An Illustration from Portfolio Optimization}
+
+Using portfolio optimization in the reward context as an example, we illustrate the rich expressiveness of the sequential robust satisficing decision framework. In the portfolio optimization problem, the random stock returns, denoted by $\bmt z \sim \bbp$, $\bbp \in \cP_0(\bbr^L)$, follow an ambiguous distribution with an unknown true mean and covariance $\bmh \Sigma \in \bbs^L_{++}$. Suppose first that the sample mean well estimates the true mean, so that the specified input vector $\bmh z$ is aligned with the sample mean $\bmh \mu$. Consider the investment decision $\bm x \in \bbr^L$ residing in $\cX = \{\bm x \in \bbr^L \;|\; \bm 1 ^\top \bm x = 1\}$. The tolerated robust satisficing model for portfolio optimization has the following representation:
+$$
+\kappa^\star = \left\{
+\begin{array}{cll}
+\min & \kappa \\
+\subj& \bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) &~\forall \bm z \in \bbr^L \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\right.
+$$
+which corresponds to Step~$2$ of the framework with $\cZ = \bbr^L$ that specifies $\gamma^\star = 0$ and skips Step~$1$. Here, $V$ can be viewed as some risk-free return. Suppose the outcome disparity metric is $\Delta(\bm z, \bmh z) = \|\bmh \Sigma^{-1/2}(\bm z - \bmh z)\|_2$. Using standard techniques in robust optimization to transform the constraint
+\[
+\bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) ~~~\forall \bm z \in \bbr^L,
+\]
+the representation can be expressed as follows:
+\begin{equation}
+\label{mod:MinStdProblem}    
+\kappa^\star = \left\{ 
+\begin{array}{cll}
+\min & \displaystyle \sqrt{\bm x^\top \bmh \Sigma \bm x} \\
+\subj& \bm x^\top \bmh \mu \geq V \\
+& \bm x \in \cX,
+\end{array}
+\right.
+\end{equation}
+which turns out to be the celebrated Markowitz portfolio model that minimizes the portfolio's standard deviation.
+
+We next extend to consider estimation uncertainty where the sample mean does not coincide with the true mean and the latent vector $\bm \zeta$ is aligned with the true mean, \textit{i.e.}, $\ep{\bmt z} = \bm \zeta$. In executing the sequential robust satisficing decision framework, we can continue with the solution of the Markowitz portfolio model~\eqref{mod:MinStdProblem} for an intermediate target of $V_2$, and solve for the following tolerated robust satisficing model---Step~$4$ of the framework that specifies $\hat \gamma^\star = 0$ and skips Step~$3$---to achieve a desired return target of $V_4 \leq V_2$:
+$$
+\begin{array}{cll}
+\min & \hat \kappa \\
+\subj& \bm x^\top \bm z  \geq V_4 - \kappa^\star \Delta(\bm z,\bm \zeta) - \hat \kappa \hat \Delta(\bm \zeta,\bmh z) &~\forall \bm z, \; \bm \zeta \in \bbr^L \\
+& \bm x \in \cX, \; \hat \kappa \geq 0.
+\end{array}
+$$
+Suppose the estimation disparity metric is $\hat \Delta(\bm \zeta,\bmh z) = \|\bm \zeta -\bmh z \|_2$. We can express the above model as
+\begin{equation}
+\label{mod:MinInfiniteNormPortfolioProblem}    
+\begin{array}{cll}
+\min & \displaystyle  \|\bm x\|_2 \\
+\subj & \bm x^\top \bmh z \geq V_4 \\
+& \sqrt{\bm x^\top \bmh \Sigma \bm x} \leq \kappa^\star \\
+& \bm x \in \cX.
+\end{array}
+\end{equation}
+A well-known empirical study by \cite{demiguel2009optimal} has demonstrated that an equal-weighted portfolio $\bm x = \bm 1/L$ can potentially outperform the Markowitz portfolio. Interestingly, if the equal-weighted portfolio has an expected return exceeding $V_4$ and a standard deviation lower than $\kappa^\star$, then it would emerge as an optimal solution to Problem~\eqref{mod:MinInfiniteNormPortfolioProblem}. That being said, by adjusting $V_2$ and $V_4$ within the range of $V_4 \leq V_2$, the nature of the optimal portfolio can shift, ranging from the solution proposed by the Markowitz portfolio to an equal-weighted portfolio. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{informs2014}
+\bibliography{reference}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+%%%%%%%%%%%%%%%%%\\

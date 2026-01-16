@@ -1,0 +1,54 @@
+\begin{thebibliography}{16}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Ban \protect\BIBand{} Rudin(2019)}]{Ban_Rudin_2019big}
+Ban GY, Rudin C (2019) The big data newsvendor: Practical insights from machine learning. \emph{Operations Research} 67(1):90--108.
+
+\bibitem[{Bastani(2021)}]{bastani2021predicting}
+Bastani H (2021) Predicting with proxies: Transfer learning in high dimension. \emph{Management Science} 67(5):2964--2984.
+
+\bibitem[{Ben-Tal et~al.(2017)Ben-Tal, Brekelmans, {den~Hertog}, \protect\BIBand{} Vial}]{BenTal_et_al_2017globalized}
+Ben-Tal A, Brekelmans R, {den~Hertog} D, Vial JP (2017) Globalized robust optimization for nonlinear uncertain inequalities. \emph{INFORMS Journal on Computing} 29(2):350--366.
+
+\bibitem[{Bertsimas \protect\BIBand{} Sim(2004)}]{bertsimas2004price}
+Bertsimas D, Sim M (2004) The price of robustness. \emph{Operations Research} 52(1):35--53.
+
+\bibitem[{DeMiguel et~al.(2009)DeMiguel, Garlappi, \protect\BIBand{} Uppal}]{demiguel2009optimal}
+DeMiguel V, Garlappi L, Uppal R (2009) Optimal versus naive diversification: How inefficient is the {$1/N$} portfolio strategy? \emph{The Review of Financial Studies} 22(5):1915--1953.
+
+\bibitem[{Guo et~al.(2025)Guo, Wang, Hu, \protect\BIBand{} Bach}]{guo2025statistical}
+Guo Z, Wang Z, Hu Y, Bach F (2025) Statistical inference for conditional group distributionally robust optimization with cross-entropy loss. \emph{arXiv preprint arXiv:2507.09905} .
+
+\bibitem[{Huang et~al.(2025)Huang, Shang, Yang, Zhou, \protect\BIBand{} Li}]{huang2025taylor}
+Huang J, Shang K, Yang Y, Zhou W, Li Y (2025) Taylor approximation of inventory policies for one-warehouse, multi-retailer systems with demand feature information. \emph{Management Science} 71(1):879--897.
+
+\bibitem[{Kannan et~al.(2023)Kannan, Bayraksan, \protect\BIBand{} Luedtke}]{Kannan_Bayraksan_Luedtke_2020residuals}
+Kannan R, Bayraksan G, Luedtke JR (2023) Residuals-based distributionally robust optimization with covariate information. \emph{Mathematical Programming} 1--57.
+
+\bibitem[{Kannan et~al.(2025)Kannan, Bayraksan, \protect\BIBand{} Luedtke}]{kannan2025data}
+Kannan R, Bayraksan G, Luedtke JR (2025) Data-driven sample average approximation with covariate information. \emph{Operations Research} .
+
+\bibitem[{Long et~al.(2023)Long, Sim, \protect\BIBand{} Zhou}]{Long_Sim_Zhou_2023robust}
+Long DZ, Sim M, Zhou M (2023) Robust satisficing. \emph{Operations Research} 71(1):61--82.
+
+\bibitem[{Marfoq et~al.(2021)Marfoq, Neglia, Bellet, Kameni, \protect\BIBand{} Vidal}]{marfoq2021federated}
+Marfoq O, Neglia G, Bellet A, Kameni L, Vidal R (2021) Federated multi-task learning under a mixture of distributions. \emph{Advances in neural information processing systems} 34:15434--15447.
+
+\bibitem[{Mo et~al.(2024)Mo, Tang, Xue, Liu, \protect\BIBand{} Zhu}]{mo2024minimax}
+Mo W, Tang W, Xue S, Liu Y, Zhu J (2024) Minimax regret learning for data with heterogeneous subgroups. \emph{arXiv preprint arXiv:2405.01709} .
+
+\bibitem[{Notz \protect\BIBand{} Pibernik(2022)}]{notz2022prescriptive}
+Notz PM, Pibernik R (2022) Prescriptive analytics for flexible capacity management. \emph{Management Science} 68(3):1756--1775.
+
+\bibitem[{Sim et~al.(2024)Sim, Tang, Zhou, \protect\BIBand{} Zhu}]{sim2024analytics}
+Sim M, Tang Q, Zhou M, Zhu T (2024) The analytics of robust satisficing: predict, optimize, satisfice, then fortify. \emph{Operations Research}.
+
+\bibitem[{Wang et~al.(2025)Wang, B{\"u}hlmann, \protect\BIBand{} Guo}]{wang2025distributionally}
+Wang Z, B{\"u}hlmann P, Guo Z (2025) Distributionally robust learning for multi-source unsupervised domain adaptation. \emph{The Annals of Statistics} .
+
+\bibitem[{Zhu et~al.(2022)Zhu, Xie, \protect\BIBand{} Sim}]{Zhu_Xie_Sim_2021joint}
+Zhu T, Xie J, Sim M (2022) Joint estimation and robustness optimization. \emph{Management Science} 68(3):1659--1677.
+
+\end{thebibliography}

@@ -1,0 +1,25 @@
+\frametitle{Literature Review}
+
+Most of the above-mentioned work consider stochastic optimization, we next review the framework of data-driven distributionally robust optimization (DRO).
+
+\begin{block}{Data-driven DRO without side information}
+\textbf{DRO}: \citet{mohajerin2018data}, \citet{gao2024wasserstein}, \citet{shafieezadeh2019regularization} and \citet{blanchet2019robust}. \\
+
+\textbf{Robust Satisficing}: \citet{long2023robust} and \citet{sim2021new}.
+
+\end{block}
+
+\vspace{0.25cm}
+
+\begin{block}{Data-driven DRO with side information}
+
+\citet{bertsimas2023dynamic}, \citet{hao2020robust}, \citet{kannan2024residuals}, \citet{nguyen2024robustifying}, \citet{sim2024analytics} and \alert{our work}.
+\end{block}
+
+\vspace{0.25cm}
+
+This paper first proposes a general \alert{robust actionable prescriptive analytics framework}:
+\begin{itemize}
+      \item \alert{Tree-based static and affine mappings from side information} to feasible operational decisions
+      \item  \alert{Robust satisficing} to mitigate data uncertainty.
+\end{itemize}

@@ -1,0 +1,884 @@
+\documentclass{beamer}
+\usepackage{amsfonts,amsmath,oldgerm,mathrsfs,booktabs}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{adjustbox} % 在导言区加
+\usetheme{sintef}
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+\usepackage{bm}
+% \mb for mathbf
+\newcommand{\mb}[1]{{\mathbf{#1}}}
+\newcommand{\mbh}[1]{{\hat{\mathbf{#1}}}}
+\newcommand{\mbb}[1]{{\bar{\mathbf{#1}}}}
+\newcommand{\mbu}[1]{{\ubar}{\mathbf{#1}}}
+
+% for text
+\newcommand{\txbf}[1]{{\textbf{#1}}}
+\newcommand{\txit}[1]{{\textit{#1}}}
+\newcommand{\txrd}[1]{{\textcolor{sintefred}{\textbf{#1}}}}
+
+% underline + bold (safe)
+\newcommand{\ubar}[1]{\underline{\bm{#1}}}
+\newcommand{\bmu}[1]{\bm{#1}}          % 建议：向量就是粗体
+\newcommand{\bmb}[1]{\bar{\bm{#1}}}
+\newcommand{\bmh}[1]{\hat{\bm{#1}}}
+\newcommand{\bmc}[1]{\check{\bm{#1}}}
+\newcommand{\bmbh}[1]{\hat{\bar{\bm{#1}}}}
+\newcommand{\bmbt}[1]{\tilde{\bar{\bm{#1}}}}
+\newcommand{\bmt}[1]{\tilde{\bm{#1}}}
+\newcommand{\bmo}[1]{\overline{\bm{#1}}}
+
+% small math symbols (no mbox)
+\newcommand{\nmbs}[1]{{\scriptsize $#1$}}
+\newcommand{\nmbst}[1]{{\scriptsize $\tilde{#1}$}}
+\newcommand{\nmbss}[1]{{\tiny $#1$}}
+
+%%%%%%%% expectation and probability %%%%%%%%
+\newcommand{\ep}[1]{\mathbb{E}_{\mathbb{P}}\!\left[#1\right]}
+\newcommand{\ephat}[1]{\mathbb{E}_{\hat{\mathbb{P}}}\!\left[#1\right]}
+\newcommand{\ephati}[1]{\mathbb{E}_{\hat{\mathbb{P}}_i}\!\left[#1\right]}
+\newcommand{\epdag}[1]{\mathbb{E}_{\mathbb{P}^\dag}\!\left[#1\right]}
+\newcommand{\epcheck}[1]{\mathbb{E}_{\check{\mathbb{P}}}\!\left[#1\right]}
+\newcommand{\epstar}[1]{\mathbb{E}_{\mathbb{P}^\star}\!\left[#1\right]}
+
+\newcommand{\pp}[1]{\mathbb{P}\!\left\{#1\right\}}
+\newcommand{\ppstar}[1]{\mathbb{P}^\star\!\left\{#1\right\}}
+
+\newcommand{\bbp}{\mathbb{P}}
+\newcommand{\bbq}{\mathbb{Q}}
+\newcommand{\bbr}{\mathbb{R}}
+
+%%%%%%%% calligraphic sets %%%%%%%%
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+
+\usefonttheme[onlymath]{serif}
+
+\titlebackground*{assets/background}
+
+\newcommand{\hrefcol}[2]{\textcolor{cyan}{\href{#1}{#2}}}
+
+\title{Problem Statement and Model Formulation}
+% \subtitle{subtitle}
+% \course{Master's Degree in Computer Science}
+% \author{author1, author2}
+\author{Peize Li, Nankai University
+}
+% \supervisor{}
+% \IDnumber{1234567}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem Setting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page 1
+
+\begin{frame}{Multi-location Newsvendor Problem}
+
+Consider a company that manages inventory in a distribution system composed of $J$ nonidentical retailers. \\
+
+\vspace{0.3cm}
+
+\begin{itemize}
+\item Random demand ${d}_j, \forall j\in[J]$, ${\bm d} = ({d}_j)_{j \in [J]}$.
+\item Contextual information ${\bm x}_j \in \cX \subseteq \bbr^p$, such as promotions, weather and holidays. ${\mb X} = ({\bm x}_j)_{j \in [J]}$.
+\item Random variable $( {\mb X}, {\bm d})$ with joint distribution $\bbp$
+\item Conditional distribution $\bbp_{\bm d \mid \mb X}$ of $\bm d$ given $\mb X$.
+\end{itemize}
+\vspace{0.3cm}
+
+During the selling season, demand $\bm d$ realizes and incurs the overage cost $h_j$ per unit unsold inventory and lost-sale penalty cost $b_j > 0$ per unit unmet demand for retailer $j$. The total cost is $\sum_{j \in [J]} C_j (z_j,  d_j)$, where $C_j (\bm z_j, \bm d_j)$ is:
+
+{\large
+\[
+ C_j (z_j,  d_j) =  h_j (z_j - d_j)^+ + b_j (d_j -b_j)^+ 
+\]
+}
+\end{frame}
+
+% Page 2
+
+\begin{frame}{Contextual Stochastic Problem}
+
+Suppose the planner observes covariate $\mb X$ that is predictive of demand before the decision. Then, we can solve the following contextual stochastic optimization problem to find the optimal order quantity $\bm z$ conditioned on observed covariate $\mb X$ \citep{Ban_Rudin_2019big}: 
+{\large
+\begin{align}
+\min_{\bm z \geq \bm 0} \  \mathbb{E}_{\bbp_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+\label{problem: contextual stochastic optimization}
+\end{align}
+}
+\vspace{0.3cm}
+By linearity of expectation, we can decompose the expectation to:
+{\large
+\[
+\min_{\bm z \geq \bm 0} \ \sum_{j \in [J]} \mathbb{E}_{\bbp^{(j)}_{\bm d \mid \mb X}} \left[  C_j (z_j,  d_j)  \mid \mb X \right]
+\]
+}
+where $ {\bbp^{(j)}_{\bm d \mid \mb X}}$ denotes the marginal distribution of $d_j$ in $\bbp_{\bm d \mid \mb X}$. However, we do not have access to true distribution.
+
+\end{frame}
+
+
+% Page 3
+
+\begin{frame}{Separate Data Sets (Multi-source Predit-then-Optimize)}
+
+Instead of assuming an aggregated data set at disposal \citep{notz2022prescriptive}, we consider the setting that the decision maker has access to $J$ \alert{disjoint data sets collected by retailers individually}.
+
+\begin{itemize}
+    \item Each retailer $j$ is associated with a \txrd{separate data set} $S^{(j)}=\{({\bm x}_i^{(j)},{d}_i^{(j)})\}_{i = 1}^{N_j}$, where $({\bm x}_i^{(j)},{ d}_i^{(j)})$ is i.i.d. samples generated from a distinct distribution:
+    {\large
+    \[
+    {\bm x}_i^{(j)} \sim \bbp^{(j)}_{\mb X}, { d}_i^{(j)} \mid {\bm x}_i^{(j)} \sim \bbp^{(j)}_{\bm d \mid \mb X}, \quad \forall j \in [J]
+    \]
+    }
+    where $\bbp^{(j)}_{\mb X}$ denotes the distribution of $\bm x_j$, and $\bbp^{(j)}_{\bm d \mid \mb X}$ denotes the marginal distribution of ${\bm d \mid \mb X}$ for retailer $j$.
+    \item $\mb D^{(j)} = ({ d}_{1}^{(j)}, \ldots, { d}_{N_j}^{(j)}) \in \bbr^{N_j}$, $\mb X^{(j)} = ({\bm x}_{1}^{(j)}, \ldots, {\bm x}_{N_j}^{(j)})^\top \in \bbr^{N_j \times p} $ and total sample size $N = \sum_{j \in [J]} N_j$.
+    \item \txrd{Heterogenous Distibution}: $\bbp^{(j)}_{\mb X}$ and $\bbp^{(j)}_{\bm d \mid \mb X}$  can be heterogenous among retailers.
+    \item \txrd{Local data set} $\cup_{j \in [J]} S^{(j)}$, \txrd{Global data set} $\cup_{j \in [J]} S^{(j)}$.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Separate Data Sets (Multi-source Predit-then-Optimize)}
+\vspace{-0.6cm}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{aa.jpg}
+\end{figure}
+
+
+\end{frame}
+
+% Page 4
+
+\begin{frame}{Separate Data Sets (Multi-source Predit-then-Optimize)}
+
+The decision is made in two steps: First, we estimate the conditional distribution $\bbp_{\bm d \mid \mb X}$ given covariate $\mb X$. Second, we adopt a DRO approach to find a decision immunized against distribution ambiguity.
+
+\vspace{0.3cm}
+
+To obtain an estimate of marginal distribution $\bbp^{(j)}_{\bm d \mid \mb X}$, we assume the demand $d$ and the covariates $\bm x$ of a single retailer is governed by:
+
+\begin{itemize}
+    \item \txrd{Global model}: shared across all retailers
+    {\large
+    \[
+    d_{\text{global}}  = \bm x ^ \top {\bm \beta}_{\text{global}}  + \varepsilon_{\text{global}} 
+    \]
+    }
+    \item \txrd{Local model}: specific to each retailer $j$
+    {\large
+    \[
+    d_{\text{local}}^{(j)}  = \bm x ^ \top {\bm \beta}^{(j)}_{\text{local}}  + \varepsilon_{\text{local}}^{(j)}
+    \]
+    }
+    \item \txrd{Assumption}: $x^1 =1$ to allow for an intercept term, ${\bm \beta}_{\text{global}}, {\bm \beta}^{(j)}_{\text{local}} \in \bbr^p$ are the nonzero linear regression coefficients with $\|{\bm \beta}_{\text{global}}  \|_2 \leq B$ and $\| {\bm \beta}^{(j)}_{\text{local}} \|_2 \leq B$, and $\varepsilon_{\text{global}}, \varepsilon_{\text{local}}^{(j)}$ are bounded random noise with zero mean, independent of covariate $\bm x$. Note that we do not impose that $\varepsilon_{\text{local}}^{(j)}$ is independent over $j \in [J]$.
+    \end{itemize}
+
+\end{frame}
+
+% Page 4
+\section{Joint Estimator}
+
+\begin{frame}{Linear Demand Model}
+
+The global model and local models are \txrd{closely related}, in the sense that they follow similar demand pattern in a market.
+{
+\large
+\[
+{\bm \beta}^{(j)}_{\text{local}} =  {\bm \beta}_{\text{global}}  + \xi^{(j)}
+\]
+}
+where $\xi^{(j)}$ is the \txrd{bias} between the global model and local model.  This relation indicates that we can leverage global data set $\cup_{j \in [J]} S^{(j)}$ to help predict the local demand $d_{\text{local}}^{(j)}$ with careful debias.
+
+\vspace{0.3cm}
+
+If the true parameters $ {\bm \beta}^{(j)}_{\text{local}}$ and ${\varepsilon}^{(j)}_{\text{local}}$ are known, then the conditional stochastic program \eqref{problem: contextual stochastic optimization} is equivalent to:
+
+{
+\large
+\begin{equation}
+\bm v^*({\mb X}) = \ 
+\min_{ z_j \geq 0, j\in[J]}
+ \sum_{j=1}^J 
+\mathbb{E} \left[\,C_j \left( \bm z_j, \bm x_j^\top  {\bm \beta}^{(j)}_{\text{local}} + \varepsilon_{\text{local}}^{(j)} \right) \right]
+\label{problem: CSP with regression}
+\end{equation}
+}
+where the expectation is taken with respect to the distribution of $\varepsilon_{\text{local}}^{(j)}$. We cannot solve \eqref{problem: CSP with regression} directly because the $ {\bm \beta}^{(j)}_{\text{local}}$ and $\varepsilon_{\text{local}}^{(j)}$ are \alert{unknown}. 
+
+\vspace{0.1 cm}
+
+This can be extended to any machine learning method (random forest, Kernel density estimation).
+
+\end{frame}
+
+
+% Page 5
+
+\begin{frame}{Empirical Optimization Problem / Contextual Stochastic Optimization}
+
+\begin{itemize}
+    \item \txrd{Empirical Residual}: For a given ${\bm \beta}$, we define the following mapping $\hat{\varepsilon}({\bm \beta}, j, i)$:
+    \[
+    \hat{\varepsilon}({\bm \beta}, j, i)  = {d}_i^{(j)} - {\bm x}_i^{(j) \top} {\bm \beta}
+    \]
+    which show that empirical residual is dependent on the regression coefficient ${\bm \beta}$.
+    \item \txrd{Predicted Demand Sample}: we also define the following mapping $\hat{d}$ to predict the demand at any retailer:
+    \[
+    \hat{d}({\bm \beta}, {\bm x}, j, i) = \bm x ^\top \bm \beta + \hat{\varepsilon}({\bm \beta}, j, i) = (\bm x - {\bm x}_i^{(j)})^ \top {\bm \beta} + {d}_i^{(j)}
+    \]
+    The predicted demand is obtained by adjusting the historical demand at ${\bm x}_i^{(j)}$ with the predicted demand change induced by covariate shift $(\bm x - {\bm x}_i^{(j)})$.
+    \item \txrd{Predicted Empirical Distribution}: for given ${\bm \beta}$ and covariate ${\bm x}$, we can construct the predicted empirical distribution of local demand $d_j$, using empirical residuals on the data set $S^{(j)}$:
+    \[
+    \hat{\bbp}(\bm \beta,\bm x, j) = \frac{1}{N_j} \sum_{i=1}^{N_j} \delta_{\hat{d}({\bm \beta}, {\bm x}, j, i)}
+    \]
+    where $\delta_{\hat{d}({\bm \beta}, {\bm x}, j, i)}$ is a Dirac measture that places a unit mass at ${\hat{d}({\bm \beta}, {\bm x}, j, i)}$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Identification Assumption}
+
+Our goal is to estimate $ {\bm \beta}^{(j)}_{\text{local}}$ and $\varepsilon_{\text{local}}^{(j)}$ accurately from separate data sets $S^{(j)}$ for $j \in [J]$. Since we have a linear model, the \txrd{ordinary least square (OLS) estimator} is the most prevalent choice \citet{bastani2021predicting}. We make some assumptions to assure idenfication of regression coefficients:
+\begin{itemize}
+    \item \txrd{Standardization:}
+    We standardize each column $\bm x_i^{(j)}$ of $\mb X^{(j)}$ such that
+    $\|\bm x_i^{(j)}\|_2^2 = N_j$.
+    We further define the \textit{sample covariance matrix} for each $j$ as
+    \[
+        \Sigma^{(j)} = \frac{1}{N_j}\, \mb X^{(j)\top} \mb X^{(j)} .
+    \]
+    The diagonal of $\Sigma^{(j)}$ satisfies
+    $\operatorname{Diag}(\Sigma^{(j)}) = \bm 1 \in \mathbb{R}^p$. \\ This is a standard practice to normalize covariates when using regularized regression.
+
+    \item \txrd{Positive definiteness:}
+    The sample covariance matrix
+    \(
+        \Sigma^{(j)} = \frac{1}{N_j}\, \mb X^{(j)\top} \mb X^{(j)}
+    \)
+    is positive definite, with the smallest eigenvalue bounded below by
+    $\psi > 0$. \\ The second assumption is standard in statistics for idenfication for local and global estimator.
+
+    \item \txrd{Sparsity:}
+    The bias vector $\xi^{(j)}$ is sparse; that is,
+    $\|\xi^{(j)}\|_0 = s \ll p$ for each $j$. \\ The joint estimator of \citet{bastani2021predicting} is most effective when sparsity is present.
+\end{itemize}
+
+\end{frame}
+
+% Page 6
+
+\begin{frame}{Global and Local Estimator}
+
+Our goal is to estimate $ {\bm \beta}^{(j)}_{\text{local}}$ and $\varepsilon_{\text{local}}^{(j)}$ accurately from separate data sets $S^{(j)}$ for $j \in [J]$. There are two natural way to do so:
+
+\begin{itemize}
+    \item \txrd{Local Regression}. To solve a regression problem for each local data set $S^{(j)}$. 
+    {\large
+    \[
+        \hat{\bm \beta}_{\text{local}} = \arg \min_{\bm \beta} \left\{\frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 \right\}
+    \]}
+    \txrd{Drawback:} local data sets often face data scarcity, which may lead to high-variance estimation. 
+    \item \txrd{Global Regression}. To obtain a better generalization performance, an alternative way is to collaboratively train a single global estimator model on the global data set $\cup_{j \in [J]} S^{(j)}$. 
+    {\large
+    \[
+    \hat{\bm \beta}_{\text{global}} = \arg \min_{\bm \beta} \left\{ \sum_{j \in [J]} \frac{1}{N_j} \|\mb D^{(j)}  - \mb X^{(j) \top} {\bm \beta}  \|_2^2 \right\}
+    \]}
+    \txrd{Drawback:} However, such a global model may perform well on average but generalize poorly for a particular retailer $j$, because there are distributional heterogeneity \citep{guo2025statistical, mo2024minimax}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Global and Local Estimator}
+
+We can define the residual distribution by global estimator and local estimator
+
+\begin{itemize}
+    \item Global Residual distribution for retailer $j$:
+    \[
+    \hat{\bbp}(\bm \hat{\bm \beta}_{\text{global}} ,\bm x, j) = \frac{1}{N_j} \sum_{i=1}^{N_j} \delta_{\hat{d}(\hat{\bm \beta}_{\text{global}} , {\bm x}, j, i)}
+    \]
+    \item Local Residual distribution:
+    \[
+    \hat{\bbp}(\bm \hat{\bm \beta}_{\text{local}} ,\bm x, j) = \frac{1}{N_j} \sum_{i=1}^{N_j} \delta_{\hat{d}(\hat{\bm \beta}_{\text{local}} , {\bm x}, j, i)}
+    \]
+    where $\delta_{\hat{d}({\bm \beta}, {\bm x}, j, i)}$ is a Dirac measture that places a unit mass at ${\hat{d}({\bm \beta}, {\bm x}, j, i)}$.
+\end{itemize}
+\end{frame}
+
+% Page 7
+
+\begin{frame}{Joint Estimator (Regularized Regression)}
+
+We adapt the \alert{joint estimator} from \citet{bastani2021predicting} on the global and local data as follows:
+
+\begin{itemize}
+    \item \txrd{Step 1: Global Estimator}
+    We run an OLS regression on the global data set
+    $\bigcup_{j \in [J]} S^{(j)}$
+    and obtain a \textit{global estimator}
+    $\hat{\bm\beta}_{\text{global}}$ defined as
+    \begin{equation}
+        \hat{\bm\beta}_{\text{global}}
+        =
+        \arg\min_{\bm\beta}
+        \left\{
+        \sum_{j \in [J]}
+        \frac{1}{N_j}
+        \left\|
+            \mb D^{(j)} - \mb X^{(j)\top}\bm\beta
+        \right\|_2^2
+        \right\}.
+        \label{eq:global_estimator}
+    \end{equation}
+
+    \item \txrd{Step 2: Joint Estimator}
+    For each data set $S^{(j)}$, we obtain a joint estimator
+    $\hat{\bm\beta}_{\text{joint}}^{(j)}$
+    via a LASSO regression.
+    The regularization term is based on the deviation between
+    the estimated coefficient
+    $\hat{\bm\beta}_{\text{joint}}^{(j)}$
+    and the global estimator
+    $\hat{\bm\beta}_{\text{global}}$. The joint estimator is a \txrd{LASSO estimator of Local Data debiased by Global Estimator}.
+    \begin{equation}
+        \hat{\bm\beta}_{\text{joint}}^{(j)}
+        =
+        \arg\min_{\bm\beta}
+        \left\{
+        \frac{1}{N_j}
+        \left\|
+            \mb D^{(j)} - \mb X^{(j)\top}\bm\beta
+        \right\|_2^2
+        +
+        \lambda^{(j)}
+        \left\|
+            \bm\beta - \hat{\bm\beta}_{\text{global}}
+        \right\|_1
+        \right\}.
+        \label{eq:joint_estimator}
+    \end{equation}
+    Here, $\lambda^{(j)} > 0$ is a \txrd{regularization parameter} that controls
+    the influence of the global estimator
+    $\hat{\bm\beta}_{\text{global}}$
+    in the joint model.
+    The \txrd{$\ell_1$-norm penalty exploits the sparsity structure} of the bias term
+    $\xi^{(j)}$.
+\end{itemize}
+
+\end{frame}
+
+
+
+% Page 9
+
+\begin{frame}{Empirical Optimization Problem}
+
+If all the joint estimators $\hat{\bm \beta}_{\text{joint}}^{(j)}$ are known, the empirical optimization problem corresponding to Problem \eqref{problem: CSP with regression} is defined as
+{
+\large
+\begin{equation}
+\begin{aligned}
+\hat{\bm v}^{\text{ER}}({\mb X}) & = \ 
+\min_{\bm z \geq \bm 0} \ \sum_{j \in [J]} \mathbb{E} \left[  C_j (z_j,  d_j)  \mid \mb X \right]
+ \\
+& = \ 
+\min_{ z_j \geq 0, j\in[J]}
+ \sum_{j=1}^J 
+ \frac{1}{N_j} \sum_{i = 1}^{N_j} 
+C_j \left( \bm z_j, \hat{d}(\hat{\bm \beta}_{\text{joint}}^{(j)}, \bm x_j, j, i)  \right) 
+\label{problem: Empirical Optimization Problem}
+\end{aligned}
+\end{equation}
+}
+where the expectation is taken with respect to the predicted empirical distribution $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(j)},\bm x_j, j)$ \citep{kannan2025data}. \\
+
+\vspace{0.3cm}
+
+\txrd{Limitation}: A limitation of the empirical optimization approach may exhibit disappointing out-of-sample performance when the sample size is limited \citep{kannan2024residuals}. To address such \alert{small-data issue}, we develop a DRO model to leverage predicted empirical distributions from multiple data sets, ensuring generalization to the specific retailer $j$.
+
+\end{frame}
+
+
+\section{Method 1: Regularization for Contextual Stochastic Optimization}
+
+\begin{frame}{1. Variation Regularization for cost function}
+
+Inspired by Joint Estimator in learning stage \citep{bastani2021predicting}, we can extend this regularization technique into Contextual Stochastic Optimization. \citet{gao2024wasserstein} proposed a Wasserstein DRO and Variation Regularization:
+{
+\Large
+\[
+\min_{f\in\mathcal{F}}\left\{\mathbb{E}_{z\sim\mathbb{P}_n}[f(z)]+ \alert{\rho_n\mathcal{V}_{\mathbb{P}_n,q}(f)}\right\}
+\]
+}
+
+where $\rho_n$ is regularization parameter, and $\mathcal{V}_{\mathbb{P}_n,q}(f)$ is defined as the variation of cost function $f$ with respect to an empirical distribution $\mathbb{P}_n$. Intuitively, it is \txrd{the variation magnitude of $f$ under the distribution $\mathbb{P}_n$}.
+\vspace{0.2cm}
+\\
+When the variation of loss  $\mathcal{V}_{\mathbb{P}_n,q}(f)$ is controlled, small perturbations of random data would have little impact on the expected loss and thus would not deteriorate the solution quality much. So We can bound \txrd{the difference of variation of loss} on global distribution $\mathcal{V}_{\mathbb{P}_{global},q}(f)$ and local distribution $\mathcal{V}_{\mathbb{P}_n,q}(f)$.
+
+{
+\Large
+\[
+\min_{f\in\mathcal{F}}\mathbb{E}_{z\sim\mathbb{P}_n}[f(z)]+\rho |\mathcal{V}_{\mathbb{P}_{global}}(f)-\mathcal{V}_{\mathbb{P}_{n}}(f)|
+\]
+}
+
+
+\end{frame}
+
+
+\begin{frame}{2. Entropic Regularization for Distributional Distance}
+
+Sinkhorn DRO adopts the Sinkhorn distance to construct the ambiguity set \citep{wang2025sinkhorn}. The Sinkhorn distance can be viewed as a \txrd{smoothed version} of the Wasserstein distance. It is defined as the minimum transport cost between two distributions with \txrd{entropic regularization}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{11.png}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{2. Entropic Regularization for Distributional Distance}
+
+\txrd{Regularization Term}: penalizes highly concentrated couplings, leading to more \txrd{smooth, stable} joint distribution $\gamma$.      
+\begin{equation}
+\mathcal{W}_\epsilon^{\mathrm{Ent}}(\mathbb{P},\mathbb{Q})=\mathcal{W}_\epsilon(\mathbb{P},\mathbb{Q})+ \alert{\mathbb{E}_{(x,y)\sim\gamma}\left[\log\left(\frac{\mathrm{d}\gamma(x,y)}{\mathrm{d}\mu(x)\mathrm{d}\nu(y)}\right)\right]}
+\end{equation}
+
+\txrd{Using global estimation as a regularization reference}: We can extend this idea, to choose reference measures $\mu$ as residual distribution from global estimator, i.e., $\hat{\mathbb{P}}_{\mathrm{global}}$:
+
+\[
+\begin{aligned}
+ & H(\gamma\mid \hat{\mathbb{P}}_{\mathrm{global}}\otimes\nu)=\mathbb{E}_{(x,y)\sim\gamma}\left[\log\left(\frac{\mathrm{d}\gamma(x,y)}{\mathrm{d} \hat{\mathbb{P}}_{\mathrm{global}} \mathrm{d}\nu(y)}\right)\right],
+\end{aligned}
+\]
+
+where $\hat{\mathbb{P}}_{\mathrm{global}} \ll\mu$. \\
+This should entropy term \alert{penalizes couplings that deviate too far from the product baseline} $P_{\mathrm{global}}\otimes\nu$,
+Thus, the global estimator acts as a \alert{debias term} in distributional distance.
+
+\txrd{Disadvantage:} The distributions must be absolutely continuous to reference measures.
+
+\end{frame}
+
+\begin{frame}{2. Entropic Regularization for Distributional Distance}
+
+ Then we can define a Sinkhorn DRO model as:
+
+{\large
+\begin{equation}
+\min_{\bm z \geq \bm 0} \sup_{\bbp_{\bm d \mid \mb X} \in \mathbb{B}_{\rho,\epsilon}(\widehat{\mathbb{P}}, \hat{\mathbb{P}}_{\mathrm{global}}) }  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+\label{Problem: Sinkhorn DRO model}
+\tag{\sc{Sinkhorn}}
+\end{equation}
+}
+where $\mathbb{B}_{\rho,\epsilon}(\widehat{\mathbb{P}}, \hat{\mathbb{P}}_{\mathrm{global}})$ is a Sinkhorn-ball of radius $\rho$ centered at the nominal distribution $\hat{\bbp}$ \txrd{regularized by deviation from} $\hat{\mathbb{P}}_{\mathrm{global}}$.
+\[
+\mathbb{B}_{\rho,\epsilon}(\widehat{\mathbb{P}}, {\mathbb{P}}):=\left\{\mathbb{P}:\mathcal{W}_\epsilon(\widehat{\mathbb{P}},\mathbb{P})\leq\rho\right\}
+\]
+
+\end{frame}
+
+
+% Page 10
+\section{Method 2: Mixture DRO Approach}
+
+\begin{frame}{Mixture DRO Approach}
+
+We borrow ideas from the conditional group DRO framework and federate learning  \citep{marfoq2021federated, wang2025distributionally}, to define \txrd{the local distribution as mixtures from the predicted empirical distributions}. 
+
+\vspace{0.3cm}
+Based on input covariate $\mb X$, we define the mixture conditional distribution $\bbq^{(j)}_{\bm d \mid \mb X}$ as:
+\[
+\bbq^{(j)}_{\bm d \mid \mb X} = \sum_{l \in [J]} q_l^{(j)} \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\alert{\bm x_j}, l)
+\]
+where $\bm q^{(j)} \in \Delta^J$ and $\Delta^J$ denotes $(J-1)$-dimensional probability simplex.  We first \txrd{fix the input covariate $\mb X$}, and estimate the empirical distribution $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)$ \txrd{using different data set $S^{l}$ for $l \in [J]$}.
+
+\vspace{0.3cm}
+
+
+\end{frame}
+
+% Page 11
+
+\begin{frame}{Mixture DRO Approach}
+
+We borrow ideas from the conditional group DRO framework and feaderate learning  \citep{marfoq2021federated, wang2025distributionally}, to define \txrd{the local distribution as mixtures from the predicted empirical distributions}. 
+
+\vspace{0.3cm}
+We can construct an ambiguity set $d_j$ conditioning on the observed covariate $\mb X$:
+{\large 
+\[
+\mathcal{F}_j(\mb X, \theta) = \left \{ 
+	\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{P}(\bbr_+) \ 
+	\begin{array}{|ll} 
+	\ d_j \sim \bbq^{(j)}_{\bm d \mid \mb X}	\\ 
+	\
+	\bbq^{(j)}_{\bm d \mid \mb X} = \sum_{l \in [J]} q_l^{(j)} \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)  \\
+	\ \bm q^{(j)} \in \mathcal{H}(\hat{\bm q}^{(j)} , \theta)
+	\end{array}
+	\right  \}
+\]
+}
+where the uncertainty set $\mathcal{H}(\hat{\bm q}, \theta) \subseteq \Delta^J$ is defined as:
+{\large
+\[
+\mathcal{H}(\hat{\bm q}, \theta) = \left \{ \bm q \in \bbr^J \
+\begin{array}{|ll} \
+	\bm 1 ^\top \bm q = 1 \\
+	\ \bm q \geq \bm 0 \\
+	\ \|\bm q - \alert{\hat{\bm q}} \| \leq \alert{\theta}
+\end{array}
+\right \} 
+\]
+}
+\begin{itemize}
+    \item \txrd{Mixture weight: $\bm q$ reside in the $\theta$-neighborhood of $\hat{\bm q}$} with respect to the general norm. 
+    \item \txrd{Prior knowledge:} \txrd{$\hat{\bm q}$ is a pre-specified weight} obtained from training. 
+    \item \txrd{Robustness budget:} $\theta \geq 0$ controls the size of $\mathcal{H}(\hat{\bm q}, \theta)$.
+\end{itemize}
+
+\end{frame}
+
+% Page 12
+
+\begin{frame}{Mixture DRO Approach}
+
+Then, the ambiguity set for the joint distribution of demand $\bm d$ given covariate $\mb X$ is:
+{\large
+\begin{equation}
+\mathcal{F}(\mb X, \theta) = \left \{ 
+	\bbq_{\bm d \mid \mb X} \in \mathcal{P}_0(\bbr^J_+) \ 
+	\begin{array}{|ll} 
+	\ (d_1, \ldots, d_J) \sim \bbq_{\bm d \mid \mb X} \\ 
+	\ d_j \sim \bbq^{(j)}_{\bm d \mid \mb X} & \forall j \in [J] \\ \
+	\alert{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)} & \forall j \in [J] 
+	\end{array}
+	\right  \}
+\label{Conditioanl Ambiguity Set}
+\tag{\sc{Mixture}}
+\end{equation}
+}
+
+With the defined ambiguity set and observed covariate $\mb X$, we formulate the following contextual DRO model to minimize the worst-case expected total cost:
+{\large
+\begin{equation}
+\hat{\bm v}^{\text{DRO}}({\mb X})  = \min_{\bm z \geq \bm 0} \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+\label{Problem: DRO model}
+\tag{\sc{DRO}}
+\end{equation}
+}
+We also denote an optimal solution to Problem \eqref{Problem: DRO model} as $\hat{\bm z}^{\text{DRO}}({\mb X})$.
+
+\end{frame}
+
+
+% Page 14 
+\begin{frame}{Problem Reformulation}
+
+% There may exist closed-form solutions
+We first consider the classic DRO formulation.
+{\large
+\begin{equation}
+\hat{\bm v}^{\text{DRO}}({\mb X})  = \min_{\bm z \geq \bm 0} \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[\sum_{j \in [J]}   C_j (z_j,  d_j)  \mid \mb X \right] 
+\tag{\sc{DRO}}
+\end{equation}
+}
+
+Given $\mathcal{F}(\mb X, \theta)$ in \eqref{Conditioanl Ambiguity Set}, we have equivalently(from Proposition 1 in \citet{hu2025budget}):
+
+\begin{equation}
+\hat{\bm v}^{\mathrm{DRO}}(\mb X)
+=
+\left\{
+\begin{aligned}
+\min_{\bm\tau,\,\bm z} \quad
+& \sum_{j \in [J]} \tau_j \\
+\text{s.t.} \quad
+& \sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}
+\mathbb{E}_{\bbq^{(j)}_{\bm d \mid \mb X}}
+\!\left[
+    C_j(z_j, d_j) \mid \mb X
+\right]
+\le \tau_j,
+\quad \forall j \in [J], \\
+& \bm z \ge \bm 0,\quad \bm\tau \ge \bm 0 .
+\end{aligned}
+\right.
+\end{equation}
+
+
+\end{frame}
+
+% Page 15
+\begin{frame}{Problem Reformulation}
+
+\begin{itemize}
+    \item By linearity of expectation, we can write \eqref{Problem: DRO model} as:
+    \[
+    \hat{\bm v}^{\text{DRO}}({\mb X})  = \min_{\bm z \geq \bm 0} \sum_{j \in [J]} \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[  C_j (z_j,  d_j)  \mid \mb X \right] 
+    \]
+    \item We introduce epigraphical variable $\tau_j$ for all $j \in [J]$ to represent the worst-case expected cost for retailer $j$.
+    \item  By definition of \eqref{Conditioanl Ambiguity Set} ambiguity set, for any $\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)$, there exist $\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta) ,\forall j\in [J]$ to constitute the joint distribution $\bbq_{\bm d \mid \mb X} $.
+    \[
+    \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right]
+    \]
+    \item Conversely, for any $\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta), \forall j\in [J]$, we can construct a joint distribution $\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)$ so that:
+    \[
+    \sup_{\bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right]
+    \]
+    This completes the proof.
+\end{itemize}
+
+% There may exist closed-form solutions
+
+\end{frame}
+
+
+% Page 17
+\begin{frame}{Problem Reformulation}
+We next aim to transform the Problem (6) into a convex optimization problem. % There may exist closed-form solutions
+We consider the reformulation of the following constraint:
+\begin{equation}
+\sup_{\bbq^{(j)}_{\bm d \mid \mb X} \in \mathcal{F}_j(\mb X, \theta)}  \mathbb{E}_{\bbq^{(j)}_{\bm d \mid \mb X}} \left[ C_j (z_j,  d_j)  \mid \mb X \right] \leq \tau_j
+\label{eq: formulated constraint}
+\end{equation}
+
+For notational simplicity, we drop the subscript $j$ and write $\hat{\bbp}^{(j)}_l = \hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x_j, l)$. By definition,\txrd{$\bbq_{\bm d \mid \mb X}$ is a mixture distribution of $\hat{\bbp}(\hat{\bm \beta}_{\text{joint}}^{(l)},\bm x, l)$}.
+\[
+\mathbb{E}_{\bbq_{\bm d \mid \mb X}} \left[ C (\bm z,  d)  \mid \mb X \right] = \sum_{l \in [J]}  {q}_l \mathbb{E}_{\hat{\bbp}_l}[C (\bm z,  d)]
+\]
+Then the left-hand term can be simplified as
+\[
+\left\{
+\begin{aligned}
+\sup_{\bm q} \quad
+& \sum_{l \in [J]} q_l \,
+\mathbb{E}_{\hat{\bbp}_l}\!\left[ C(\bm z, d) \right] \\
+\text{s.t.} \quad
+& \bm 1^\top \bm q = 1, \\
+& \|\bm q - \hat{\bm q}\| \le \theta, \\
+& \bm q \ge \bm 0 .
+\end{aligned}
+\right.
+\]
+\end{frame}
+
+% Page 18
+\begin{frame}{Problem Reformulation}
+By the definition of dual norm, we substitute the norm constraint by the following:
+\[
+\bm y^\top (\bm q - \hat{\bm q}) \le \theta,
+\quad \forall\, \bm y \text{ such that } \|\bm y\|_* \le 1 .
+\]
+Then we can write the Lagrangian of the problem by introducing dual variable $\lambda \in \bbr$ and $\bm \nu \in \bbr^J_+$:
+	\[
+	L(\bm q, \lambda, \bm \nu, \bm y)= \mb E ^\top \bm q + \lambda (1 -  \bm 1^\top \bm q) + \theta - \bm y ^ \top (\bm q - \hat{\bm q})  + \bm \nu^\top \bm q 
+	\]
+where \txrd{we use $ \mb E ^\top \bm q $ to denote $\sum_{l \in [J]}  {q}_l \mathbb{E}_{\hat{\bbp}^{}_l}[C (\bm z,  d)]$} for short. By rearranging the terms, we have:
+\[
+	L(\bm q, \lambda, \bm \nu, \bm y) = (\mb E - \lambda \bm 1 - \bm y + \bm \nu )^\top \bm q + \lambda + \theta - \bm y ^\top \hat{\bm q}
+\]
+The result dual problem is:
+\[
+\left\{
+\begin{aligned}
+\inf_{\lambda,\, \bm\nu \ge \bm 0} \quad
+& \lambda + \theta
+- (\mb E - \lambda \bm 1 + \bm\nu)^\top \hat{\bm q}
+ \\
+\text{s.t.} \quad
+& \|\mb E - \lambda \bm 1 + \bm\nu\|_* \le 1 .
+\end{aligned}
+\right.
+\]
+
+\end{frame}
+
+
+% Page 19
+\begin{frame}{Problem Reformulation}
+Given $\mathcal{F}(\mb X, \theta)$ in \eqref{Conditioanl Ambiguity Set},
+the Problem \eqref{Problem: DRO model} is equivalent to the following convex optimization problem:
+\begin{equation}
+\hat{\bm v}^{\mathrm{DRO}}(\mb X)
+=
+\left\{
+\begin{aligned}
+\min_{\bm\tau,\, \bm z,\, \{\lambda_j, \bm\nu_j\}_{j=1}^J} \quad
+& \sum_{j \in [J]} \tau_j \\
+\text{s.t.} \quad
+& \lambda_j
+- (\mb E_j - \lambda_j \bm 1 + \bm\nu_j)^\top \hat{\bm q}
++ \theta
+\le \tau_j,
+\quad \forall j \in [J], \\
+& \|\mb E_j - \lambda_j \bm 1 + \bm\nu_j\|_* \le 1,
+\quad \forall j \in [J], \\
+& \lambda_j \in \mathbb{R}, \quad \bm\nu_j \ge \bm 0,
+\quad \forall j \in [J], \\
+& \bm z \ge \bm 0, \quad \bm\tau \ge \bm 0 .
+\end{aligned}
+\right.
+\label{Problem:SummationDRO}
+\end{equation}
+
+\begin{itemize}
+    \item \txrd{Advantage of Empirical distribution}: Note that we write  $ \mb E_j =(\mathbb{E}_{\hat{\bbp}^{(j)}_l}[C_j (z_j,  d_j)])_{l\in [J]}$. The expectation over empirical distribution is computationally tractable:
+    \[
+    \mathbb{E}_{\hat{\bbp}^{(j)}_l}[C_j (z_j,  d_j)] = \frac{1}{N_j}[C_j (z_j,  d_j)] = \frac{1}{N_j} \sum_{i = 1}^{N_j} 
+    C_j \left( \bm z_j, \hat{d}(\hat{\bm \beta}_{\text{joint}}^{(j)}, \bm x_j, j, i) \right)
+    \] 
+    \item \txrd{Disadvantage of Empirical distribution}: the empirical distribution is finitely supported, so the worst-case distribution is a discrete distribution. When the underlying true distribution is continuous, this may induce overly conservative solutions.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Potential Outcomes}
+
+\begin{itemize}
+    \item \txrd{Conjecture: $z^*$ for Problem \eqref{Problem: DRO model} for any retailer is a weighted average of individual empirical newsvendor solution}. 
+    There may exist \txrd{closed-form solution} that for some $j \in [J]$, $\bm q^* \in \mathcal{H}(\hat{\bm q}, \theta)$:
+    \[
+    z^* = \arg \min_z \sum_{l \in [J]} {q}_l^* \mathbb{E}_{\hat{\bbp}_l}[C (\bm z, d)] = \sum_{l \in [J]} {q}_l^* z^{(l)}
+    \]
+    where \txrd{$z^{(l)}$ is empirical newsvendor solution for $l-$th SAA}:
+    \[
+    z^{(l)} = \arg \min_z \mathbb{E}_{\hat{\bbp}_l}[C (\bm z, d)] 
+     = \inf\left\{z:\hat{F}_{l}(z)\geq\frac{b}{b+h}\right\}
+    \]
+    $\hat{F}_{l}$ is the empirical cumulative distribution
+    function (cdf) of the demand from the $l-th$ dataset.
+\end{itemize}
+
+
+\end{frame}
+
+
+% Page 13
+\begin{frame}{Mixture DRO Approach}
+
+\begin{itemize}
+    \item \txrd{Extension 1: Budget-driven DRO} \citep{hu2025budget}. Given a budget $\tau_j$ for each $j$ and maximize the robustness budget $\theta$.
+    \[
+    \theta^*(\bm\tau)
+    =
+    \left\{
+    \begin{aligned}
+    \sup_{\theta} \quad & \theta \\
+    \text{s.t.} \quad
+    & \sup_{\substack{
+    \bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)
+    }}
+    \mathbb{E}_{\bbq_{\bm d \mid \mb X}}
+    \!\left[
+        C_j(\bm z_j, d_j) \mid \mb X
+    \right]
+    \leq \tau_j,
+    \quad \forall j \in [J], \\
+    & \theta \ge 0 .
+    \end{aligned}
+    \right.
+    \]
+
+    \item \txrd{Extension 2: Robust Satisficing} \citep{sim2024analytics}. Given a budget $\tau_j$ for each $j$, and minimize the fragility measure. We can further account for the uncertainty in regression coefficients $\bm \beta$. 
+    \[
+    \kappa^*(\bm\tau)
+    =
+    \left\{
+    \begin{aligned}
+    \min_{\kappa} \quad & \kappa \\
+    \text{s.t.} \quad
+    & \mathbb{E}_{\bbq_{\bm d \mid \mb X}}
+    \!\left[
+        C_j(\bm z_j, d_j) \mid \mb X
+    \right] - \tau_j
+    \leq \kappa (\|\bm q - \hat{\bm q}\| - \theta)^+  ,
+    \quad \forall  \bbq_{\bm d \mid \mb X}, j \in [J], \\
+    & \kappa \ge 0 .
+    \end{aligned}
+    \right.
+    \]
+
+    \item \txrd{Extension 3: Minimum volume confidence set} \citep{lou2024estimation}:  $\mathcal{H}(\hat{\bm q}, \theta) \Rightarrow  \mathcal{H}(\hat{\bm q}, \mb D, \theta)$.
+    \[
+    \mathcal{H}(\hat{\bm q}, \mb D, \theta) =
+    \mathcal{H}(\hat{\bm q}, \theta) = \left \{ \bm q \in \Delta^L \
+    \begin{array}{|ll} \
+        \ \|\alert{\mb D^-} (\bm q - \alert{\hat{\bm q}}) \| \leq \alert{\theta}
+    \end{array}
+    \right \} 
+    \]
+
+\end{itemize}
+
+\end{frame}
+
+%Page20
+
+\begin{frame}{Mixture DRO Approach}
+
+\begin{itemize}
+    \item \txrd{Extension 3: Minimum volume confidence set (MVCS)} \citep{lou2024estimation}:  $\mathcal{H}(\hat{\bm q}, \theta) \Rightarrow  \mathcal{H}(\hat{\bm q}, \mb D, \theta)$.
+    \[
+    \mathcal{H}(\hat{\bm q}, \mb D, \theta) =
+    \mathcal{H}(\hat{\bm q}, \theta) = \left \{ \bm q \in \Delta^L \
+    \begin{array}{|ll} \
+        \ \|\alert{\mb D^-} (\bm q - \alert{\hat{\bm q}}) \| \leq \alert{\theta}
+    \end{array}
+    \right \} 
+    \]
+    Similar to \citet{lou2024estimation}, we can construct MVCS problem:
+        \[
+    \mb D^*(\bm\tau)
+    =
+    \left\{
+    \begin{aligned}
+    \inf \quad & {\det} (\mb D) \\
+    \text{s.t.} \quad
+    & \sup_{\substack{
+    \bbq_{\bm d \mid \mb X} \in \mathcal{F}(\mb X, \theta)
+    }}
+    \mathbb{E}_{\bbq_{\bm d \mid \mb X}}
+    \!\left[
+        C_j(\bm z_j, d_j) \mid \mb X
+    \right]
+    \leq \tau_j,
+    \quad \forall j \in [J], \\
+    & \mathbf{D}\succeq \boldsymbol{r}
+    \end{aligned}
+    \right.
+    \]
+    
+
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[allowframebreaks]{References}
+\tiny
+\bibliographystyle{apalike}
+\bibliography{bibliography}
+\end{frame}
+
+\backmatter
+\end{document}
