@@ -90,7 +90,7 @@
 
 ### CSO formulation
 
-- 假设delivery deviation是随机变量，$\tilde{\mathbf{d}}=(\tilde{d}_{k\ell})_{k\in\mathcal{K},\ell\in\mathcal{L}}\sim\mathbb{P}$；只和各个location-carrier pair相关，而且$\tilde{d}_{k\ell}$是dicrete的，$d_{k\ell}\in\{\xi_{1},\xi_{2},\ldots,\xi_{C}\}$，并且$\xi_1<\xi_2<\cdotp\cdotp\cdotp<\xi_C$。
+- 假设delivery deviation是随机变量，$\tilde{\mathbf{d}}=(\tilde{d}_{k\ell})_{k\in\mathcal{K},\ell\in\mathcal{L}}\sim\mathbb{P}$；只和**各个location-carrier pair相关**，而且$\tilde{d}_{k\ell}$是dicrete的，$d_{k\ell}\in\{\xi_{1},\xi_{2},\ldots,\xi_{C}\}$，并且$\xi_1<\xi_2<\cdotp\cdotp\cdotp<\xi_C$。
 
 - **Covariate/State**：假设履行订单前，已经知道$\mathbf{s}=(\mathbf{s}_{k\ell})_{k\in\mathcal{K},\ell\in\mathcal{L}}$各个location-carrier pair的covariate，包括订单信息和网络状态。则contextual distribution of deviation为$\mathbb{P}(\mathbf{d|s})$，对每个location-carrier pair $(k,l)$ $\mathbb{P}_{k\ell}(d_{k\ell}|\mathbf{s}_{k\ell})$
 
