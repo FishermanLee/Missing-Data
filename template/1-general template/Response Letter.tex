@@ -1,0 +1,272 @@
+%new version
+%\documentclass[opre, blindrev]{informs4}
+%old version
+\documentclass[opre, nonblindrev]{informswp}
+\OneAndAHalfSpacedXI % current default line spacing
+%\usepackage{endnotes}
+%\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+	\leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{yhmath}
+%\usepackage{mathrsfs}
+%\usepackage{graphicx}
+%\usepackage{subfig}
+%\usepackage{epsfig}
+%\usepackage{bbm}
+%\usepackage{color}
+\usepackage{multirow}
+\usepackage{booktabs,comment}
+\usepackage{soul}
+%\usepackage{longtable}
+\usepackage{float}
+%\usepackage{epstopdf} 
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{CJKutf8}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+%\usepackage{enumitem}
+\usepackage{array,makecell}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref,footnote}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=black!70!green,          % color of internal links
+	citecolor=black!70!green,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=black!70!green,           % color of external links
+	linktocpage=true
+}
+\usepackage{mathtools}
+
+\usepackage{mathrsfs}
+%%%%%%%% Bigger dot that is smaller than bullet %%%%%%%%%%
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.75}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%%%%%%%% Table cell stretch %%%%%%%%
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{tabularx}
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+
+\usepackage{color-edits}
+\addauthor{zy}{magenta}
+\addauthor{zc}{cyan}
+\addauthor{ms}{blue}
+\addauthor{jx}{brown}
+\addauthor{px}{purple}
+
+%%% code
+%\newcommand{\tr}{\text{tr}}
+\newcommand{\code}[1]{\texttt{\bfseries{#1}}}
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+%%%%%%%% indicator function, need the package ''dsfont'' %%%%%%%%
+\newcommand{\1}[1]{\mathds{1}{\left(#1\right)}}
+
+%%%%%%%% between otimes and bigotimes %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\midotimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}}
+
+%%%%%%%% vectorization, argsup & argmin %%%%%%%%
+\def\vec{\text{vec}}
+\DeclareMathOperator*{\argsup}{\arg\!\sup}
+\DeclareMathOperator*{\arginf}{\arg\!\inf}
+\DeclareMathOperator*{\esssup}{\mathbb{Q}\text{-ess\;}\!\sup}
+
+%%%%%%%%% Box at the end of the proof %%%%%%%%%
+\renewcommand{\Box}{\hfill \rule{2.3mm}{2.3mm}}
+
+%%%%%%%%% Tabular %%%%%%%%% 
+\usepackage{tabularx}
+%\usepackage{slashbox}
+%\usepackage{pict2e}
+\newcolumntype{J}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% color packages
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+
+% Code package
+\usepackage{listings}
+\lstset{
+	emph={julia},emphstyle={\color{strcolor}\bfseries},
+	keywordstyle={\color{blue}\bfseries},
+	commentstyle={\color{commentcolor}},
+	stringstyle={\color{strcolor}\bfseries},
+	language=Python, % choose the language of the code
+	basicstyle={\ttfamily\footnotesize}, % the size of the fonts that are used for the code
+	%numbers=left, % where to put the line-numbers
+	%numberstyle=\footnotesize, % the size of the fonts that are used for the line-numbers
+	%stepnumber=1, % the step between two line-numbers. If it's 1 each line will be numbered
+	%numbersep=5pt, % how far the line-numbers are from the code
+	backgroundcolor=\color{white}, % choose the background color. You must add \usepackage{color}
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+	escapeinside={\#*}{*)}, % if you want to add a comment within your code
+	keywords=[1]{for, end, if, else, function}
+}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={\$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+%\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{commentgreen}{rgb}{0, 0.475, 0.475}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	keywords = {for, in , as, import, abs, from, def},
+	morecomment=[l]{\#},%
+	commentstyle=\color[rgb]{0, 0.475, 0.475},
+	keywordstyle=\color{codegreen}\textbf,
+	stringstyle=\color{codepurple},
+	basicstyle=\linespread{1.1}\ttfamily\small, %\footnotesize,
+	breakatwhitespace=false,      
+	frame=single,	 
+	breaklines=true,       
+	numbers=left,
+	numberstyle=\scriptsize,
+	% numbersep=50pt,
+	xleftmargin=1.0ex,
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle, basewidth=0.5em}
+
+%\lstset{%
+%	language = Julia,
+%	basicstyle = \ttfamily,
+%	keywordstyle = \bfseries\color{blue},
+%	stringstyle = \color{magenta},
+%	commentstyle = \color{ForestGreen},
+%	showstringspaces = false,
+%}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Natbib setup for author-year style
+\usepackage{natbib}
+\bibpunct[, ]{(}{)}{,}{a}{}{,}%
+\def\bibfont{\small}%
+\def\bibsep{\smallskipamount}%
+\def\bibhang{24pt}%
+\def\newblock{\ }%
+\def\BIBand{and}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.80}
+
+\newcommand{\ms}[1]{{\color{commentcolor} #1}}
+\newcommand{\ztz}[1]{{\color{Mahogany} #1}}
+
+\newcommand{\comb}[1]{{\color{blue} #1}}
+
+%%%% import formatting file
+\include{preembles}
+\usepackage{bbm}
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+%%%%%%%%%%%%%%%%
+\begin{document}
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+%\RUNAUTHOR{Lou et al.}
+
+% Title or shortened title suitable for running heads. Sample:
+% \RUNTITLE{Bundling Information Goods of Decreasing Value}
+% Enter the (shortened) title:
+%\RUNTITLE{}
+
+% Full title. Sample:
+% \TITLE{Bundling Information Goods of Decreasing Value}
+% Enter the full title:
+\TITLE{Response Letter}
+
+\centerline{\large\textbf{Revision of " "}}
+
+\noindent Dear Prof. Iancu,
+
+\newpage
+
+\section*{Response to the Associate Editor}
+
+Thank you very much for your time and effort in reviewing our paper. We have benefited from your insightful comments and constructive suggestions. We are grateful for the opportunity to revise the paper, and we have made surgical changes to the paper to address the comments and concerns of you and the three referees. We have strengthened the theoretical contributions and their practical implications. Please find below our point-to-point response to your comments. We provide separate responses to each referee.
+
+[Your comments are printed in italics.]
+
+\medskip
+
+\end{document}

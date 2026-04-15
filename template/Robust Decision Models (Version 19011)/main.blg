@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: informs2014.bst
+Database file #1: reference.bib
+Warning--empty journal in chen2023occam
+Warning--empty journal in sim2024analytics
+You've used 40 entries,
+            2869 wiz_defined-function locations,
+            839 strings with 11140 characters,
+and the built_in function-call counts, 38930 in all, are:
+= -- 4034
+> -- 950
+< -- 21
++ -- 362
+- -- 313
+* -- 2843
+:= -- 4779
+add.period$ -- 76
+call.type$ -- 40
+change.case$ -- 302
+chr.to.int$ -- 41
+cite$ -- 42
+duplicate$ -- 3811
+empty$ -- 3012
+format.name$ -- 466
+if$ -- 8029
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 418
+newline$ -- 126
+num.names$ -- 160
+pop$ -- 1772
+preamble$ -- 1
+purify$ -- 264
+quote$ -- 0
+skip$ -- 781
+stack$ -- 0
+substring$ -- 4106
+swap$ -- 1087
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 354
+warning$ -- 2
+while$ -- 296
+width$ -- 0
+write$ -- 440
+(There were 2 warnings)

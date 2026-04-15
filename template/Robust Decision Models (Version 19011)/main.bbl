@@ -1,0 +1,126 @@
+\begin{thebibliography}{40}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Ahipa{\c{s}}ao{\u{g}}lu(2015)}]{ahipacsaouglu2015fast}
+Ahipa{\c{s}}ao{\u{g}}lu SD (2015) Fast algorithms for the minimum volume estimator. \emph{Journal of Global Optimization} 62:351--370.
+
+\bibitem[{Atamt{\"u}rk \protect\BIBand{} Zhang(2007)}]{atamturk2007two}
+Atamt{\"u}rk A, Zhang M (2007) Two-stage robust network flow and design under demand uncertainty. \emph{Operations Research} 55(4):662--673.
+
+\bibitem[{Azzalini \protect\BIBand{} Capitanio(1999)}]{azzalini1999statistical}
+Azzalini A, Capitanio A (1999) Statistical applications of the multivariate skew normal distribution. \emph{Journal of the Royal Statistical Society: Series B (Statistical Methodology)} 61(3):579--602.
+
+\bibitem[{Bandi \protect\BIBand{} Bertsimas(2012)}]{bandi2012tractable}
+Bandi C, Bertsimas D (2012) Tractable stochastic analysis in high dimensions via robust optimization. \emph{Mathematical Programming} 134:23--70.
+
+\bibitem[{Bar-lev \protect\BIBand{} Boukai(1985)}]{bar1985minimum}
+Bar-lev S, Boukai B (1985) Minimum variance unbiased estimation for families of distributions involving two truncation parameters. \emph{Journal of Statistical Planning and Inference} 12:379--384.
+
+\bibitem[{Ben-Tal et~al.(2017)Ben-Tal, Brekelmans, {den~Hertog}, \protect\BIBand{} Vial}]{BenTal_et_al_2017globalized}
+Ben-Tal A, Brekelmans R, {den~Hertog} D, Vial JP (2017) Globalized robust optimization for nonlinear uncertain inequalities. \emph{INFORMS Journal on Computing} 29(2):350--366.
+
+\bibitem[{Ben-Tal et~al.(2013)Ben-Tal, den Hertog, De~Waegenaere, Melenberg, \protect\BIBand{} Rennen}]{ben2013robust}
+Ben-Tal A, den Hertog D, De~Waegenaere A, Melenberg B, Rennen G (2013) Robust solutions of optimization problems affected by uncertain probabilities. \emph{Management Science} 59(2):341--357.
+
+\bibitem[{Ben-Tal et~al.(2004)Ben-Tal, Goryashko, Guslitzer, \protect\BIBand{} Nemirovski}]{Bental_Goryashko_Guslitzer_Nemirovski_2004adjustable}
+Ben-Tal A, Goryashko A, Guslitzer E, Nemirovski A (2004) Adjustable robust solutions of uncertain linear programs. \emph{Mathematical Programming} 99(2):351--376.
+
+\bibitem[{Ben-Tal \protect\BIBand{} Nemirovski(1998)}]{ben1998robust}
+Ben-Tal A, Nemirovski A (1998) Robust convex optimization. \emph{Mathematics of Operations Research} 23(4):769--805.
+
+\bibitem[{Bertsimas et~al.(2021)Bertsimas, den Hertog, \protect\BIBand{} Pauphilet}]{bertsimas2021probabilistic}
+Bertsimas D, den Hertog D, Pauphilet J (2021) Probabilistic guarantees in robust optimization. \emph{SIAM Journal on Optimization} 31(4):2893--2920.
+
+\bibitem[{Bertsimas et~al.(2018)Bertsimas, Gupta, \protect\BIBand{} Kallus}]{Bertsimas_Gupta_Kallus_2018data}
+Bertsimas D, Gupta V, Kallus N (2018) Data-driven robust optimization. \emph{Mathematical Programming} 167(2):235--292.
+
+\bibitem[{Bertsimas et~al.(2023)Bertsimas, McCord, \protect\BIBand{} Sturt}]{Bertsimas_McCord_Sturt_2022dynamic}
+Bertsimas D, McCord C, Sturt B (2023) Dynamic optimization with side information. \emph{European Journal of Operational Research} 304(2):634--651.
+
+\bibitem[{Bertsimas et~al.(2004)Bertsimas, Pachamanova, \protect\BIBand{} Sim}]{bertsimas2004robust}
+Bertsimas D, Pachamanova D, Sim M (2004) Robust linear optimization under general norms. \emph{Operations Research Letters} 32(6):510--516.
+
+\bibitem[{Bertsimas \protect\BIBand{} Sim(2004)}]{bertsimas2004price}
+Bertsimas D, Sim M (2004) The price of robustness. \emph{Operations Research} 52(1):35--53.
+
+\bibitem[{Bertsimas \protect\BIBand{} Sim(2006)}]{bertsimas2006tractable}
+Bertsimas D, Sim M (2006) Tractable approximations to robust conic optimization problems. \emph{Mathematical programming} 107(1):5--36.
+
+\bibitem[{Bertsimas \protect\BIBand{} Van~Parys(2022)}]{bertsimas2022bootstrap}
+Bertsimas D, Van~Parys B (2022) Bootstrap robust prescriptive analytics. \emph{Mathematical Programming} 195(1):39--78.
+
+\bibitem[{Boutilier \protect\BIBand{} Chan(2020)}]{boutilier2020ambulance}
+Boutilier J, Chan T (2020) Ambulance emergency response optimization in developing countries. \emph{Operations Research} 68(5):1315--1334.
+
+\bibitem[{Brown \protect\BIBand{} Sim(2009)}]{Brown_Sim_2009}
+Brown D, Sim M (2009) Satisficing measures for analysis of risky positions. \emph{Management Science} 55(1):71--84.
+
+\bibitem[{Calafiore \protect\BIBand{} Campi(2005)}]{calafiore2005uncertain}
+Calafiore G, Campi M (2005) Uncertain convex programs: Randomized solutions and confidence levels. \emph{Mathematical Programming} 102:25--46.
+
+\bibitem[{Chen et~al.(2007)Chen, Sim, \protect\BIBand{} Sun}]{chen2007robust}
+Chen X, Sim M, Sun P (2007) A robust optimization perspective on stochastic programming. \emph{Operations research} 55(6):1058--1071.
+
+\bibitem[{Chen et~al.(2023)Chen, Chua, Sim, \protect\BIBand{} Xiong}]{chen2023occam}
+Chen Z, Chua J, Sim M, Xiong P (2023) The {O}ccam's razor of robustness. \emph{SSRN 4590551}.
+
+\bibitem[{Chen et~al.(2020)Chen, Sim, \protect\BIBand{} Xiong}]{Chen_Sim_Xiong_2020robust}
+Chen Z, Sim M, Xiong P (2020) Robust stochastic optimization made easy with {RSOME}. \emph{Management Science} 66(8):3329--3339.
+
+\bibitem[{Chen \protect\BIBand{} Xiong(2023)}]{Chen_Xiong_rsome}
+Chen Z, Xiong P (2023) \uppercase{RSOME} in {P}ython: An open-source package for robust stochastic optimization made easy. \emph{INFORMS Journal on Computing} 35(4):717--724.
+
+\bibitem[{DeMiguel et~al.(2009)DeMiguel, Garlappi, \protect\BIBand{} Uppal}]{demiguel2009optimal}
+DeMiguel V, Garlappi L, Uppal R (2009) Optimal versus naive diversification: How inefficient is the {$1/N$} portfolio strategy? \emph{The Review of Financial Studies} 22(5):1915--1953.
+
+\bibitem[{El~Ghaoui et~al.(1998)El~Ghaoui, Oustry, \protect\BIBand{} Lebret}]{el1998robust}
+El~Ghaoui L, Oustry F, Lebret H (1998) Robust solutions to uncertain semidefinite programs. \emph{SIAM Journal on Optimization} 9(1):33--52.
+
+\bibitem[{Elmachtoub \protect\BIBand{} Grigas(2022)}]{Elmachtoub_Grigas_2021smart}
+Elmachtoub AN, Grigas P (2022) Smart “predict, then optimize”. \emph{Management Science} 68(1):9--26.
+
+\bibitem[{Esteban-P{\'e}rez \protect\BIBand{} Morales(2022)}]{Esteban_Morales_2021distributionally}
+Esteban-P{\'e}rez A, Morales JM (2022) Distributionally robust stochastic programs with side information based on trimmings. \emph{Mathematical Programming} 195:1069--1105.
+
+\bibitem[{Hong et~al.(2021)Hong, Huang, \protect\BIBand{} Lam}]{hong2021learning}
+Hong LJ, Huang Z, Lam H (2021) Learning-based robust optimization: Procedures and statistical guarantees. \emph{Management Science} 67(6):3447--3467.
+
+\bibitem[{Liu et~al.(2023)Liu, Chen, \protect\BIBand{} Wang}]{liu2023globalized}
+Liu F, Chen Z, Wang S (2023) Globalized distributionally robust counterpart. \emph{INFORMS Journal on Computing} 35(5):1120--1142.
+
+\bibitem[{Long et~al.(2023)Long, Sim, \protect\BIBand{} Zhou}]{Long_Sim_Zhou_2023robust}
+Long DZ, Sim M, Zhou M (2023) Robust satisficing. \emph{Operations Research} 71(1):61--82.
+
+\bibitem[{Mittal \protect\BIBand{} Hanasusanto(2022)}]{mittal2022finding}
+Mittal A, Hanasusanto GA (2022) Finding minimum volume circumscribing ellipsoids using generalized copositive programming. \emph{Operations Research} 70(5):2867--2882.
+
+\bibitem[{Peng et~al.(2020)Peng, Delage, \protect\BIBand{} Li}]{peng2020probabilistic}
+Peng C, Delage E, Li J (2020) Probabilistic envelope constrained multiperiod stochastic emergency medical services location model and decomposition scheme. \emph{Transportation Science} 54(6):1471--1494.
+
+\bibitem[{Rohatgi \protect\BIBand{} Saleh(2015)}]{rohatgi2015introduction}
+Rohatgi V, Saleh E (2015) \emph{An introduction to probability and statistics} (John Wiley \& Sons).
+
+\bibitem[{Rousseeuw \protect\BIBand{} Hubert(2011)}]{rousseeuw2011robust}
+Rousseeuw PJ, Hubert M (2011) Robust statistics for outlier detection. \emph{Wiley interdisciplinary reviews: Data mining and knowledge discovery} 1(1):73--79.
+
+\bibitem[{Sim et~al.(2024)Sim, Tang, Zhou, \protect\BIBand{} Zhu}]{sim2024analytics}
+Sim M, Tang Q, Zhou M, Zhu T (2024) The analytics of robust satisficing: predict, optimize, satisfice, then fortify. \emph{Operations Research}.
+
+\bibitem[{Sun \protect\BIBand{} Freund(2004)}]{sun2004computation}
+Sun P, Freund R (2004) Computation of minimum-volume covering ellipsoids. \emph{Operations Research} 52(5):690--706.
+
+\bibitem[{Todd(2016)}]{todd2016minimum}
+Todd MJ (2016) \emph{Minimum-volume ellipsoids: Theory and algorithms} (SIAM).
+
+\bibitem[{Van~Aelst \protect\BIBand{} Rousseeuw(2009)}]{van2009minimum}
+Van~Aelst S, Rousseeuw P (2009) Minimum volume ellipsoid. \emph{Wiley Interdisciplinary Reviews: Computational Statistics} 1(1):71--82.
+
+\bibitem[{Wang et~al.(2023)Wang, Becker, Van~Parys, \protect\BIBand{} Stellato}]{wang2023learning}
+Wang I, Becker C, Van~Parys B, Stellato B (2023) Learning decision-focused uncertainty sets in robust optimization. \emph{arXiv preprint arXiv:2305.19225} .
+
+\bibitem[{Zhu et~al.(2022)Zhu, Xie, \protect\BIBand{} Sim}]{Zhu_Xie_Sim_2021joint}
+Zhu T, Xie J, Sim M (2022) Joint estimation and robustness optimization. \emph{Management Science} 68(3):1659--1677.
+
+\end{thebibliography}

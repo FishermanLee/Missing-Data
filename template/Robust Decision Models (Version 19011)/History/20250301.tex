@@ -1,0 +1,2296 @@
+%new version
+\documentclass[mnsc, nonblindrev]{informswp}
+%old version
+%\documentclass[opre, nonblindrev]{informswp}
+\OneAndAHalfSpacedXI % current default line spacing
+%\usepackage{endnotes}
+%\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+	\leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{yhmath}
+%\usepackage{mathrsfs}
+%\usepackage{graphicx}
+%\usepackage{subfig}
+%\usepackage{epsfig}
+%\usepackage{bbm}
+%\usepackage{color}
+\usepackage{multirow}
+\usepackage{booktabs,comment}
+\usepackage{soul}
+%\usepackage{longtable}
+\usepackage{float}
+%\usepackage{epstopdf} 
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{CJKutf8}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+%\usepackage{enumitem}
+\usepackage{array,makecell}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref,footnote}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=black!70!green,          % color of internal links
+	citecolor=black!70!green,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=black!70!green,           % color of external links
+	linktocpage=true
+}
+\usepackage{mathtools}
+
+\usepackage{mathrsfs}
+%%%%%%%% Bigger dot that is smaller than bullet %%%%%%%%%%
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.75}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%%%%%%%% Table cell stretch %%%%%%%%
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\usepackage{tabularx}
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+
+\usepackage{color-edits}
+\addauthor{zy}{magenta}
+\addauthor{zc}{cyan}
+\addauthor{ms}{blue}
+\addauthor{jx}{brown}
+\addauthor{px}{purple}
+
+
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+%%%%%%%% indicator function, need the package ''dsfont'' %%%%%%%%
+\newcommand{\1}[1]{\mathds{1}{\left(#1\right)}}
+
+%%%%%%%% between otimes and bigotimes %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\midotimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}}
+
+%%%%%%%% vectorization, argsup & argmin %%%%%%%%
+\def\vec{\text{vec}}
+\DeclareMathOperator*{\argsup}{\arg\!\sup}
+\DeclareMathOperator*{\arginf}{\arg\!\inf}
+\DeclareMathOperator*{\esssup}{\mathbb{Q}\text{-ess\;}\!\sup}
+
+%%%%%%%%% Box at the end of the proof %%%%%%%%%
+\renewcommand{\Box}{\hfill \rule{2.3mm}{2.3mm}}
+
+%%%%%%%%% Tabular %%%%%%%%% 
+\usepackage{tabularx}
+%\usepackage{slashbox}
+%\usepackage{pict2e}
+\newcolumntype{J}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% color packages
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\code}[1]{\texttt{\bfseries{#1}}}
+\usepackage{listings}
+\lstset{
+	emph={julia},emphstyle={\color{strcolor}\bfseries},
+	keywordstyle={\color{blue}\bfseries},
+	commentstyle={\color{commentcolor}},
+	stringstyle={\color{strcolor}\bfseries},
+	language=Python, % choose the language of the code
+	basicstyle={\ttfamily\footnotesize}, % the size of the fonts that are used for the code
+	%numbers=left, % where to put the line-numbers
+	%numberstyle=\footnotesize, % the size of the fonts that are used for the line-numbers
+	%stepnumber=1, % the step between two line-numbers. If it's 1 each line will be numbered
+	%numbersep=5pt, % how far the line-numbers are from the code
+	backgroundcolor=\color{white}, % choose the background color. You must add \usepackage{color}
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+	escapeinside={\#*}{*)}, % if you want to add a comment within your code
+	keywords=[1]{for, end, if, else, function}
+}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={\$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+%\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{commentgreen}{rgb}{0, 0.475, 0.475}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	keywords = {for, in , as, import, abs, from, def},
+	morecomment=[l]{\#},%
+	commentstyle=\color[rgb]{0, 0.475, 0.475},
+	keywordstyle=\color{codegreen}\textbf,
+	stringstyle=\color{codepurple},
+	basicstyle=\linespread{1.1}\ttfamily\small, %\footnotesize,
+	breakatwhitespace=false,      
+	frame=single,	 
+	breaklines=true,       
+	numbers=left,
+	numberstyle=\scriptsize,
+	% numbersep=50pt,
+	xleftmargin=1.0ex,
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle, basewidth=0.5em}
+
+% code package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Natbib setup for author-year style
+\usepackage{natbib}
+\bibpunct[, ]{(}{)}{,}{a}{}{,}%
+\def\bibfont{\small}%
+\def\bibsep{\smallskipamount}%
+\def\bibhang{24pt}%
+\def\newblock{\ }%
+\def\BIBand{and}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+\definecolor{ballblue}{rgb}{0.13, 0.67, 0.80}
+
+%%%% import formatting file
+\include{preembles}
+\usepackage{bbm}
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%%%%%%%%%%%%%%%%
+	%\RUNAUTHOR{Sim et al.}
+	\RUNTITLE{Estimation and Prediction for Robust Models}
+	%\TITLE{Robust Decision Models \\ \Large A Unifying Framework with Estimation and Prediction}
+        \TITLE{Estimation and Prediction Procedures for \\
+        Unified Robust Decision Models}
+	\ARTICLEAUTHORS{%
+        \AUTHOR{Zhiyuan Lou}
+        \AFF{School of Management, Technical University of Munich\\
+        \EMAIL{zhiyuan.lou@tum.de}}
+        \AUTHOR{Zhi Chen}
+        \AFF{Department of Decisions, Operations and Technology, The Chinese University of Hong Kong\\
+        \EMAIL{zhi.chen@cuhk.edu.hk}}
+        \AUTHOR{Melvyn Sim}
+        \AFF{Department of Analytics \& Operations (DAO), NUS Business School, National University of Singapore\\
+        dscsimm@nus.edu.sg}
+        \AUTHOR{Jingui Xie}
+        \AFF{School of Management, Technical University of Munich\\
+        Munich Data Science Institute, Technical University of Munich\\       \EMAIL{jingui.xie@tum.de}}
+        \AUTHOR{Peng Xiong}
+        \AFF{Department of Analytics \& Operations (DAO), NUS Business School, National University of Singapore\\
+        bizxio@nus.edu.sg}
+} % end of the block
+
+\ABSTRACT{Over the past two decades, robust optimization techniques have efficiently addressed decision problems under uncertainty, offering high assurance of feasibility without being overly conservative. However, research on estimating parameters for robust decision models from data is relatively scarce. In this paper, we focus on a unified framework for robust decision models that integrate robust optimization and robust satisficing paradigms. In particular, we identify two layers of uncertainty: \textit{outcome uncertainty}, involving deviations from specified inputs based on historical data, and \textit{estimation uncertainty}, addressing deviations from latent input vectors (such as the unobservable true mean). We introduce estimation and prediction procedures tailored to reduce conservativeness while enhancing feasibility within this unified robust decision framework. Specifically, we introduce the concept of a \textit{minimum volume confidence set} that minimizes the size of the outcome confidence set while considering the likelihood of infeasibility, thereby improving the precision of uncertainty characterization. This method also accommodates asymmetric uncertainty. Moreover, our framework incorporates an affine predictive model that leverages side information to improve input vector predictions, seamlessly integrating into robust decision models. Our method has been implemented in the algebraic modeling toolbox, RSOME, facilitating practical applications.
+}
+
+\KEYWORDS{outcome uncertainty, estimation uncertainty, predictive and prescriptive analytics, robust satisficing, side information.}
+\HISTORY{\today.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Robust optimization offers a powerful approach to addressing decision problems under uncertainty, primarily due to its computational tractability. This method avoids the need to evaluate expectations of random variables, which can be computationally intensive and often requires knowledge of the underlying distribution.
+
+Given a cost-based attribute function \( f(\bm x, \bm z) \), where \( \bm x \in \cX \) is the \emph{here-and-now} decision vector within the feasible set \( \cX \subseteq \mathbb{R}^D \) and \( \bm z \in \cZ \) is the uncertain input vector within the support set \( \cZ \subseteq \mathbb{R}^L \). In a deterministic model, the attribute is evaluated at a specific input vector \( \bm{\hat{z}} \in \cZ \), and a constraint on the cost attribute, \( f(\bm x, \bm{\hat{z}}) \leq \tau \), may not ensure feasibility. A robust optimization model addresses uncertainty by ensuring
+\[ 
+f(\bm x, \bm z) \leq \tau \quad \forall \bm z \in \cZ(\gamma), 
+\]
+where \( \cZ(\gamma) \subseteq \cZ \) is the uncertainty set controlled by the budget parameter \( \gamma \in [0, \infty] \), such that \( \cZ(0) = \{\bmh z\} \) and \( \cZ(\infty) = \cZ \). Uncertainty sets are typically defined by the discrepancy between the actual input vector $\bm z$ and specified input vector $\bmh z$, measured by the disparity metric:
+$$
+\cZ(\gamma) = \{ \bm z \in \cZ \;|\; \Delta(\bm z, \bm{\hat{z}}) \leq \gamma \}.
+$$
+The disparity metric often takes $\Delta(\bm z, \bm{\hat{z}}) = \|\mathbf{D}^{-1}(\bm z - \bm{\hat{z}})\|$, where the matrix \( \mathbf{D} \in \mathbb{S}^L \), referred to as the deviation matrix, determines the shape of the uncertainty set, and similar to \( \bm{\hat{z}} \), it must be specified by the decision maker. The choice of the norm \( \|\cdot\| \) significantly impacts the computational tractability of the robust optimization problem. Seminal works on robust optimization, such as \cite{ben1998robust} and \cite{el1998robust}, consider the \( L_2 \)-norm, leading to quadratic formulations of the robust linear constraint. In contrast, \cite{bertsimas2004price} focus on the \( L_1 \)-norm that results in more tractable linear optimization formats.
+
+%Providing a good literature review of data-driven (distributionally) robust optimization is near impossible. The author’s current treatment is a bit encyclopedic and “survey”-like; it summarizes relevant work, but does not comment much on it. I’d strongly suggest reorganizing this literature review to stress the strengths and weaknesses of these existing approaches relative to the current proposal. To make an impact in this already dense field, the authors will have to provide a compelling comparison to state-of-the-art. Structuring the literature review around this comparison can only help their case.
+
+Despite its efficiency, robust optimization may yield conservative solutions when the parameters of the uncertainty sets are not properly determined from data. In practice, given historical data, the specified input \( \bm{\hat{z}} \) is usually the empirical mean, and \( \mathbf{D} \) corresponds to the root of the empirical covariance, regardless of the choice of norm. However, there is no approach specifically designed to estimate \( \bm{\hat{z}} \) and \( \mathbf{D} \) for different norms to reduce the conservativeness of the robust optimization model. While recent advancements, such as those in \cite{wang2023learning}, attempt related challenges, the absence of a systematic approach to norm-specific estimation motivates the first goal of our paper: {\bf to develop a data-driven method for estimating \( \bm{\hat{z}} \) and \( \mb D \) in a systematic manner}.
+
+Significant efforts have been made to construct uncertainty sets from historical data based on statistical principles while assuming the parameters to be random variables with unknown distributions. One prominent approach designs uncertainty sets based on asymptotic behavior derived from probability theory, such as the central limit theorem \citep{bandi2012tractable}. While this approach provides strong performance guarantees under large sample sizes, it can lead to overly conservative solutions in small-sample regimes, especially when the underlying distributions exhibit skewness or heavy tails.
+To mitigate such conservatism, researchers have integrated uncertainty set construction with divergence functionals \citep{ben2013robust} and hypothesis testing \citep{Bertsimas_Gupta_Kallus_2018data}.
+\cite{hong2021learning} study a statistical framework to empirically learn uncertainty sets through specified geometric shapes compatible with established robust optimization tools while employing a data-splitting validation step to calibrate the shape and size of uncertainty sets. More recently, there has been an emerging trend from the smart predict-then-optimize paradigm \citep{Elmachtoub_Grigas_2021smart}, which is an end-to-end method that couples the design of uncertainty sets with the downstream optimization problem. For instance, \cite{wang2023learning} propose a data-driven method that autonomously learns uncertainty sets by minimizing the expected performance across a parametric family of robust optimization problems while ensuring the constraint feasibility through the usage of conditional value-at-risk. Although this end-to-end method achieves less conservative solutions, it typically requires large and high-quality datasets to guarantee good performance.
+
+Our work aligns with the broader goal of reducing conservation in robust optimization but focuses on developing an estimation method given a limited number of samples. Specifically, we address the challenge of constructing norm-specific uncertainty sets without relying on restrictive distributional assumptions while ensuring stable performance in small-sample regimes.
+The proposed estimation procedure evaluates how the realized input $\bm z$ may deviate from the specified input $\bmh z$, which we term as \emph{outcome uncertainty}.
+
+Building on this, the specified input $\bmh z$ is chiefly derived from the historical data. However, due to factors such as outliers and limited or incomplete data, it is unavoidable that the estimated $\bmh z$ may deviate from the latent input vector $\zeta$ like the actual mean of unknown distributions. We term this as \emph{estimation uncertainty}. There are several attempts to bolster robustness against it in prescriptive analysis using limited data. In the realm of data-driven robust optimization, \cite{Zhu_Xie_Sim_2021joint} propose a joint estimation and robust optimization framework that employs the loss function of predictive models to construct uncertainty sets. Within the context of distributionally robust optimization, some works (see, \textit{e.g.}, \citealt{bertsimas2022bootstrap, Esteban_Morales_2021distributionally,Bertsimas_McCord_Sturt_2022dynamic}) utilize empirical conditional distributions to form the ambiguity set.
+
+While these approaches have advanced the field, there remains a lack of a unifying framework for considering both outcome uncertainty and estimation uncertainty. Going back to the work by \cite{bertsimas2004price}, robust decisions are designed with the statistical justification that they remain feasible when the input changes, for instance, ensuring 
+\[
+f(\bm x, \bm z) \leq \tau \quad \forall \bm z \in \cZ(\gamma) ~~~\Longrightarrow~~~
+\pp{f(\bm x, \bmt z) > \tau} \leq \varepsilon,
+\]
+where $\varepsilon \in (0,1)$ is some small risk threshold and $\bbp$ denotes the underlying true (but unknown) probability distribution; see also \cite{bertsimas2021probabilistic}. Outcome uncertainty is critical in capturing potential issues of infeasibility when the input changes due to stochastic nature. However, it is worth cautioning that focusing solely on this layer overlooks the impact of \emph{estimation uncertainty}---the misspecification of predictive models on specified input $\bmh z$---which can undermine feasibility guarantee and degrade performance. Therefore, another goal of this paper is {\bf to propose a unified framework that addresses two layers of uncertainties for enhancing the robustness of decision-making processes.}
+
+Beyond the traditional robust optimization, the paradigm of robust satisficing has emerged in recent years. The foundational idea of robust satisficing is introduced by \cite{Brown_Sim_2009}, where the performance of the model is optimized with respect to specific targets. \cite{BenTal_et_al_2017globalized} propose the globalized robust counterpart (GRC) through the form
+$$
+f(\bm x, \bm z) \leq \tau + \kappa \min_{\bm \delta \in \cZ(\gamma)} \Delta(\bm z, \bm \delta) ~~~\forall \bm z \in \cZ,
+$$
+where $\Delta(\bm z, \bm \delta)$ measures the disparity between $\bm z$ and $\bm \delta$. Their GRC-sum model is grounded in the principle of tolerated robust satisficing while minimizing $\kappa$ given a target $\tau$. This methodology has been applied to the domain of distributionally robust optimization as well. \cite{Long_Sim_Zhou_2023robust} present a comprehensive framework and provide analytical results under Wasserstein distance. \cite{liu2023globalized} extend GRC to include distributional information beyond support. These works enable extended control and allow for some level of constraint violation, as the input vectors $\bm z$ deviate further from the uncertainty set $\cZ(\gamma)$ (resp., ambiguity set). \cite{sim2024analytics} extend the robust satisficing approach by integrating predictive analytics with side information. Our framework contributes to this line by introducing comprehensive robust constraints with the joint uncertainties.
+
+To summarize, in this paper, we build a unified framework for robust decision models that connect robust optimization and robust satisficing paradigms with two layers of uncertainties via comprehensive robust constraints. A central element of our approach is the use of disparity metrics, particularly focusing on norm-based disparity metrics. We delineate two layers of uncertainty---\emph{outcome uncertainty} and \emph{estimation uncertainty}---to enhance our decision model. The first layer, \emph{outcome uncertainty}, specifies deviations of the input vector from the specified vector, while the second layer, \emph{estimation uncertainty}, addresses deviations of the specified vector from latent input vectors, such as the actual but unobservable mean. This deviation is often due to the estimation procedure, such as model misspecification (with side information). Our two-layer approach enhances joint robustness.
+
+We introduce the notion of \textit{minimum volume confidence set} (MVCS), a novel method to determine parameters in \emph{outcome disparity metric} such as deviation matrices and specified vectors. Our MVCS approach minimizes the volume of uncertainty sets while maintaining statistical principles as constraints. It aligns with the works by \cite{hong2021learning}, aiming for smaller volume uncertainty sets to achieve larger feasible regions and less conservative decisions.
+It also relates to the minimum volume ellipsoid problem that uses ellipsoids to approximate historical data (see, \textit{e.g.}, \citealt{sun2004computation, mittal2022finding}), with applications in robust regression and outlier detection (\citealt{ahipacsaouglu2015fast, van2009minimum}). The later outlier detection paradigm can be enhanced by a minimum covariance determinant (MCD) estimator that fits a subset of data with the smallest covariance determinant (see, \textit{e.g.}, \citealt{rousseeuw2011robust}). In the MVCS problem, the objective function is a log-determinant function, ensuring computational tractability for any conic representable norms and penalty functions. The selection of norms and functions depends on the decision makers' preferences regarding uncertainties and can also serve as hyper-parameters for tuning. 
+Moreover, our MVCS approach can capture the skewness of historical data using the asymmetric disparity metric, and side information can also be incorporated. 
+To construct the \textit{estimation disparity metric} that is necessarily different from the outcome disparity metric for the sake of distinguishing two layers of uncertainty, we recommend the systematic approach recently proposed by \citealt{Zhu_Xie_Sim_2021joint}. 
+Although solving the worst-case model or general robust optimization problems can be computationally challenging, numerous approximation methods have been developed to enhance computational tractability. Therefore, this paper will not focus on the algorithmic aspects but will instead emphasize the demonstration of how the proposed problems are reformulated into (conic optimization) formats compatible with state-of-the-art commercial solvers. Processes of some key reformulations have been integrated into the algebraic modeling package, RSOME \citep{Chen_Sim_Xiong_2020robust,Chen_Xiong_rsome}.
+
+The main contributions of the paper may be summarized as follows.
+
+\begin{enumerate}
+\item We propose a unified framework that combines robust optimization and robust satisficing paradigms with two layers of uncertainty. This proposal, with joint uncertainties, offers a strong feasibility guarantee under true distribution (\textit{cf.}~\Cref{thm:StatisticalJustification}). Additionally, we advocate a unifying sequential robust satisficing decision framework to further reduce conservativeness (\textit{cf.}~Section~\ref{sec:robust_satisficing_decision_framework}).
+
+\item We introduce the MVCS approach to characterize the (asymmetrical) outcome uncertainty (\textit{cf.}~Section~\ref{sec:OutcomeUncertaintyData}),  possibly with historical data without any distributional assumption (\textit{cf.}~Section~\ref{sec:MVCSEfromData}). The corresponding problems can be transformed into convex optimization problems. We also develop in Appendix~\ref{sec:IntegerPowerCone} the integer power cone reformulation for the general $L_p$-norm confidence ball with rational number $p>1$. The integer power cone can be further re-expressed via elementary rotated second-order cones. These methods have been integrated into the Python-based algebraic modeling toolbox RSOME.
+
+\item Our framework is capable of integrating an affine predictive model with side information to both outcome uncertainty and estimation uncertainty (\textit{cf.}~Section~\ref{sec:prediction_with_side_info}).
+
+\item We conduct a numerical study to present the encouraging performance of the MVCS approach in terms of its robustness to outliers and its adaptability in capturing asymmetry and incorporating side information. We also apply our framework to a resource allocation problem and showcase its competitive performance compared to the sample average approach and robust decision-making models employing benchmark estimation techniques, including empirical and MCD estimators.
+\end{enumerate}
+
+%small paragraph to discuss closely related work.
+
+The rest of this paper is structured as follows. Sections~\ref{sec:uncertainty_metric_RO} and \ref{sec:robust_satisficing_decision_framework} introduce the unifying framework with the comprehensive robust constraints. In Section~\ref{sec:OutcomeUncertaintyData}, we formulate the MVCS problem and present analytical solutions, establishing connections to existing prediction methodologies. The data-driven MVCS approach is discussed in Section~\ref{sec:MVCSEfromData}. Section~\ref{sec:EstimatioUncertaintyData} illustrates the construction of estimation uncertainty. Section~\ref{sec:prediction_with_side_info} extends our framework to integrate the prediction with side information. Numerical results are presented in Section~\ref{sec:case_study}, and Section~\ref{sec:con} concludes the paper.
+\medskip
+
+\noindent\textbf{Notation.} $\;$
+We use boldface uppercase and lowercase letters for matrices (\textit{e.g.}, $\mb D$) and vectors (\textit{e.g.}, $\bm v$), respectively. We denote by $\bbs_+^n$ ($\bbs_{++}^n$) the space of $n \times n$ positive semidefinite (positive definite) matrices, \ie $\bbs_+^n = \{ \mb D \in \bbr^{n \times n} | \mb D \succeq \bm 0 \}$. For $N$ a positive integer, $[N] = \{1,2,3,\ldots,N\}$ denotes the running indices. The operator $x^+ = \max\{x, 0\}$ (resp., $x^- = \max\{-x, 0\}$) signifies the positive (resp., negative) part of a variable, and can be applied element-wise to vectors, \textit{i.e.}, $\bm{v}^+$. A random variable is denoted with a tilde sign such as $\tilde{z} \sim \mathbb{P}$, $\mathbb{P} \in \mathcal{P}_0(\cZ)$, where $\mathcal{P}_0$ to represent the set of all possible distributions supported on a set $\cZ$ in the real space. We use $\mathbb{E}_{\mathbb{P}}\,[\cdot]$ to signify the corresponding expectation.
+
+% {\color{red}\noindent\textbf{A Note to Reviewers.} $\;$
+% The reviewers may be aware of the recent work by \cite{chen2023occam}, where the MVCS approach was briefly introduced for estimating only $\mb D$ given $\bmh z$ and for the case of the $L_1$-norm. Additionally, there were technical issues with asymmetric uncertainty that were not rigorous. Consequently, that work is currently under revision. Given the overlap in coauthors between the two papers, we ensure there is no duplication of results. Since the core of the work by \cite{chen2023occam} is not about estimation and prediction procedures (\ie the MVCS approach), these elements will be removed from that paper and will be fully attributed to this paper.
+% }
+
+\section{The Robust Decision Model}
+
+We focus on a decision model expressed in the following optimization format:
+\[
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau \\
+& \bm x \in \cX,
+\end{array}
+\]
+where the second element ${\bm z} \in \cZ \subset \mathbb{R}^{L}$ is the input vector of model parameters whose outcome could be uncertain. 
+Here, $\cZ$ is referred to as the \textit{input support set}, typically a convex set that delineates the underlying physical limits and includes provisions for unforeseen rare events or even \textit{black swans}---scenarios that have never occurred in the past. 
+
+For simplicity, our discussion is limited to a linear cost function while maintaining the attribute function within the constraint. However, our approach can be expanded to include models with multiple attributes, some of which may also be minimized within the decision's objective function. Note that the attribute function can be articulated as a linear optimization problem:
+$$
+f(\bm x, \bm z) = \min\left\{ \bm d^\top \bm y \;|\; \mb B \bm y \geq \mb A(\bm z) \bm x + \bm b(\bm z), \; \bm y \in \bbr^{D_2} \right\},
+$$
+where the maps $\mb A(\bm z):\bbr^{L}\rightarrow \bbr^{M_2\times D}$, $\bm b(\bm z):\bbr^{L}\rightarrow \bbr^{M_2}$ are affinely dependent on $\bm z$. Here, $\bm y$ is called the \textit{wait-and-see recourse vector} associated with the attribute function because whenever the input vector is uncertain, its optimal solution is only determined after the input vector materializes.  
+
+\subsection{Uncertainty in the Decision Model}
+\label{sec:uncertainty_metric_RO}
+
+At one end, in a deterministic decision model, uncertainty in model parameters is typically ignored, and the input vector is captured by a specified input vector $\bmh z \in \cZ$ as exemplified as follows:
+\begin{equation}
+\label{mod:DetermisticModel}
+V = \left\{
+\begin{array}{cl}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bmh z) \leq \tau \\
+&\bm x \in \cX.
+\end{array}
+\right.
+\end{equation}
+However, the solution to the deterministic decision model is fragile as it cannot even ensure the constraint feasibility when model parameters deviate from the specified input vector. 
+
+On the other end, the worst-case model replaces the deterministic constraint with the worst-case constraint
+\[
+f(\bm x, \bm z) \leq \tau ~~~\forall \bm z \in \cZ
+\]
+and solves the following problem 
+$$
+\bar V = \left\{
+\begin{array}{cll}
+\min & \bm c^\top \bm x \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \\
+&\bm x \in \cX.
+\end{array}
+\right.
+$$
+Yet, if the worst-case cost $\bar V$ is significantly higher than $V$, the worst-case solution is arguably conservative and may be deemed unacceptable. 
+
+\subsection*{Disparity Budget and Tolerance}
+
+The above discussion raises the need to balance both ends of deterministic and worst-case decision models and, more specifically, to ensure constraint feasibility while controlling the model's conservativeness. Our first attempt introduces the following comprehensive outcome robust constraint:
+\begin{equation}
+\label{equ:ROC}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ ~~~\forall \bm z \in \cZ,
+\end{equation}
+Here, $\gamma \in [0,\infty]$, referred to as \textit{outcome disparity budget}, governs the size of the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ around the specified input vector, within which feasibility of the constraint $f(\bm x, \bm z) \leq \tau$ is ensured; while $\kappa \in [0, \infty]$, referred to as \textit{outcome disparity tolerance}, articulates the tolerance to potential violations when the actual input vector does not reside in the uncertainty set $\{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z, \bmh z) \leq \gamma\}$ and by tolerating such violations, it help mitigate the conservativeness of the worst-case decision model that must obey the constraint for all $\bm z \in \cZ$. 
+
+Lying at the core of the robust constraint~\eqref{equ:ROC} is a disparity metric $\Delta(\cdot,\cdot)$ that measures the discrepancy between the actual input vector $\bm z$ and specified input vector $\bmh z$. 
+
+\begin{definition}[\textnormal{{\sc Disparity Metric}}]
+\textnormal{A function $\Delta:\bbr^L \times \bbr^{L} \rightarrow [0,\infty]$ is a disparity metric if it satisfies the following properties:
+\begin{itemize}
+\item {\bf Positive Definite}: For all $\bm z,\bm \zeta \in \bbr^L$,  $\Delta(\bm z,\bm \zeta) \geq 0$. Moreover, $\Delta(\bm z,\bm \zeta) =  0$ if and only if $\bm z = \bm \zeta$. 
+\item {\bf Convex}: $\Delta(\bm z,\bm \zeta)$ is a convex function in $\bm z,\bm \zeta \in \cZ$. 
+\end{itemize}
+A  disparity metric is coherent if it also satisfies the following properties:
+\begin{itemize}
+\item {\bf Translation Invariant}: $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \xi,\bm \zeta-\bm \xi)$ for all $\bm \xi \in  \bbr^L$.
+\item {\bf Positive Homogeneous}: $\Delta(k\bm z,k\bm \zeta) = k\Delta(\bm z,\bm \zeta)$ for all $k \geq 0$. 
+\end{itemize}
+A disparity metric is symmetric if $\Delta(\bm z,\bm \zeta)= \Delta(\bm \zeta,\bm  z)$ for all $\bm z,\bm \zeta \in \bbr^L$.
+% Any translation invariant disparity metric satisfies $\Delta(\bm z,\bm \zeta) = \Delta(\bm z-\bm \zeta,\bm 0)$ and hence, can be specified by the difference $\bm z-\bm \zeta$ between input vectors.
+}
+\end{definition}
+
+\subsection*{Outcome and Estimation Uncertainties}
+
+Equipped with the disparity metric, the robust constraint~\eqref{equ:ROC} accounts for \textit{outcome uncertainty}---the first layer of uncertainty we identify---that pertains to how the actual input vector $\bm z$ may deviate from the specified input vector $\bmh z$.
+
+Quite notably, we identify and emphasize a second layer of uncertainty, termed \textit{estimation uncertainty}, which pertains to the potential discrepancies between the specified input vector and the latent input vector that we denote as $\bm{\zeta} \in \hat{\cZ} \subseteq \mathbb{R}^L$. In this context, outcome uncertainty is now associated with how the actual input vector $\bm z$ may deviate from this latent input vector $\bm{\zeta}$ instead of the specified input vector $\bmh z$. The latent vector is typically associated with the underlying random process that generates input uncertainty, and the specified input vector $\bmh z \in \cZ$ is determined through an estimation process designed to identify this latent vector. For instance, if the input uncertainty originates from a distribution whose mean is $\bm \zeta$, then $\bmh z$ might represent the mean estimated from data. It is crucial to note that while historical samples of the input vector may be available to assess outcome uncertainty, empirical data for the latent input $\bm \zeta$ are typically not accessible.
+
+Throughout this paper, we will use the \textit{outcome disparity metric} $\Delta(\bm z, \hat{\bm z})$ to measure the discrepancy between the actual input vector $\bm z$ and the specified input vector $\hat{\bm z}$, and likewise, use the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta, \hat{\bm z})$ to measure the discrepancy between the latent input vector $\bm \zeta$ and the specified input vector $\hat{\bm z}$. These disparity metrics are fundamental building blocks for developing different types of robust decision models, and they hedge against uncertainty while ensuring that the solutions are not overly conservative compared to worst-case scenarios. For this propose, we also define the {\em outcome confidence set}
+$$
+\cB(\bmh z, \gamma) = \{ \bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma \}
+$$
+and the {\em estimation confidence set}
+$$
+\hat \cB(\bmh z, 
+\hat \gamma) = \{ \bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \}. 
+$$
+Centered at $\bmh z$, the radii of the two confidence sets are controlled by $\gamma$ and $\hat \gamma$, respectively.
+
+\subsection*{Comprehensive Robust Constraint with Joint Uncertainties}
+
+Consolidating disparity budget and tolerance as well as outcome and estimation uncertainty, in this paper we introduce the comprehensive robust constraint with both outcome and estimation uncertainties as follows:
+\begin{equation}
+\label{eq:ComprehensiveRobustConstraint}
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ
+\end{equation}
+with $\gamma, \hat \gamma, \kappa, \hat \kappa \in [0, \infty]$. Interpretations of the term $\kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+$ related to outcome uncertainty remain similar to that of the outcome robust constraint~\eqref{equ:ROC}, except now that outcome uncertainty is associated with how the actual input vector $\bm z$ would deviate from this latent input vector $\bm{\zeta}$. 
+It is noteworthy that keeping $\Delta(\bm z,\bmh z)$ will reduce constraint~\eqref{eq:ComprehensiveRobustConstraint} to constraint~\eqref{equ:ROC}, thereby eliminating the buffer against estimation uncertainty.
+Additionally, estimation uncertainty is addressed by the term 
+$\hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+$, wherein analogously, $\hat \gamma$ and $\hat \kappa$ respectively account for \textit{estimation disparity budget} and \textit{estimation disparity  tolerance}, and the \textit{estimation disparity metric} $\hat \Delta(\bm \zeta,\bmh z)$ expresses the deviation from the specified input vector $\bmh z$ to the latent input vector $\bm \zeta$. The following observations illustrate the generality of the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}.
+
+\begin{itemize}
+\item Whenever we have zero disparity tolerance (\textit{i.e.}, $\kappa = \hat \kappa = 0$) or extreme disparity budget (\textit{i.e.}, $\gamma = \hat \gamma =\infty$),  the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would recover the worst-case constraint:
+\[
+f(\bm x,\bm z) \leq \tau ~~~\forall \bm z \in \cZ.
+\]
+
+\item The case of $\hat \kappa = \infty$ and $\gamma = 0$ yields the tolerated robust constraint as in \cite{BenTal_et_al_2017globalized}:
+$$
+f({\bm x},{\bm z}) \leq \tau + \kappa  \min_{\bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \hat \gamma)} \Delta(\bm z,\bm \zeta)  ~~~\forall \bm z \in \cZ.
+$$
+
+\item When $\kappa, \hat \kappa = \infty$ and $\hat \gamma=0$ (which would enforce $\bm \zeta = \bmh z$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} would be equivalent to the following classical budgeted robust constraint:
+$$
+f({\bm x},{\bm z}) \leq \tau ~~~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma);
+$$ 
+see, \textit{e.g.}, \cite{bertsimas2004price}.
+
+\item When $\kappa, \hat \kappa = \infty$ and $\gamma = 0$ (which would enforce $\bm z = \bm \zeta$), the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} leads to another budgeted robust constraint:
+$$
+f({\bm x},{\bm \zeta}) \leq \tau \quad \quad \forall \bm \zeta \in \hat \cZ\cap \hat \cB(\bmh z, \hat \gamma),
+$$
+which appears in the joint estimation and robustness optimization framework of \cite{Zhu_Xie_Sim_2021joint} that mitigates estimation uncertainty in optimization problems with the integration of the parameter estimation procedure and the optimization problem.
+
+\item More recently, the tolerance robust satisficing model described by \cite{sim2024analytics} represents a special case of~\eqref{eq:ComprehensiveRobustConstraint} with $\gamma = \hat \gamma = 0$. Outside of the authors' focal data-driven context, this special case can be explicitly defined as the following tolerated robust constraint:
+$$
+f(\bm x,\bm z) \leq \tau + \kappa \Delta(\bm z,\bm \zeta) + \hat \kappa \hat \Delta(\bm \zeta,\bmh z) ~~~\forall \bm z \in \cZ , \; \bm \zeta \in \hat \cZ.
+$$
+\end{itemize}
+
+Indeed, any $\bm x$ feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} guarantees its feasibility to the following robust constraints:
+$$
+\begin{cases}
+f(\bm x, \bm z) \leq \tau &~\forall \bm z \in \cZ \cap \cB(\bmh z, \gamma) \\
+f(\bm x, \bm \zeta) \leq \tau &~\forall \bm \zeta \in \hat \cZ \cap \hat \cB(\bmh z, \gamma) \\
+f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma)^+ &~\forall \bm z \in \cZ \setminus  \cB(\bmh z, \gamma) \\
+f(\bm x,\bm \zeta) \leq \tau +  \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ &~\forall  \bm\zeta \in \hat \cZ \setminus \hat \cB(\bmh z, \hat \gamma). 
+\end{cases}
+$$
+Beyond these feasibility realms, the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} also possesses strong statistical justifications.
+
+\begin{theorem}
+\label{thm:StatisticalJustification}
+Consider the random variable $\bmt z\sim \bbp$, $\bbp \in \cP_0(\cZ)$, which denotes the random outcomes of the actual input vector. Suppose $\bm x$ is feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint}. Then the following infeasibility likelihood profile holds:
+$$
+\pp{f(\bm x,\bmt z) > \tau + \kappa r  + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} ~~~\forall r \geq 0, \; \bm \zeta \in \hat \cZ.
+$$
+\end{theorem}
+
+\Cref{thm:StatisticalJustification} implies that 
+$$
+\begin{cases}
+\pp{f(\bm x,\bmt z) > \tau } \leq   \pp{\bmt z \notin \cB(\bm \zeta,\gamma)} & \forall \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma) \\
+\pp{f(\bm x,\bmt z) > \tau + \kappa r } \leq  \pp{\bmt z \notin \cB(\bm \zeta,\gamma+r)} & \forall r \geq 0, \; \bm \zeta \in\hat \cZ \cap \hat \cB(\bmh z, \hat \gamma).
+\end{cases}
+$$
+At a greater deviation, $\hat \Delta(\bm \zeta,\bmh z)>\hat \gamma$, a greater constraint violation moderated by $\hat \kappa$ is necessary to ensure the same infeasibility probability bound. It should be noted that establishing the probability bound depends on knowledge of the true distribution. Even when the distribution is known, relying on a generic probability bound based on the likelihood of infeasibility within the outcome confidence set may overestimate the actual probability of infeasibility. 
+
+This is a generic bound that holds true for all attribute functions. As a result, the established probabilistic guarantees tend to be conservative. Better bounds can be obtained for specific attribute functions by imposing assumptions on the distributions, which we aim to avoid. However, this issue can be addressed through robust satisficing decision models, where the modeler can directly control the level of conservativeness by specifying performance targets.  
+
+\subsection{A Unifying Sequential Robust Satisficing Decision Framework}
+\label{sec:robust_satisficing_decision_framework}
+
+Armed with the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} parameterized by $\gamma, \kappa, \hat \gamma, \hat \kappa$---budgets and tolerances to outcome and estimation uncertainties, our unifying decision framework follows the spirit of robust satisficing (see, \textit{e.g.}, \citealt{BenTal_et_al_2017globalized}, \citealt{Long_Sim_Zhou_2023robust}) to optimize these parameters sequentially, rather than pre-specifying them as fixed. Specifically, we advocate solving sequential robust satisficing problems with \textit{intermediate} targets as follows.
+
+\begin{enumerate}[Step 1.]\addtocounter{enumi}{-1}
+\item Solve the deterministic decision model and obtain its objective value $V$ to be used as the reference for setting the intermediate targets for the subsequent robust satisficing models.
+
+\item Solve a budgeted robust satisficing problem for the first intermediate target $V_{1}\geq V$:
+\[
+\begin{array}{cll}
+\max & \gamma  \\
+\subj & f(\bm x,\bm z) \leq \tau &~\forall \bm z \in \cZ \cap \{\bm z \in \mathbb{R}^L \;|\; \Delta(\bm z,\bmh z) \leq \gamma\} \\
+& \bm c^\top \bm x \leq V_{1} \\
+& \bm x \in \cX, \; \gamma \geq 0,
+\end{array}
+\]
+and obtain the optimal $\gamma^\star$. 
+
+\item Solve a tolerated robust satisficing model that minimizes $\kappa$ for the second intermediate target $V_{2} \geq V_{1}$: 
+\[
+\begin{array}{cll} 
+\min & \kappa   \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa (\Delta(\bm z,\bmh z) - \gamma^\star)^+ &~\forall \bm z \in \cZ \\
+& \bm c^\top \bm x \leq V_{2} \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal $\kappa^\star$.
+
+\item Solve a budgeted robust satisficing model that maximizes $\hat \gamma$ for the third intermediate target $V_{3}\geq V_{2}$: 
+\[
+\begin{array}{cll} 
+\max & \hat \gamma \\
+{\subj} & f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \cap \{\bm \zeta \in \mathbb{R}^L \;|\; \hat \Delta(\bm \zeta,\bmh z) \leq \hat \gamma \} \\
+& \bm c^\top \bm x \leq V_{3} \\
+& \bm x \in  \cX, \; \hat \gamma \geq 0,
+\end{array}
+\]
+and obtain its optimal $\hat \gamma^\star$. 
+
+\item Solve a robust satisficing model that minimizes $\bmh \kappa$ for the forth intermediate target $V_{4} \geq V_{3}$: 
+\[
+\begin{array}{cll} 
+\min & \hat \kappa \\
+{\subj} &  f(\bm x,\bm z) \leq \tau +  \kappa^\star (\Delta(\bm z,\bm \zeta) - \gamma^\star)^+ + \hat \kappa (\hat \Delta(\bmh z,\bm \zeta) - \hat \gamma^\star)^+  &~\forall \bm z \in \cZ, \; \bm \zeta \in \hat \cZ \\
+& \bm c^\top \bm x \leq V_{4} \\
+& \bm x \in \cX, \; \hat \kappa \geq 0,
+\end{array}
+\]
+and obtain its optimal solution $\bm x^\star$. 
+\end{enumerate} 
+
+This approach of solving sequential robust satisficing models for tuning multiple parameters is attributed to \cite{sim2024analytics}. The approach 
+starts by solving a deterministic optimization problem to establish the minimum feasible cost $V$. This initialization presumes the specified input vector $\bmh z$ accurately mirrors the actual (uncertain) input vector.
+Progressively, the approach optimizes budgets and tolerances to outcome and estimation uncertainties. The optimization occurs sequentially with increasing intermediate target $V_{4} \geq V_{3} \geq V_{2} \geq V_{1}$ relative to $V$. This structured, incremental approach effectively addresses outcome and estimation uncertainties, informing a robust, comprehensive decision-making solution. It also simplifies parameter specification, offering decision-makers a clear and manageable progression through the model's complexities. Nevertheless, decision-makers can always articulate their budgets and tolerances to outcome and estimation uncertainties by specifying the value of any parameter among $\gamma, \hat \gamma, \kappa, \hat \kappa$. When doing so, they should skip the corresponding step among Steps~$1$-$4$.
+
+Note that in the \textit{budgeted robust satisficing} phase (Steps~$1$ and $3$), disparity budgets $\gamma$ and $\hat \gamma$ are maximized, typically by a bisection search due to the quasiconcave objective; whereas in the \textit{tolerated robust satisficing} phase (Steps~$2$ and $4$), the tolerance parameters $\kappa$ and $\hat \kappa$ are minimized through a convex optimization problem. It is also worth noting that the framework is readily applied to the reward context wherein the attribute function $f(\bm x, \bm z)$ is reward-based. Accordingly, the comprehensive robust constraint shall read as
+\[
+f(\bm x,\bm z) \geq \tau - \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ - \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ ~~~\forall \bm z \in \cZ , \, \bm \zeta \in \hat \cZ.
+\]
+
+\subsection*{An Illustration from Portfolio Optimization}
+
+Using portfolio optimization in the reward context as an example, we illustrate the rich expressiveness of the sequential robust satisficing decision framework. In the portfolio optimization problem, the random stock returns, denoted by $\bmt z \sim \bbp$, $\bbp \in \cP_0(\bbr^L)$, follow an ambiguous distribution with an unknown true mean and covariance $\bmh \Sigma \in \bbs^L_{++}$. Suppose first that the sample mean well estimates the true mean, so that the specified input vector $\bmh z$ is aligned with the sample mean $\bmh \mu$. Consider the investment decision $\bm x \in \bbr^L$ residing in $\cX = \{\bm x \in \bbr^L \;|\; \bm 1 ^\top \bm x = 1\}$. The tolerated robust satisficing model for portfolio optimization has the following representation:
+$$
+\kappa^\star = \left\{
+\begin{array}{cll}
+\min & \kappa \\
+\subj& \bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) &~\forall \bm z \in \bbr^L \\
+& \bm x \in \cX, \; \kappa \geq 0,
+\end{array}
+\right.
+$$
+which corresponds to Step~$2$ of the framework with $\cZ = \bbr^L$ that specifies $\gamma^\star = 0$ and skips Step~$1$. Here, $V$ can be viewed as some risk-free return. Suppose the outcome disparity metric is $\Delta(\bm z, \bmh z) = \|\bmh \Sigma^{-1/2}(\bm z - \bmh z)\|_2$. Using standard techniques in robust optimization to transform the constraint
+\[
+\bm x^\top \bm z  \geq V - \kappa \Delta(\bm z,\bmh z) ~~~\forall \bm z \in \bbr^L,
+\]
+the representation can be expressed as follows:
+\begin{equation}
+\label{mod:MinStdProblem}    
+\kappa^\star = \left\{ 
+\begin{array}{cll}
+\min & \displaystyle \sqrt{\bm x^\top \bmh \Sigma \bm x} \\
+\subj& \bm x^\top \bmh \mu \geq V \\
+& \bm x \in \cX,
+\end{array}
+\right.
+\end{equation}
+which turns out to be the celebrated Markowitz portfolio model that minimizes the portfolio's standard deviation.
+
+We next extend to consider estimation uncertainty where the sample mean does not coincide with the true mean and the latent vector $\bm \zeta$ is aligned with the true mean, \textit{i.e.}, $\ep{\bmt z} = \bm \zeta$. In executing the sequential robust satisficing decision framework, we can continue with the solution of the Markowitz portfolio model~\eqref{mod:MinStdProblem} for an intermediate target of $V_2$, and solve for the following tolerated robust satisficing model---Step~$4$ of the framework that specifies $\hat \gamma^\star = 0$ and skips Step~$3$---to achieve a desired return target of $V_4 \leq V_2$:
+$$
+\begin{array}{cll}
+\min & \hat \kappa \\
+\subj& \bm x^\top \bm z  \geq V_4 - \kappa^\star \Delta(\bm z,\bm \zeta) - \hat \kappa \hat \Delta(\bm \zeta,\bmh z) &~\forall \bm z, \; \bm \zeta \in \bbr^L \\
+& \bm x \in \cX, \; \hat \kappa \geq 0.
+\end{array}
+$$
+Suppose the estimation disparity metric is $\hat \Delta(\bm \zeta,\bmh z) = \|\bm \zeta -\bmh z \|_2$. We can express the above model as
+\begin{equation}
+\label{mod:MinInfiniteNormPortfolioProblem}    
+\begin{array}{cll}
+\min & \displaystyle  \|\bm x\|_2 \\
+\subj & \bm x^\top \bmh z \geq V_4 \\
+& \sqrt{\bm x^\top \bmh \Sigma \bm x} \leq \kappa^\star \\
+& \bm x \in \cX.
+\end{array}
+\end{equation}
+A well-known empirical study by \cite{demiguel2009optimal} has demonstrated that an equal-weighted portfolio $\bm x = \bm 1/L$ can potentially outperform the Markowitz portfolio. Interestingly, if the equal-weighted portfolio has an expected return exceeding $V_4$ and a standard deviation lower than $\kappa^\star$, then it would emerge as an optimal solution to Problem~\eqref{mod:MinInfiniteNormPortfolioProblem}. That being said, by adjusting $V_2$ and $V_4$ within the range of $V_4 \leq V_2$, the nature of the optimal portfolio can shift, ranging from the solution proposed by the Markowitz portfolio to an equal-weighted portfolio. 
+
+\section{Characterizing Outcome Uncertainty}\label{sec:OutcomeUncertaintyData}
+
+In this section, we explore methods to specify parameters that will characterize the outcome uncertainty within the comprehensive robust constraint. Our primary focus is on the norm-based disparity metric:
+$$
+\Delta(\bm z,\bmh z) = \| \mb D^{-1} (\bm z - \bmh z) \|,
+$$
+where $\|\cdot\|$ represents an {\em absolute norm}. 
+
+\begin{definition}[\textnormal{{\sc Absolute Norm}}]
+\textnormal{
+An absolute norm satisfies $\|\bm u\| = \| \bm v\|$ for all $\bm u \in \mathbb{R}^L$, with $v_\ell = |u_\ell|$ for each $\ell \in [L]$. The properties of the absolute norm are detailed in \cite{bertsimas2006tractable}. In particular, for any $\bm v, \bm u \in \bbr^L$ such that $v_\ell\geq |u_\ell|$ for all $\ell \in [L]$, $\|\bm v\|\geq \|\bm u\|$. Examples of absolute norms include the $L_p$-norm and the $D$-norm introduced in \cite{bertsimas2004robust}.
+}
+\end{definition}
+
+The norm-based disparity metric is a coherent disparity metric.
+We define the matrix $\mb{D} \in \mathbb{S}^L_{++}$ as the {\em deviation matrix}, which is both symmetric and positive definite. This matrix plays two crucial roles: it adjusts to the unique deviations of each input entry and ensures the outcome disparity metric is dimensionless. These features are vital for fair and consistent evaluations across different input entries, especially when they differ in units, scales, or inherent variability. Consequently, we redefine the outcome confidence set to include the dependency of the deviation matrix as follows:
+$$
+\mathcal{B}(\bmh z, \mb D, \gamma) = \{ \bm z \in \mathbb{R}^L \;|\; \| \mb D^{-1} (\bm z - \bmh z) \| \leq \gamma \}.
+$$
+The radius of the confidence set is controlled by the disparity budget $\gamma$, and its volume is affected by both $\gamma$ and the deviation matrix $\mb D$ (as we shall present subsequently).
+
+\subsection{Infeasibility Likelihood Profile and Deviation Penalty Function}
+
+The \textit{infeasibility likelihood  profile} $\varphi$ establishes the upper bound for the infeasibility probability of the outcome confidence set as follows:
+$$
+\pp{\bmt z \notin \cB(\bmh z,\mb D, \gamma)} \leq \varphi(\gamma) ~~~\forall \gamma \geq 0.
+$$
+
+To see a concrete example of the infeasibility likelihood profile, consider a special case of $\mathcal{B}(\bmh z, \mb D, \gamma) = \{ \bm z \in \mathbb{R}^L \;|\; \| \mb D^{-1} (\bm z - \bmh z) \|_2 \leq \gamma \}$. Suppose the true mean $\ep{\bmt z}$ and variance $\bm \Sigma = \ep{(\bmt z - \bmh z)(\bmt z - \bmh z)^\top}$ are known so that we can set $\bmh z = \ep{\bmt z}$ and $\mb D^2 = \mb \Sigma$. It holds that
+$$
+\pp{\bmt z \notin \cB(\bmh z, \mb D, \gamma)} \leq  \pp{\|\mb D^{-1} (\bmt{z} - \hat{\bm{z}})\|^2_2 \geq \gamma^2} \leq \frac{\ep{\|\mb D^{-1} (\bmt{z} - \hat{\bm{z}})\|^2_2}}{\gamma^2} = \varphi(\gamma) ~~~\forall \gamma \geq 0,
+$$
+where the second inequality follows from Markov inequality and the last equality is satisfied for an infeasibility likelihood profile defined as $\varphi(r) = L/r^2 ~\forall r\geq 0$, established based on the insight that 
+$$
+\ep{1/ \varphi(\|\mb D^{-1}(\bmt z - \bmh z)\|_2) } = \ep{(\bmt z - \bmh z)^\top \bm \Sigma^{-1}(\bmt z - \bmh z)/L} = 1.
+$$
+
+The infeasibility likelihood profile serves as a key tool in the statistical justification of the comprehensive robust counterpart. For example, from \Cref{thm:StatisticalJustification}, if a solution $\bm x \in \cX$ is feasible to the following comprehensive robust constraint in~\eqref{eq:ComprehensiveRobustConstraint} with $\hat \kappa = \infty$ and $\hat \gamma = 0$:
+$$
+f(\bm x,\bm z) \leq \tau + \kappa  \left(\|\mb D^{-1} (\bm{z} - \hat{\bm{z}})\| -\gamma \right)^+ ~~~\forall \bm z \in \cZ,
+$$
+then it also conforms to the tolerated chance constraint:
+$$
+\pp{f(\bm x,\bm z) > \tau + \kappa r} \leq \pp{\bmt z \notin \cB(\bmh z,\mb D, \gamma + r)} \leq \varphi(\gamma + r) \quad \forall r \geq 0.
+$$
+
+To demonstrate how the specified input vector $\bmh z$ and the deviation matrix $\mb D$ contribute to establishing the infeasibility bound of the outcome confidence set (thereby making it adaptable to various infeasibility likelihood profiles), we next introduce the \textit{deviation penalty function}. 
+
+\begin{definition}[\textnormal{{\sc Deviation Penalty Function}}]
+\textnormal{
+Associated with an infeasibility likelihood profile $\varphi$, the \textit{deviation penalty function} $ \psi:\bbr_+ \rightarrow [0,\infty]$ is a non-negative, non-decreasing and convex function such that $\psi(0)<1$ and satisfies
+$$
+\psi(r) \geq \frac{1}{\varphi(r)} ~~~\forall r \geq 0.
+$$
+Specifically, for some $p \in [1,\infty]$, a \textit{power deviation penalty function} is defined as follows:
+$$
+\psi_p(r) = \frac{r^p}{L},
+$$
+which is normalized by the uncertainty's dimension $L$.
+}
+\end{definition}
+
+\begin{theorem}
+\label{thm:chap8:ConfidenceRegionBound}
+Consider a deviation penalty function $\psi$ associated with the infeasibility likelihood profile $\varphi$. 
+Suppose the random variable  $\bmt z \sim \bbp$, $\bbp \in \cP_0(\bbr^L)$ satisfies 
+\[  
+\ep{\psi(\|\mb D^{-1}(\bmt z - \bmh z)\|)} \leq 1,
+\]
+for some $\bmh z \in \bbr^L$ and  $\mb D \in \bbs^L_{++}$. Then, the infeasibility probability bound of the outcome confidence set satisfies:
+\[
+\pp{\bmt z \notin \cB(\bmh z, \mb D, \gamma)} \leq \varphi(\gamma) ~~~\forall \gamma \geq 0.
+\]
+\end{theorem}
+
+\subsection{Minimum Volume Confidence Set}
+
+Given an infeasibility likelihood profile $\varphi$ and its related deviation penalty function $\psi$, \Cref{thm:chap8:ConfidenceRegionBound} relates the infeasibility probability bound of an outcome confidence set $\cB(\bmh z, \mb D, \gamma)$ to its parameters $\bmh z$ and $\mb D$. Among those values of $(\bmh z, \mb D)$ that satisfy $\ep{\psi(\|\mb D^{-1}(\bmt z - \bmh z)\|)} \leq 1$, we seek the ones that correspond to the smallest volume of the outcome confidence set $\cB(\bmh z, \mb D, \gamma)$, thereby avoid overly conservative scenarios and solutions. 
+
+Note that changing variables from $\mb D^{-1} (\bm z - \bmh z)$ to $\bm v$, the volume of $\cB(\bmh z, \mb D, \gamma)$ can be precisely calculated as:
+$$
+\mathrm{Vol}(\cB(\bmh z, \mb D, \gamma)) =
+\int_{ \{\bm z:  \|\mb D^{-1} (\bm z - \bmh z) \| \leq \gamma \} } {\rm d} \bm z
+= \int_{ \{ \bm v: \| \bm v \| \leq \gamma \} } |\det(\mb D)| {\rm d} \bm v =  |\det(\mb D)| \cdot \mathrm{Vol}(\cB(\bm 0, \mb I, \gamma)) \propto |\det(\mb D)|. 
+$$
+That being said, the determinant of the deviation matrix $\mb D$ affects the volume of the outcome confidence set, which in turn, impacts the conservativeness of the comprehensive robust counterpart. Therefore, among all parameters that meet the infeasibility likelihood profile as ensured in \Cref{thm:chap8:ConfidenceRegionBound}, we should select those that minimize the determinant of the deviation matrix. This can be established as the following \textit{minimum volume confidence set} (MVCS) problem:
+\begin{equation}
+\label{prob:MVCS}
+\tag{\sc MVCS}
+\begin{array}{cll}
+\inf & \displaystyle\det(\mb D) \\
+\subj & \displaystyle\ep{\psi(\|\mb{D}^{-1}( \bmt z - \bmh z )\|)} \leq 1 \\
+& \bmh z \in \bbr^L, \; \mb{D} \in \bbs^{L}_{++}.  
+\end{array} 
+\end{equation}
+
+We assume that an optimal solution to the \ref{prob:MVCS} problem exists, contingent upon the covariance matrix of the random variable being positive definite. Additionally, if the specified input is determined by another method, it can be excluded as a decision variable from the \ref{prob:MVCS} problem.
+
+\subsection{Analytical Solutions for \ref{prob:MVCS}}
+
+The \ref{prob:MVCS} problem is introduced as a conceptual optimization problem aimed at determining the least conservative parameters for the comprehensive robust constraint that would achieve its desired statistical performance guarantees. Solving \ref{prob:MVCS} involves precise knowledge of the true distribution $\bbp$ of $\bmt z$ and evaluation of the associated expectation constraint that could be computationally challenging. Nonetheless, we can identify scenarios where closed-form solutions to the \ref{prob:MVCS} problem are obtainable. In this section, we explore such scenarios.
+
+\medskip
+\noindent {\bf Symmetric Distribution} $\;$
+When the true distribution $\bbp$ is symmetric, the optimal solution of the specified input vector $\bmh z$ corresponds to the random variable's mean. 
+\begin{theorem}
+\label{chap8:thm:MinVolSolutionSymmetric}
+Suppose the optimal solution to the \ref{prob:MVCS} problem exists and the distribution $\bbp$ of $\bmt z$ is symmetric about its mean $\bm \mu = \ep{\bmt z}$. Then $\bmh z^\star=\bm \mu$ constitutes part of an optimal solution to the \ref{prob:MVCS} problem.
+\end{theorem}
+
+\medskip
+\noindent {\bf $L_p$-Norm and Power Deviation Penalty Function} $\;$
+Focusing on the $L_2$-norm and the corresponding power deviation penalty function $\psi_2$, we derive an analytical solution to the following representation of the \ref{prob:MVCS} problem that applies to any distribution $\bbp$.
+\begin{equation}
+\label{prob:MVCSESpecial}
+\begin{array}{cll}
+\inf & \det(\mb D) \\
+\subj & \ep{\|\mb{D}^{-1}( \bmt z - \bmh z) \|^2_2} \leq L \\
+& \bmh z \in \bbr^L, \; \mb{D} \in \bbs^{L}_{++}.
+\end{array} 
+\end{equation}
+
+\begin{theorem}
+\label{chap8:thm:QuadraticMVCSE}
+Let $\bm \mu = \ep{\bmt z}$ and $\bm \Sigma = \ep{(\bmt z - \bm \mu)(\bmt z - \bm \mu)^\top}$ and suppose $\bm \Sigma \in \bbs^L_{++}$. Then an optimal solution to Problem~\eqref{prob:MVCSESpecial} is $(\bm z^\star, \mb D^\star) = (\bm \mu, \bm \Sigma^{1/2})$.
+\end{theorem}
+
+\medskip
+\noindent {\bf Gaussian Distribution} $\;$
+In the case of a Gaussian distribution, the deviation matrix is a scalar multiple of the square root of the covariance matrix.
+
+\begin{theorem}
+\label{chap8:thm:GaussianMVCSE}
+Suppose the distribution $\bbp$ of $\bmt z$ is a Gaussian with covariance $\mb \Sigma \in \bbs^L_{++}$. Then the optimal solution to the \ref{prob:MVCS} problem with $L_p$-norm and power deviation penalty function $\psi_p$ is $\bm z^\star = \bm \mu$ and
+$$
+\mb D^\star = \sqrt{2}\left(\frac{\Gamma \left( \frac{p+1}{2}\right) }{\sqrt{\pi}} \right)^{1/p} \bm \Sigma^{1/2},
+$$
+where $\Gamma(r) = \int_0^{\infty} t^{r-1} e^{-t} {\rm d}t$ is the gamma function. For $p = 2$, $\Gamma \left( \frac{3}{2} \right) = \frac{\sqrt{\pi}}{2}$.\footnotemark\footnotetext{As expected, when $p = 2$, \Cref{chap8:thm:GaussianMVCSE} gives the same optimal solution as in \Cref{chap8:thm:QuadraticMVCSE}.}
+\end{theorem}
+
+\subsection{Asymmetrical Outcome}
+
+Accounting for asymmetry can be particularly useful in applications like portfolio management, where skewness in returns can significantly influence investment decisions.  We propose the following asymmetric outcome disparity metric that is based on an absolute norm:
+\[
+\Delta(\bm z,\bmh z) = \|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bm z-\bmh z))^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bm z-\bmh z))^+ \|,
+\]
+where $\|\cdot\|$ is an absolute norm, and \( \bmu \sigma \) and \( \bmb \sigma \) are asymmetric normalization vectors with positive entries. 
+When $\bmu \sigma = \bmb \sigma= \bm 1$, the property of an absolute norm and the identity that $v^- + v^+ = |v|$ yield the following:
+$$
+\|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} \bm u)^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} \bm u)^+\| = \| (\mb{D}^{-1} \bm u)^- + (\mb{D}^{-1} \bm u)^+\| = \| \mb{D}^{-1} \bm u\|. 
+$$
+Therefore, we have $\Delta(\bm z,\bmh z) = \|\mb{D}^{-1}(\bm z-\bmh z)\|$, which aligns with the definition of symmetric disparity metric.
+
+Accordingly, the asymmetric outcome confidence set is defined as
+\begin{equation}
+\label{eq:AsymmetricRegion}
+\mathcal{B}(\bmh z, \mb D, \bmu \sigma, \bmb \sigma, \gamma) = \left\{ \bm z \in \mathbb{R}^L \;|\; \|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bm z-\bmh z))^- +  (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bm z-\bmh z))^+\| \leq \gamma \right\}.
+\end{equation}
+
+Note that the first asymmetric uncertainty set for robust optimization was proposed in \cite{chen2007robust}, which is a special case of the asymmetric outcome confidence set with $\mb{D} = \mb{I}$. It is based on the assumption that the input parameters are independently distributed, sub-Gaussian, and characterized by their directional deviation vectors $\bmu \sigma$, $\bmb \sigma$, and mean $\bmh z$.  In our approach, the parameters $\bmu \sigma$, $\bmb \sigma$, $\bmh z$ and $\mb{D}$ are all estimated from data.
+
+\begin{theorem}
+\label{thm:AsymmetricRegion2}
+The asymmetric outcome confidence set can be expressed as follows:
+\begin{equation}
+\label{eq:AsymmetricRegion2}
+\mathcal{B}(\bmh z, \mb D, \bmu \sigma, \bmb \sigma, \gamma) = \left\{ \bm z \in \mathbb{R}^L ~\left|~ 
+\begin{array}{l}
+\exists \bmu w,\bmb w \in \bbr^L_+~:~ \\
+\bmb w  -  \bmu w   =  \mb{D}^{-1} (\bm z - \bmh  z) \\
+\|\DiagIVS(\bmu \sigma) \bmu w + \DiagIVS(\bmb \sigma) \bmb w\|\leq \gamma 
+\end{array}
+\right.
+\right\}.
+\end{equation}
+\end{theorem}
+
+We next evaluate the volume of the asymmetric outcome confidence set.
+\begin{theorem}
+\label{thm:asymmetricalvolume}
+The volume of the asymmetric outcome confidence set $\mathcal{B}(\bmh z, \mb D, \bmu \sigma, \bmb \sigma, \gamma)$ can be calculated as follows:
+$$
+\mathrm{Vol}(\cB(\bmh z, \mb D, \bmu \sigma, \bmb \sigma , \gamma)) = \prod_{\ell \in [L]} \frac{\ubar \sigma_{\ell} + \bar \sigma_{\ell}}{2} \cdot \det(\mb D) \cdot \mathrm{Vol}(\cB(\bm 0, \mb I, \bm 1,\bm 1,\gamma)) \propto \displaystyle \prod_{\ell \in [L]} \frac{\ubar{\sigma}_{\ell} + \bar{\sigma}_{\ell}}{2} \cdot \det(\mb D).
+$$
+\end{theorem}
+
+Hence, the \ref{prob:MVCS} problem can be extended to the asymmetric outcome confidence set as follows:
+\[
+\begin{array}{cll}
+\inf & \displaystyle \prod_{\ell \in [L]} \frac{\ubar \sigma_{\ell} + \bar \sigma_{\ell}}{2} \cdot \det(\mb D) \\
+\subj & \displaystyle\ep{\psi(\|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bmt z - \bmh z))^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bmt z - \bmh z))^+ \|)} \leq 1 \\
+& \bmh z \in \bbr^L, \; \bmu \sigma,\bmb \sigma \in \bbr^L_{++}, \; \mb D \in \bbs^L_{++}.  
+\end{array} 
+\]
+
+\section{Estimating Minimum Volume Confidence Set from Data}
+\label{sec:MVCSEfromData}
+
+The \ref{prob:MVCS} problem provides a method for estimating the specified input vector $\bmh z$ and the deviation matrix $\mb D$, by utilizing the empirical distribution $\bbphat$ constructed from a set of historical data $\cD = \{(\omega,{\bm z}_\omega) \;|\; \omega \in [\Omega] \}$ as follows:
+$$
+\pphat{\bmt{ z} = {\bm z}_\omega} = \frac{1}{\Omega} ~~~\forall \omega \in [\Omega].
+$$
+Here, ${\bm z}_\omega$ represents the observed outcome of the input vector in scenario $\omega$. Accordingly, the empirical mean and covariance of $\bmt z$ can be concisely presented as:
+\[
+\bmh \mu = \ephat{\bmt {z}} = \frac{1}{\Omega} \sum_{\omega \in [\Omega]} \bm{z}_\omega 
+~~~\text{and}~~~
+\bmh{\Sigma} = \ephat{(\bmt{z} - \bmh \mu)(\bmt{z} - \bmh \mu)^\top} = 
+\frac{1}{\Omega} \sum_{\omega \in [\Omega]} (\bm{z}_\omega - \bmh \mu)(\bm{z}_\omega - \bmh \mu)^\top.
+\]
+This method is known as the \textit{minimum volume confidence set estimation} approach, which involves solving the following convex optimization problem to estimate $\bmh z$ and $\mb D$:
+\begin{equation}
+\label{prob:MVCSE}
+\tag{$\widehat{\text{\sc MVCS}}$}
+\begin{array}{cll}
+\inf & \displaystyle\det(\mb D) \\
+\subj & \displaystyle\ephat{\psi(\|\mb{D}^{-1}( \bmt z - \bmh z )\|)} \leq 1 \\
+& \mb{D} \succeq \Diag(\bm r) \\
+& \bmh z \in \bbr^L, \; \mb{D} \in \bbs^{L}_{++}.
+\end{array} 
+\end{equation}
+Here, the conic inequality $\mb{D} \succeq \mb \Diag(\bm r)$ represents $\mb{D} - \Diag(\bm r)\in \bbs^L_+$ and the pre-specified regularization vector $\bm r\in \bbr^L_{++} \cup\{\bm 0\}$ is applied to enforce $\mb D \in \bbs^L_{++}$, ensuring the volume of the outcome confidence set remains positive. Such a treatment is deployed to address practical issues arising with the \ref{prob:MVCSE} approach that deviates from the \ref{prob:MVCS} methodology. For example, even if the true covariance, $\bm \Sigma$, evaluated on the true distribution $\bbp$, is positive definite, the empirical covariance $\bmh \Sigma$, derived from the same distribution, may not be. This subtlety can render the optimal solution to the \ref{prob:MVCSE} problem unsolvable. 
+
+We next demonstrate how \ref{prob:MVCSE} can be transformed into a convex optimization problem. 
+
+\begin{theorem}
+\label{chap8:thm:MinimumVolumeDtoQ}
+The optimal solution $(\bmh z^\star, \mb D^\star)$ of the \ref{prob:MVCSE} problem can be obtained from solving the following convex optimization problem:
+\begin{equation}
+\label{prob:MVCSEDtoQ}
+\begin{array}{cll}
+\max & (\det(\mb Q))^{1/L} \\
+\subj & \ephat{\psi(\|\mb{Q} \bmt z - \bm q \|)} \leq 1 \\
+& \mb{Q} \preceq \DiagIVS(\bm r) \\
+& \bm q \in \bbr^L, \; \mb{Q} \in \bbs^{L}_{+}.  
+\end{array} 
+\end{equation}
+Specifically, suppose the optimal solution of Problem~\eqref{prob:MVCSEDtoQ} is $(\bm q^\star,\mb Q^\star)$. Then $\mb D^\star = {\mb Q^\star}^{-1}$ and $\bmh z^\star = \mb D^\star \bm q^\star$. Problem~\eqref{prob:MVCSEDtoQ} is strictly feasible and regularization ensures that the solution is bounded and hence achievable. In the absence of regularization (\textit{i.e.}, $\bm r =\bm 0$), the constraint $\mb{Q} \preceq \DiagIVS(\bm r)$ is eliminated.    
+\end{theorem}
+
+
+
+Apart from being a convex optimization problem, another notable advantage of Problem~\eqref{prob:MVCSEDtoQ} is that evaluating the expectation over the empirical distribution in its constraint is computationally feasible, as shown below:
+$$
+\ephat{\psi(\|\mb{Q} \bmt z - \bm q \|)} = \frac{1}{\Omega} \sum_{\omega \in [\Omega]} \psi(\|\mb{Q} \bm z_\omega - \bm q \|). 
+$$
+If the penalty function $\psi$ and the norm $\|\cdot\|$ are tractable and conic representable, the expectation constraint can also be expressed similarly. Specifically, when using the $L_p$-norm with the corresponding power deviation penalty $\psi_p(r)$, this expectation constraint can be modeled using power cones for any $p \geq 1$ and becomes linear when $p = 1$. Yet, state-of-the-art commercial solvers do not support power cones well, except MOSEK. In Appendix~\ref{sec:IntegerPowerCone}, we show that for rational values of \(p \geq 1\), the expectation constraint can be represented using integer power cones---a new notion we have developed---and subsequently expressed as second-order cone constraints. We also explain how using such integer power cones can reformulate the determinant optimization problem as a semidefinite optimization problem. These methods have been integrated into the Python-based algebraic modeling toolbox RSOME.
+
+The deviation penalty function $\psi$, as a convex function, penalizes expected deviations from $\bmh z$ by using the disparity metric. Thus, from an estimation perspective, when the deviation penalty function is linear, the estimated parameters typically show minimal sensitivity to data fluctuations. Conversely, with more convex penalties, such as power functions, the estimation becomes more sensitive to variations in data. When using the deviation penalty function $\psi_\infty$---the limit of $\psi_p$ attained as $p$ tends to infinity, we have the following equivalence:
+$$
+\ephat{\psi_\infty(\|\mb{D}^{-1}( \bmt z - \bmh z )\|)} \leq 1
+~~~\Longleftrightarrow~~~
+\|\mb{D}^{-1}( \bm z_{\omega} - \bmh z )\| \leq 1 ~~~\forall \omega \in [\Omega]. 
+$$
+Consequently, Problem~\eqref{prob:MVCSEDtoQ} transforms into a minimum volume confidence set problem that covers all empirical samples. For an ellipsoidal confidence set where the outcome disparity metric is based on the $L_2$-norm, this aligns with the well-known minimum ellipsoid covering problem---a technique widely used in data analysis, computational geometry, and optimal experimental design in statistics, as noted by \cite{todd2016minimum}, and is valued for their computational efficiency, as discussed by \cite{sun2004computation}.
+
+\subsection{Separate Data Sets}
+Another practical consideration is that data may not always be collected in a coordinated manner that would allow us to form a joint empirical distribution. More commonly, we encounter separate data sets, each associated with a subset of entries of the input vector. To capture this, specifically, consider the input vector as a concatenation of $I$ disjoint components, \textit{i.e.}, $\bm z = (\bm z_1, \dots, \bm z_I)$, where $\bm z_i \in \mathbb{R}^{L_i}$ for each $i \in [I]$ such that $\sum_{i \in [I]}L_i = L$. Each random component $\bmt z_i$ is associated with a different dataset $\cD_i$, and we denote its empirical distribution by $\bbphat_i \in \cP_0(\mathbb{R}^{L_i})$ with $\bmt z_i \sim \bbphat_i$. In this situation, the empirical distribution $\bbphat$ for the complete random input vector $\bmt z = (\bmt z_1, \dots, \bmt z_I)$ is not uniquely defined, prohibiting the evaluation of $\ephat{\psi(\|\mb{D}^{-1}(\bmt z - \bmh z)\|)}$.
+
+To resolve this ambiguous expectation, we can restrict the deviation matrix to a block diagonal one such that $\mb D = \Diag(\mb D_1,\dots, \mb D_I)$ for some $\mb D_i \in \bbs^{L_i}_{++}$, $i \in [I]$. Using the $L_p$-norm with the corresponding power deviation penalty $\psi_p(r)$ and following a similar vein as outlined in Problem~\eqref{prob:MVCSESpecial}, we have 
+$$
+\ephat{\psi(\|\mb{D}^{-1}(\bmt z - \bmh z)\|)} = \ephat{\frac{1}{L} \| \mb D^{-1}(\bmt z - \bmh z) \|^p_p} = \displaystyle  \frac{1}{L} \sum_{i \in [I]} \ephati{\| \mb D_i^{-1}(\bmt z_i - \bmh z_i) \|^p_p}.
+$$
+Consequently, for separate data sets, we consider the following \ref{prob:MVCSE} problem:
+\[
+\begin{array}{cll}
+\inf & \det(\Diag(\mb D_1,\dots,\mb D_I)) \\
+\subj & \displaystyle \sum_{i \in [I]} \ephati{\| \mb D_i^{-1}(\bmt z_i - \bmh z_i) \|^p_p}\leq L \\
+& \mb{D}_i \succeq \Diag(\bm r_i) &~\forall i\in [I] \\
+& \bmh z_i \in \bbr^{L_i}, \; \mb{D}_i \in \bbs^{L_i}_{++} &~\forall i \in [I].  
+\end{array} 
+\]
+Here,
+$\det(\Diag(\mb D_1,\dots,\mb D_I)) = \prod_{i \in [I]} \det(\mb D_i)$ and $\bm r_i \in \bbr^{L_i}_{++} \cup\{\bm 0\} ~ \forall i \in [I]$.
+Following the exposition of \Cref{chap8:thm:MinimumVolumeDtoQ}, the  optimal solution $(\bmh z^\star_i, \mb D^\star_i)$ for each $i \in [I]$ can be obtained from solving a convex optimization problem
+\begin{equation}
+\label{prob:MVCSEDtoQSeparate}
+\begin{array}{cll}
+\max & \sqrt[L]{\prod_{i\in [I]} \det(\mb Q_i)} \\
+\subj & \displaystyle \sum_{i \in [I]} \ephati{\| \mb Q_i\bmt z_i - \bm q_i \|^p_p}\leq L \\
+& \mb{Q}_i \preceq \DiagIVS(\bm r_i) &~\forall i \in [I]\\
+& \bm q_i \in \bbr^{L_i}, \; \mb{Q}_i \in \bbs^{L_i}_{+} &~\forall i \in [I].  
+\end{array} 
+\end{equation}
+Specifically, for each $i \in [I]$, $\mb D_i^\star = {\mb Q^\star_i}^{-1}$ and $\bmh z^\star_i = \mb D^\star_i \bm q_i$, where $(\bm q^\star_i, \mb Q_i^\star)$ is the optimal solution of Problem~\eqref{prob:MVCSEDtoQSeparate}. 
+
+For the case of $I=L$, which implies $L_i = 1$ for all $i \in L$, we can derive the closed-form solution to Problem~\eqref{prob:MVCSEDtoQSeparate}, which can be simplified as follows:
+\begin{equation}
+\label{prob:MVCSESpecialDiagonal}
+\begin{array}{cll}
+\inf & \displaystyle \prod_{i \in [L]}d_i \\
+\subj & \displaystyle\sum_{i \in [L]}\ephati{|\tilde z_i - \hat z_i|^p/d^p_i} \leq L \\
+& \bmh z \in \bbr^L, \; \bm  d \in \bbr^L_+.  
+\end{array} 
+\end{equation}
+where $\bm d$ corresponds to  the diagonal of the deviation matrix, \ie $\mb D = \Diag(\bm d)$. 
+
+\begin{theorem}
+\label{chap8:thm:MinimumVolumeSpecialDiagonal}
+Suppose the empirical variance of $\tilde z_i$ is positive for each $i \in [L]$. Then, the optimal solution to Problem~\eqref{prob:MVCSESpecialDiagonal} is, for each $i \in [L]$,  
+$$
+d^\star_i = \left[\ephati{|\tilde z_i - \hat z^\star_i|^p}\right]^{1/p},
+$$
+where $\hat z^\star_i$ satisfies the following condition:
+$$
+\begin{cases}
+\ephati{((\tilde z_i - \hat z^\star_i)^{+})^{p-1}} = \ephati{((\tilde z_i - \hat z^\star_i)^{-})^{p-1}} &~\text{if}~ p > 1 \\
+\ephati{{\rm sign}(\tilde z_i - \hat z^\star_i)} = 0 &~\text{if}~ p = 1.
+\end{cases}
+$$
+\end{theorem}
+
+\Cref{chap8:thm:MinimumVolumeSpecialDiagonal} offers valuable insights into how the specified input vector $\bmh z$ and the deviation vector $\bm d$ are estimated under the diagonal restriction of the deviation matrix. For $p=2$, they correspond to the empirical means and standard deviations, respectively. For $p=1$, $\bmh z$ aligns with the median of $\bmt z$ while $\bm d$ is derived from the empirical absolute deviation relative to the median. Notably, estimating parameters with lower values of $p$ tends to be less affected by data fluctuations.
+
+\subsection{\ref{prob:MVCSE} for Asymmetric Confidence Set}
+\label{sec:MVCSE_Asymmetric_Region}
+We can extend the \ref{prob:MVCSE} problem to an asymmetric confidence set as follows:
+\begin{equation}
+\label{prob:MVCSEAsymmetricRegionEstimation}
+\begin{array}{cll}
+\inf & \displaystyle \prod_{\ell \in [L]} \frac{\ubar \sigma_{\ell} + \bar \sigma_{\ell}}{2} \cdot \det(\mb D) \\
+\subj & \displaystyle\ephat{\psi(\|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bmt z - \bmh z))^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bmt z - \bmh z ))^+\|)} \leq 1 \\
+& \mb{D} \succeq \Diag(\bm r) \\
+& \bmh z \in \bbr^L, \; \bmu \sigma,\bmb \sigma \in \bbr^L_{++}, \; \mb D \in \bbs^L_{++}.  
+\end{array} 
+\end{equation}
+
+Unfortunately, Problem~\eqref{prob:MVCSEAsymmetricRegionEstimation} cannot be transformed into a convex optimization problem, complicating the pursuit of a global optimum. Nonetheless, a viable approach is to employ an alternating optimization strategy. Begin by setting the asymmetric normalization vectors as $\bmu \sigma=\bmb \sigma=\bm 1$, and then solve for the solution variables $\bmh z$ and $\mb D$. This step can be formulated as a convex optimization problem by applying the change of variables technique described in \Cref{chap8:thm:MinimumVolumeDtoQ}. After determining the optimal specified input vector $\bmh z$ and the optimal outcome deviation matrix $\mb D$, the next step involves refining the asymmetric normalization vectors by solving the following optimization problem:
+\begin{equation}
+\label{prob:MVCSEAsymmetry_Sub2}
+\begin{array}{cll}
+\inf & \displaystyle \prod_{\ell \in [L]} \frac{\ubar \sigma_{\ell} + \bar \sigma_{\ell}}{2} \\
+\subj & \displaystyle \ephat{\psi(\|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bmt z - \bmh z))^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bmt z - \bmh z ))^+\|)} \leq 1 \\
+& \bmu \sigma,\bmb \sigma \in \bbr^L_{++}.  
+\end{array} 
+\end{equation}
+These two steps are iteratively repeated until a predefined termination 
+criterion is met. With each iteration, the volume of the asymmetric confidence set decreases. Given that this volume cannot reach zero, due to constraints imposed by regularization, the process will eventually converge to a local optimum.
+
+Problem~\eqref{prob:MVCSEAsymmetry_Sub2} can also be formulated as a convex optimization problem, as demonstrated in the subsequent result.
+
+\begin{theorem}\label{thm:MVCSEAsymmetry_reformulation}
+The optimal solution $(\bmu{\sigma}^\star, \bmb{\sigma}^\star)$ of Problem~\eqref{prob:MVCSEAsymmetry_Sub2} can be obtained from solving the following convex optimization problem:
+\begin{equation}
+\label{prob:MVCSEAsymmetry2}
+\begin{array}{clr}
+\max & \sqrt[L]{\prod_{\ell \in [L]} t_\ell}  \\
+\subj & \multicolumn{2}{l}{ \displaystyle\ephat{\psi(\|(\Diag(\bmu v)\mb{D}^{-1}(\bmt z - \bmh z))^- + (\Diag(\bmb v)\mb{D}^{-1}(\bmt z - \bmh z ))^+\|)} \leq 1} \\
+& \displaystyle t_{\ell}^2 \leq 2 \ubar v_{\ell} \ubar w_{\ell} &~\forall \ell \in [L]\\
+& \displaystyle t_{\ell}^2 \leq 2 \bar v_{\ell} \bar w_{\ell} &~\forall \ell \in [L]\\
+& \displaystyle t_{\ell} \geq \ubar w_{\ell} + \bar w_{\ell} &~\forall \ell \in [L]\\
+&\bm t, \bmu v, \bmb v, \bmu w, \bmb w \in \bbr^L_{+}.  
+\end{array}
+\end{equation}
+Specifically, suppose the optimal solution of Problem \eqref{prob:MVCSEAsymmetry2} is $(\bmu v^\star, \bmb v^\star)$. Then, for any $\ell \in [L]$, $\ubar \sigma_{\ell}^\star = 1/\ubar v_{\ell}^\star$ and $\bar \sigma_{\ell}^\star = 1/\bar v_{\ell}^\star$. Problem~\eqref{prob:MVCSEAsymmetry2} is strictly feasible, ensuring that the optimal solution $\bmu v^\star, \bmb v^\star > \bm 0$. Since $\mb D\in \bbs^{L}_{++}$, the optimal solution is also bounded and attainable. 
+\end{theorem}
+
+The objective function of Problem~\eqref{prob:MVCSEAsymmetry2} is characterized by a hypograph that utilizes an integer power cone, while the constraints are formulated as rotated second-order conic constraints. 
+
+\section{Characterizing Estimation Uncertainty from Data} \label{sec:EstimatioUncertaintyData}
+
+To characterize estimation uncertainty, it is tempting to use the same disparity metric as used for characterizing outcome uncertainty. However, the following result cautions that it is necessary to deploy different disparity metrics to distinguish these two layers of uncertainty.  
+
+\begin{theorem}
+\label{chap5:thm:SimplifiedJointCriterion}
+Suppose $\Delta$ and $\hat \Delta$ are identical coherent disparity metrics and $\cZ \subseteq \hat \cZ$. Then, the comprehensive robust constraint with joint uncertainties as defined in~\eqref{eq:ComprehensiveRobustConstraint} can be simplified to the following comprehensive robust constraint with only outcome uncertainty:
+\begin{equation}
+\label{chap5:eq:JointRobustCriterionSimplified} 
+f(\bm{x}, \bm z) \leq \tau + \min\{\kappa,\hat \kappa\}( \Delta(\bm z,\bmh z) - \gamma -\hat \gamma)^+ ~~~\forall \bm z \in \cZ.
+\end{equation}
+\end{theorem}
+
+\Cref{chap5:thm:SimplifiedJointCriterion} stresses the need to use a different coherent disparity metric for characterizing estimation uncertainty. Similar to the outcome disparity metric, we can express the estimation disparity metric based on norms, such as $\hat \Delta(\bm \zeta,\bmh z) = \|\mbh D^{-1} (\bm \zeta - \bmh z)\|$ for some absolute norm $\|\cdot\|$ and deviation matrix $\mbh D \in \bbs^L_{++}$ that are different from the ones used in the outcome disparity metric; see also the previous portfolio example wherein we deploy different norms as well as different matrices $\mb D$ and $\mbh D$ to recover the Markowitz portfolio and the equal-weighted portfolio. 
+
+Alternatively, a more systematic approach for characterizing estimation uncertainty has been proposed by \cite{Zhu_Xie_Sim_2021joint} in which the estimation disparity metric, $\hat \Delta(\bm \zeta,\bmh z)$ is constructed from the underlying optimization problem in which the specified input vector is estimated. Typically, the specified input vector is determined by solving the following convex optimization problem:
+\[
+\bmh z = \argmin_{\bm{\zeta} \in \hat \cZ} \mathscr{L}(\bm \zeta; \cD),
+\]
+where the function $\mathscr{L}(\bm{\zeta}; \cD)$, termed the \textit{loss function}, is a convex function that reaches its \textit{unique} minimum at the specified input vector $\bmh{z}$. In this case, it is unnecessary to perform the \ref{prob:MVCSE} approach to identify another specified input vector for outcome uncertainty. Instead, we can use this specified input vector as input to \ref{prob:MVCSE} to determine the outcome deviation matrix $\mb D$ that defines the outcome disparity metric $\Delta$. A translation-invariant estimation disparity metric can then be derived from the estimation process in the following manner:
+\[
+\hat \Delta(\bm u, \bm 0) = 
+\eta(\mathscr{L}(\bmh z + \bm u; \cD) - \mathscr{L}(\bmh{z}; \cD)),
+\]
+where $\eta$ is any monotonically increasing transformation function that satisfies $\eta(0) = 0$, such as a linear function. Such an estimation disparity metric emphasizes the reliance on the loss function's behavior around its minimum to quantify uncertainty. The choice of $\eta$ is not unique, provided it ensures that the estimation disparity metric maintains the convexity property. Note that the positive definite property holds because $\bmh z$ is the unique minimum of the loss function. 
+
+\subsection*{Square Loss Function}
+Given the estimation deviation matrix $\mbh D \in \bbs^L_{++}$, which can be different from the outcome deviation matrix $\mb D$, we consider the square loss function as follows:
+$$
+\mathscr{L}(\bm{\zeta}; \cD) = \mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mbh D^{-1}(\bm{\zeta} - \bmt{z})\|^2_2],
+$$
+whose simplification proceeds as
+$$
+\begin{array}{rcl}
+\mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mbh D^{-1}(\bm{\zeta} - \bmt{z})\|^2_2] &=& \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bm{\zeta} - \bmt{z})^\top \mbh D^{-2}(\bm{\zeta} - \bmt{z})] \\
+&=& \mathbb{E}_{\hat{\mathbb{P}}}\,[\bm{\zeta}^\top \mbh D^{-2} \bm{\zeta} - 2 \bm{\zeta}^\top \mbh D^{-2} \bmt{z} + \bmt{z}^\top \mb D^{-2} \bmt{z}] \\
+&=& \bm{\zeta}^\top \mbh D^{-2} \bm{\zeta} - 2\bm{\zeta}^\top \mbh D^{-2} \mathbb{E}_{\hat{\mathbb{P}}}\,[\bmt{z}] + \mathbb{E}_{\hat{\mathbb{P}}}\,[\bmt{z}^\top  \mbh D^{-2} \bmt{z}].
+\end{array}
+$$
+Minimizing this quadratic function leads to $\bmh{z} = \mathbb{E}_{\hat{\mathbb{P}}}\,[\bmt{z}]$ and results in
+$$
+\mathscr{L}(\bmh{z}; \cD) = -\bmh{z}^\top \mbh D^{-2} \bmh{z} + \mathbb{E}_{\hat{\mathbb{P}}}\,[\bmt{z}^\top  \mbh D^{-2}\bmt{z}].
+$$
+Consequently, the translation-invariant estimation disparity metric associated with the square loss function simplifies to
+$$
+\begin{array}{rcl}
+\hat \Delta(\bm u,\bm 0) &=& \eta (\mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmh{z} + \bm u - \bmt{z})^\top \mbh D^{-2}(\bmh{z} + \bm u- \bmt{z})] - \mathscr{L}(\bmh{z}; \cD)) \\
+&=& \eta ((\bmh{z} + \bm{u})^\top \mbh D^{-2} (\bmh{z} + \bm u) - 2(\bmh{z} + \bm{u})^\top \mbh D^{-2} \bmh{z} + \bmh{z}^\top \mbh D^{-2} \bmh{z}) \\
+&=& \eta(\|\mbh D^{-1} \bm u\|^2_2). 
+\end{array}
+$$
+Note that the selection of the transformation function $\eta$ can be quite flexible: it may be any convex and increasing function that originates from the zero point. Specifically, selecting a power transformation function $\eta(r) = r^p$ for $p \geq 1/2$ ensures the resulting estimation disparity metric remains convex. When setting $p = 1/2$, this approach reduces to the estimation disparity metric derived from the $L_2$-norm. 
+
+Observe these methods do not directly facilitate the derivation of the estimation deviation matrix $\mbh{D}$ from the dataset. This arises because the evaluation of the loss function does not incorporate the statistical information necessary to inform the choice of the estimation deviation matrix. \cite{Zhu_Xie_Sim_2021joint} detail a maximum likelihood estimation approach based on a multivariate Gaussian distribution. In our context, this method would yield an estimation deviation matrix $\mbh{D}$ that corresponds to the square root of the empirical covariance. However, the method relies on the Gaussian assumption, which may not always hold in practical scenarios such as portfolio optimization. In the portfolio optimization example, the estimation deviation matrix $\mbh D = \mb I$ would explain the robustness of the equal-weighted portfolio observed in practice (see the portfolio example discussed earlier).
+
+\section{Prediction with Side Information}
+\label{sec:prediction_with_side_info}
+
+We now consider the situations where we have access to a collection of historical data containing side information that can be used to predict the outcome of the input vector. The data is represented as $(\bm{z}_\omega, \bm s_\omega) \in \mathbb{R}^L \times \bbr^S$ for $\omega \in [\Omega]$, where $\bm{s}_\omega$ corresponds to the observed vector of \textit{side information} that possesses some predictive power for the outcome of $\bm z_\omega$. Define the data set with set information as $\cD = \{(\omega,\bm z_\omega,\bm s_\omega)\}_{\omega  \in [\Omega]}$. Accordingly, we also define the empirical distribution $\bbphat \in \cP_0(\bbr^L\times \bbr^S )$ of $(\bmt z,\bmt s) \sim \bbphat$ via $\pphat{(\bmt z,\bmt s) = (\bm z_\omega,\bm s_\omega) } = 1/\Omega ~\forall \omega  \in [\Omega]$. 
+
+We focus on an affine prediction map $\bm \chi:\bbr^S\rightarrow \bbr^L$ that maps the side information to the predicted outcome. Specifically, for any given side information vector $\bm s \in \mathbb{R}^S$, $\bm \chi$ yields the predicted outcome under an affine prediction map as follows:
+$$
+\bm \chi(\bm s) = \bmh z_0 + \mbh Z \bm s,
+$$ 
+where $\bmh z_0 \in \mathbb{R}^{L}$ and $\mbh Z \in \mathbb{R}^{L\times S}$ are parameters estimated from data. Once the prediction map is established, it can be used to determine the specified input vector: at the decision-making moment when the side information vector materializes to $\bmh s$, the specified input vector is defined as 
+$$
+\bmh{z} = \bm \chi(\bmh s) = \bmh z_0 + \mbh Z \bmh s.
+$$
+
+With the side information vector $\bmh s$, we can incorporate  both outcome uncertainty and estimation uncertainty in the following comprehensive robust constraint:
+\[
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta({\bm z},\bm \zeta_0 + \mb Z \bmh s ) - \gamma)^+ + \hat \kappa (\hat \Delta((\bm \zeta_0, \mb Z),(\bmh z_0,\mbh Z)) - \hat \gamma)^+  ~~~\forall \bm z \in \cZ, \; (\bm \zeta_0,\mb Z) \in \hat \cZ.
+\]
+Here, the estimation disparity metric measures the discrepancy between estimated parameters $(\bmh z_0,\mbh Z)$ and latent parameters $(\bm \zeta_0,\mb Z)$.
+Without considering estimation uncertainty (\textit{i.e.}, $\hat \kappa = \infty$ and $\hat \gamma =0$), the comprehensive robust constraint would be simplified as follows: 
+\[
+f(\bm x,\bm z) \leq \tau + \kappa (\Delta(\bm z, \bm \chi(\bmh s) ) - \gamma)^+  ~~~\forall \bm z \in \cZ,
+\]
+which reflects that the specified input vector $\bmh z= \bm \chi(\bmh s)$ is updated accordingly with respect to the latest realization $\bmh s$ of the side information. 
+
+\subsection*{Minimum Volume Confidence Set Estimation}
+Similarly, we consider the minimum volume confidence set estimation problem in the setting with side information. We can formulate the optimization problem analogous to the \ref{prob:MVCSE} problem, while replacing the specified input with $\bm \chi(\bmt s)$ as follows:
+\begin{equation}
+\label{prob:MVCSE_Side_Info}
+\begin{array}{cll}
+\inf & \det(\mb D) \\
+\subj & \mathbb{E}_{\hat{\mathbb{P}}}\,[\psi(\|\mb{D}^{-1}( \bmt z - \bmh z_0 - \mbh Z \bmt s )\|)] \leq 1 \\
+& \mb{D} \succeq \Diag(\bm r) \\
+& \bmh z_0 \in \bbr^L, \; \mbh Z \in \bbr^{L \times S}, \; \mb{D} \in \bbs^{L}_{++}.
+\end{array} 
+\end{equation}
+
+Next, we demonstrate how the minimum volume confidence set estimation problem with side information can be transformed into a convex optimization problem.
+
+\begin{theorem}\label{thm:sideinfo}
+The optimal solution $(\bmh z_0^\star, \mbh Z^\star, \mb D^\star)$ of Problem~\eqref{prob:MVCSE_Side_Info} can be obtained from solving the following convex optimization problem:
+\begin{equation}\label{prob:MVCSE_Side_Convex}
+\begin{array}{cll}
+\sup & (\det(\mb Q))^{1/L} \\
+\subj & \ephat{\psi(\| \mb Q \bmt z - \bm q - \mb P \bmt s \|)} \leq 1 \\
+& \mb Q \preceq \DiagIVS(\bm r) \\
+& \bm q \in \bbr^L, \; \mb P \in \bbr^{L \times S}, \; \mb{Q} \in \bbs^{L}_{++}. 
+\end{array} 
+\end{equation}
+Specifically, suppose the optimal solution of Problem~\eqref{prob:MVCSE_Side_Convex} is $(\bm q^\star, \mb P^\star, \mb Q^\star)$. Then $\mb D^\star = {\mb Q^\star}^{-1}$, $\bmh z_0^\star = \mb D^\star \bm q^\star$, and $\mbh Z^\star = \mb D^\star \mb P^\star$. In the absence of regularization (\textit{i.e.}, $\bm r =\bm 0$), the constraint $\mb{Q} \preceq \DiagIVS(\bm r)$ is eliminated.  
+\end{theorem}
+
+Then, we explore scenarios in which an analytical optimal solution can be developed for the case of $L_2$-norm and the corresponding power deviation penalty $\psi_2(r)$. 
+\begin{theorem}
+\label{chap8:thm:MVCSESideInformationL2}
+The optimal solution to Problem~\eqref{prob:MVCSE_Side_Info} for the specific case with an $L_2$-norm, a power deviation penalty $\psi_2(\cdot)$, and $\bm r = \bm 0$ can be characterized as follows:
+$$
+\mbh Z^\star = \bmh \Sigma_{\bm z \bm s} \mbh \Sigma_{\bm s}^{-1}, \; \bmh z_0^\star = \bmh \mu_{\bm z} - \mbh Z^\star \bmh \mu_{\bm s}, ~\text{and}~~ \mb D^\star = (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})^{\frac{1}{2}},
+$$
+where ${\bmh \mu_{\bm s}} = \ephat{\bmt s}$, $\bmh \mu_{\bm z}= \ephat{\bmt z}$,  
+$\bmh \Sigma_{\bm s} = \ephat{ (\bmt s - \bmh \mu_{\bm s} ) (\bmt s - \bmh \mu_{\bm s})^\top}$, $\bmh \Sigma_{\bm s\bm z}^\top = \bmh \Sigma_{\bm z\bm s} = \ephat{ (\bmt z - \bmh \mu_{\bm z}) (\bmt s - \bmh \mu_{\bm s})^\top}$, and $\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z}$ is assumed to be positive definite.
+\end{theorem}
+
+\subsection*{Estimation from Regression}
+
+To quantify estimation uncertainty incorporating side information, apart from the minimum volume confidence set estimation approach, we can also employ the methodology described in \cite{Zhu_Xie_Sim_2021joint} to define the estimation disparity metric using a linear regression procedure. In this approach, the parameters \((\bmh z_0, \mbh Z) \in \hat \cZ \) are determined by solving the optimization problem:
+\[
+(\bmh z_0,\mbh Z) \in \argmin_{ (\bm{\zeta}_0,  \mb Z) \in \hat \cZ } \mathscr{L}(\bm{\zeta}_0,\mb Z; \cD).
+\]
+
+\medskip
+\noindent {\bf Ordinary Least Square Regression} $\;$
+Given any estimation deviation matrix \(\mbh{D}\in \bbs^L_{++}\), the ordinary least square (OLS) regression minimizes the square loss function as follows:
+$$
+\min_{\bm{\zeta}_0 \in \mathbb{R}^L, \; \mb Z \in \bbr^{L \times S}} \mathscr{L}(\bm{\zeta}_0,\mb Z; \cD) = \min_{\bm{\zeta}_0 \in \mathbb{R}^L, \; \mb Z \in \bbr^{L \times S}} \mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mbh D^{-1}(\bm \zeta_0 + \mb Z \bmt s - \bmt{z})\|^2_2].
+$$
+
+\begin{theorem}\label{chap8:thm:OLS_side_info}
+Suppose the empirical covariance matrix of side information is positive definite, (\textit{i.e.}, $\bmh \Sigma_{\bm s} \in \bbs^{S}_{++}$). Then the OLS estimators are
+$$
+\bmh z_0 = \bmh \mu_{\bm z} - \mbh Z \bmh \mu_{\bm s}
+~~~\text{and}~~~
+\mbh Z = \bmh \Sigma_{\bm z \bm s} {\bmh \Sigma_{\bm s}}^{-1}.
+$$
+The estimation disparity metric associated with the square loss function and a transformation function $\eta$ is translation invariant and simplifies to:
+$$
+\hat \Delta ( (\bm u, \mb U), (\bm 0, \mb 0) ) = \eta (\mathscr{L}(\bmh z_0 + \bm u,\mbh Z + \mb U; \cD) - \mathscr{L}(\bmh z_0,\mbh Z; \cD)) 
+= \eta(\|\mbh D^{-1} (\bm u + \mb U \bmh \mu_{\bm s} )\|_2^2 + \| \mbh D^{-1} \mb U \bmh \Sigma_{\bm s}^{1/2}\|_{\rm F}^2),
+$$
+where $\|\mb A\|_{\rm F} = \sqrt{\tr(\mb A \mb A^\top)}$ represents the Frobenius norm of the matrix $\mb A$. Selecting a power transformation function $\eta(r) = r^p$ for some $p \geq 1/2$ ensures the resulting estimation disparity metric remains convex. 
+\end{theorem}
+
+Interestingly, the OLS estimators coincide with the \ref{prob:MVCSE} solutions obtained in \Cref{chap8:thm:MVCSESideInformationL2} so that they lead to the same prediction mappings.
+This finding also lays the groundwork for constructing the estimation disparity metric. 
+
+\section{Numerical Experiments}
+\label{sec:case_study}
+We first evaluate the performance of the \ref{prob:MVCSE} approach, 
+with a particular emphasis on its robustness to outliers and its adaptability in capturing skewness (\textit{i.e.}, asymmetry) and incorporating side information. Then, we demonstrate the efficacy of robust decision models that utilize empirically derived outcome disparity metrics in allocating emergency service resources.
+
+\subsection{Performance of \ref{prob:MVCSE}}
+In this subsection, we begin by evaluating the effectiveness of $\bmh z$ and confidence sets estimated by the \ref{prob:MVCSE} approach, focusing on its robustness to outliers. This is then followed by experiments on skew-normal distributions with/w.o. side information.
+
+\medskip
+\noindent {\bf Symmetric Confidence Set} $\;$ We start with the symmetric confidence set and investigate the impact of outliers on the outcome confidence set. To visualize this, we consider a simple case where the input vector consists of two i.i.d. normal random variables following $\mathbb{N}(0,10)$. An outlier is generated in the same way with a drift $100$. Figure~\ref{fig:Symmetric_MVCSE_outlier_p1_p2} examines the symmetric confidence sets estimated via different norms and penalty functions. For the cubic penalty function ($p_2 = 3$), the boundary of the confidence set shifts rightwards as the value of $p_1$ increases. This suggests that the confidence set exhibits increased sensitivity to the outlier. Intra-column comparison reveals that the confidence set also shifts towards the outlier as $p_2$ rises. To quantify this effect, we conduct a sensitivity analysis of input vector estimation in Appendix~\ref{sec:sensitive_input}.
+These findings indicate a higher robustness against the influence of outliers in norms with lower values of $p_1$ and penalty functions with smaller values of $p_2$.
+
+\begin{figure}[htb]
+ \begin{center}
+\includegraphics[width = 1 \textwidth]{Figures/Symmetric_MVCSE_outlier.png}
+\caption{Symmetric \ref{prob:MVCSE} confidence sets with outliers.}
+\label{fig:Symmetric_MVCSE_outlier_p1_p2}
+\end{center}
+\footnotesize{
+\textit{Notes.}$\;$ In this replication, we generate $30$ historical data points, and there is only one outlier along $\tilde z_1$'s dimension.
+}
+\end{figure}
+
+\medskip
+\noindent {\bf Asymmetric Confidence Set} $\;$
+We now undertake the \ref{prob:MVCSE} approach for outcomes adhering to a skew (\textit{i.e.}, asymmetric) distribution. For better visualization, we focus on a two-dimensional input vector $\bmt z = (\tilde z_1, \tilde z_2)$ where $\tilde z_1 = \tilde v_1 + 0.2 \tilde v_2$, $\tilde z_2 = \tilde v_2$, and $(\tilde v_1, \tilde v_2)$ are i.i.d. as a skew-normal distribution with a shape parameter $\alpha = 10$ (\citealt{azzalini1999statistical}). Based on $100$ samples, we solve \ref{prob:MVCSE} with the $L_{p_1}$-norm and a power penalty function $\psi(r) = r^{p_2}$. In particular, we apply the iterative method to Problem~\eqref{prob:MVCSEAsymmetry_Sub2} to find a local optimum of Problem~\eqref{prob:MVCSEAsymmetricRegionEstimation}. The iterations repeat until the percentage reduction in the volume of the asymmetric confidence set falls below the threshold $0.002$. We compare the asymmetric confidence set with a symmetric one of the same setting (\textit{e.g.}, $\gamma=1$), so that both have the same guarantee from the statistical principle as per \Cref{thm:chap8:ConfidenceRegionBound}. The results are summarized in Figure~\ref{fig:Symmetric_Asymmetric_MVCSE_Skew_Normal}.
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width = 1 \textwidth]{Figures/Asymmetric_skew_normal.png}
+    \caption{Symmetric and asymmetric \ref{prob:MVCSE} confidence sets for the skew-normal distribution.}
+    \label{fig:Symmetric_Asymmetric_MVCSE_Skew_Normal}
+\end{figure}
+
+As expected, by taking skewness into account, \ref{prob:MVCSE} fits the skew data better. It can be observed that for all values of $(p_1, p_2)$, to achieve the same statistical guarantee (\textit{i.e.}, $\phi(r)$ in \Cref{thm:chap8:ConfidenceRegionBound}), the asymmetric confidence set always has a smaller volume compared with the corresponding symmetric one. We also conduct an out-of-sample test based on $10000$ samples of $\bmt z$ to evaluate the probability that the realized input vector under the true distribution resides in the confidence sets constructed; see Figure~\ref{fig:confidence_level_sym_asym} where we fix $p_1= 2$ and $p_2 = 1$. The left panel shows that the asymmetric confidence set captures the probability density function more accurately. The right panel presents that, at a $95\%$ confidence level, the asymmetric confidence set is $21\%$ smaller in volume than the asymmetric one.
+
+\begin{figure}[tb]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width = \textwidth, height = 5.8cm, trim = 2.1cm 1cm 2cm 1cm]{Figures/Asymmetric_skew_normal_L2.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width = \textwidth, height = 5.8cm, trim = 1cm 1cm 1cm 1cm]{Figures/Asymmetric_normal_Prop.png}
+    \end{subfigure}
+    \caption{Confidence levels of symmetric and asymmetric confidence sets.}
+    \label{fig:confidence_level_sym_asym}
+\end{figure}
+
+\medskip
+\noindent {\bf Asymmetric Confidence Set with Side Information} $\;$
+Since the \ref{prob:MVCSE} approach supports asymmetric confidence sets as well as predictions with side information, we next consider an example concerning the linear relationships $\tilde{z}_1 = 3s - 2.5 + \tilde \epsilon_1$ and $\tilde{z}_2 = 5.5s - 10.5 + \tilde \epsilon_2$. The errors follow a standard skew-normal distribution with $\alpha = 10$, where $\epsilon_1$ (resp., $\epsilon_2$) is right-skewed (resp., left-skewed). We plot the residuals and confidence sets in Figure~\ref{fig:asymmetric_w_side}. Comparing the contour maps, we observe that the asymmetric confidence set captures the skewness and fits the data more accurately. At the contour of value $2$, the asymmetric confidence set includes all historical points whereas two points lie outside the symmetric confidence set.
+
+\begin{figure}[tb]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width = \textwidth, height = 5.8cm, trim = 1cm 1cm 1cm 1cm]{Figures/Asymmetric_w_side_residual.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width = \textwidth, height = 5.8cm, trim = 1cm 1cm 1cm 1cm]{Figures/Asymmetric_w_side_residual2.png}
+    \end{subfigure}
+    \caption{Symmetric and asymmetric \ref{prob:MVCSE} confidence sets with side information.}
+    \label{fig:asymmetric_w_side}
+\end{figure}
+
+\subsection{Emergency Service Resource Allocation}
+
+We examine an emergency service resource allocation problem on a network comprising $L$ nodes. Each node $\ell \in [L]$ can store inventory to meet demands either at its own location or by transshipping to some neighboring nodes. The inventory at location $\ell \in [L]$ can only serve a specific subset of locations, denoted by $\cI_{\ell} \subseteq [L]$. Likewise, the demand at location $\ell \in [L]$ can only be covered by the inventories transhipped from a subset of locations $\cJ_{\ell} \subseteq [L]$. In this experiment, we consider an undirected graph, therefore $\cJ_{\ell} = \cI_{\ell}$. 
+The uncertain parameters in this context are locational demands, collectively represented by the input vector $\bm z = (z_\ell)_{\ell \in [L]} \in \bbr^L$. The here-and-now decision vector $\bm x = (x_\ell)_{\ell \in [L]} \in \cX \subseteq \bbr^L_{+}$ represents the inventory levels at locations. The wait-to-see decision $y_{ij}$ denotes the transshipment quantity from location $i$ to location $j$.
+
+We define the cost-based attribute function that relates to the fulfillment shortfall as follows:
+\begin{equation} \label{FilfulmentShrotfall}
+f(\bm x,\bm z) = \left\{
+\begin{array}{cll}
+\min &  s\\
+\subj & \displaystyle \sum_{j \in \cI_\ell} y_{\ell j} \leq x_\ell &~\forall \ell \in [L]\\
+    & \displaystyle s\geq  z_\ell - \sum_{i \in \cI_\ell} y_{i \ell} &~\forall \ell \in [L] \\
+    & \displaystyle y_{\ell j} \geq 0 &~\forall  j \in \cI_{\ell}, \; \ell \in [L] \\ 
+    & s \in \bbr_+, \; \bm x \in \cX. \\
+\end{array} \right.
+\end{equation}
+When $f(\bm x, \bm z) > 0$, not all demands at the nodes can be met via transshipment, and a fulfillment shortfall occurs. One practical application of this problem involves the allocation of time-critical resources (such as ambulances and ventilators), which is widely known as the emergency medical service (EMS) problem (\citealt{boutilier2020ambulance, peng2020probabilistic}). For the EMS problem, resources are constrained to meet local or neighboring demands, while operational costs (such as transportation expenses) are often disregarded due to their relatively low impact compared to procurement costs. Instead, coverage (\textit{i.e.}, shortfall) is a more critical criterion, as a single shortage can result in severe consequences for patients. Therefore, our experiment will emphasize criteria such as the infeasible probability and the expected shortfall. We denote $c_\ell$, $\ell \in [L]$ as the unit inventory cost at node $\ell$. The historical demand samples are denoted by $\bm z_\omega \in \bbr^L$ for $\omega \in [\Omega]$. 
+
+To capture that demands should be fulfilled with high probability, we consider the scenario sampling approach \citep{calafiore2005uncertain} as our benchmark. This approach solves the following empirical optimization problem:
+\begin{equation} 
+\label{Empirical_Problem}
+V_{\mathrm{EO}} = \left\{
+\begin{array}{cll}
+\min & \bm c^\top \bm x \\
+     \subj 
+     & \displaystyle f(\bm x,\bm z_\omega)  \leq 0 &~\forall \omega \in [\Omega] \\
+     & \displaystyle  {\bm x} \in \cX
+\end{array} \right.
+= \left\{
+\begin{array}{cll}
+\min &  \bm c^\top \bm x \\
+     \subj 
+     & \displaystyle \sum_{j \in \cI_\ell} y_{\ell j\omega} \leq x_i &~\forall \ell \in [L], \; \omega \in [\Omega]\\
+     & \displaystyle 0\geq z_{\ell \omega} - \sum_{i \in \cI_{\ell}} y_{i \ell \omega} &~\forall \ell \in [L], \; \omega \in [\Omega] \\
+     & \displaystyle y_{\ell j\omega} \geq 0 &~\forall  j \in \cI_{\ell}, \; \ell \in [L], \; \omega \in [\Omega] \\ 
+     &  {\bm x} \in \cX.
+\end{array} \right.
+\tag{EO}
+\end{equation}
+\cite{calafiore2005uncertain} show that if the samples are independently distributed, then with probability at least $1 - \frac{L}{(\Omega + 1)\varepsilon}$, the solution to the \ref{Empirical_Problem} problem remains feasible at $1-\varepsilon \in [0,1]$ confidence level. Consequently, achieving a higher level of feasibility may require a larger number of samples than are available.
+
+We then use the optimal objective of \ref{Empirical_Problem} as the reference for setting the targets for the robust decision-making models (\textit{e.g.}, $V_0 = k_0 V_{\mathrm{EO}}$ for Step~$0$ of the framework in \S \ref{sec:robust_satisficing_decision_framework}).
+Then, we compare the \ref{Empirical_Problem} solution with the solutions obtained from the budgeted robust optimization problem, whose formulation is as follows:
+\[
+\begin{array}{cll}
+\min & \bm c^\top \bm x \\
+     \subj 
+     & \displaystyle f(\bm x,\bm z)  \leq 0 &~ \forall \bm z \in \cZ(\gamma)\\
+     &  {\bm x} \in \cX.
+\end{array} 
+\]
+Here, the uncertainty set is constructed as  
+$$
+\cZ(\gamma) = \cZ \cap \cB(\bmh z, \mb D, \gamma) = \left\{ \bm z \in \cZ ~|~  \| \mb D^{-1} ( {\bm z} - \bmh z ) \| \leq \gamma \right\}, 
+$$
+where $\mb D$ and $\bmh z$ are estimated from solving the \ref{prob:MVCSE} problem and setting the outcome disparity metric as $\Delta(\bm z) = \| \mb D^{-1} ( {\bm z} - \bmh z ) \|$.
+The budgeted robust optimization problem can be expressed as 
+ \begin{equation}\label{BudgetedExact2}
+\begin{array}{cll}
+\min &  \bm c^\top \bm x \\
+     \subj 
+     & \displaystyle \sum_{j \in \cI_\ell} y_{\ell j}(\bm z) \leq x_i &~ \forall \ell \in [L],\; \bm z \in \cZ(\gamma)\\
+     & \displaystyle 0\geq z_{\ell} - \sum_{i \in \cI_\ell} y_{i \ell}(\bm z) &~ \forall \ell \in [L],\; \bm z \in \cZ(\gamma) \\
+     & y_{\ell j}(\bm z) \geq 0 &~ \forall  j \in \cI_\ell,\; \ell \in [L],\; \bm z \in \cZ(\gamma) \\
+     & y_{\ell j}\in \cR(L) &~ \forall j \in \cI_\ell,\; \ell \in [L] \\
+     &  {\bm x} \in \cX,
+\end{array}
+\end{equation}
+where $\cR(L)$ represents the set of all measurable functions on domain $\bbr^{L}$. The two-stage robust optimization problem~\eqref{BudgetedExact2} ensures that there is no shortfall even under the worst-case scenario in the uncertainty set. However, this two-stage problem is usually hard (if not impossible) to optimize, as the wait-to-see decisions are arbitrary functions of $\bm z$ (\citealt{Bental_Goryashko_Guslitzer_Nemirovski_2004adjustable, atamturk2007two}).
+To obtain a tractable formulation, we use the affine recourse adaptation on the lifted uncertainty set advocated by \cite{chen2023occam}:
+$$
+\bar \cZ(\gamma) = \left\{({\bm z}, \bmu w, \bmb w, u) \in \cZ \times \bbr^L_+ \times \bbr^L_+ \times \bbr_+  ~\left|~ 
+\begin{array}{l}
+\bmb w - \bmu w = \mb{D}^{-1} (\bm z - \bmh  z) \\
+\|\bmu w + \bmb w\|\leq u \leq \gamma 
+\end{array}
+\right.
+\right\}.
+$$
+Consequently, a tractable safe approximation of Problem~\eqref{BudgetedExact2} can be formulated as the following robust optimization problem
+\begin{equation} \label{prob:Budgeted_Allocation_Problem}
+\begin{array}{cll}
+\min &  \bm c^\top \bm x \\
+     \subj 
+     & \displaystyle \sum_{j \in \mathcal{I}_\ell} y_{\ell j}(\bmu w,\bmb w, u) \leq x_\ell &~ \forall \ell \in [L],\; (\bm z, \bmu w, \bmb w,u) \in \bar \cZ(\gamma)\\
+     & \displaystyle 0\geq z_{\ell} - \sum_{i \in \cI_\ell} y_{i \ell}(\bmu w, \bmb w, u) &~ \forall \ell \in [L],\; (\bm z, \bmu w, \bmb w, u) \in \bar \cZ(\gamma) \\
+     & \displaystyle y_{\ell j}(\bmu w, \bmb w, u) \geq 0 &~ \forall  j \in \cI_\ell,\; \ell \in [L],\; (\bm z, \bmu w, \bmb w, u) \in \bar \cZ(\gamma) \\
+     & \displaystyle y_{\ell j}\in \cA(2L+1) &~ \forall  j \in \cI_\ell,\; \ell \in [L] \\
+     &  {\bm x} \in \cX.
+\end{array}
+\tag{RO}
+\end{equation}
+Here, $\cA(2L+1)$ denotes the set of all affine functions on domain $\bbr^{2L+1}$. That is to say, a transshipment recourse function $y_{ij}:\bbr^{2L+1} \rightarrow \bbr$, as an affine function of $(\bmu w, \bmb w, u)$ is given by:
+$$
+y_{ij} (\bmu w, \bmb w, u) = y_{ij0}  + \bmu y_{ij}^\top \bmu w + \bmb y_{ij}^\top \bmb w + y_{ij}^\star u
+$$
+for some $y_{ij0}, y_{ij}^\star \in \bbr$ and $\bmu y_{ij}, \bmb y_{ij} \in \bbr^L$. 
+These are affine functions with respect to lifted variables. 
+
+We also consider the tolerated robust satisficing problem---Step~$2$ of the framework in \S \ref{sec:robust_satisficing_decision_framework} that specifies $\gamma^\star = 0$ and skips Step~$1$---whose approximation based on the affine recourse adaptation is formulated as follows:
+\begin{equation} \label{prob:tolerated_Allocation_Problem}
+\begin{array}{cll}
+     \min & \kappa \\
+     \subj & \bm c^\top \bm x \leq \tau \\
+     & \displaystyle \sum_{j \in \cI_\ell} y_{\ell j}({\bmu w}, {\bmb w},u) \leq x_\ell \quad & ~\forall \ell \in [L],\; ({\bm z}, {\bmu w}, {\bmb w},u) \in \bar{\cZ} (\bar{\gamma}) \\
+     & \displaystyle \kappa u \geq z_\ell - \sum_{i \in \cI_\ell} y_{i \ell}({\bmu w}, {\bmb w},u)  &~ \forall \ell \in [L],\; ({\bm z}, {\bmu w}, {\bmb w},u) \in \bar{\cZ} (\bar{\gamma}) \\
+     & \displaystyle y_{\ell j}(\bmu w, \bmb w, u) \geq 0 &~ \forall  j \in \cI_\ell,\; \ell \in [L],\; (\bm z, \bmu w, \bmb w, u) \in \bar \cZ(\bar{\gamma}) \\
+     & \displaystyle y_{\ell j} \in \cA(2I+1) &~ \forall j \in \cI_\ell,\; \ell \in [L] \\
+     & \displaystyle {\bm x} \in \cX.
+\end{array}
+\tag{RS}
+\end{equation}
+Here, $\bar \gamma \in \bbr_+$ is the maximum possible disparity, and we set it as the highest observed value in the training sample. The target $\tau$ can be chosen based on \ref{Empirical_Problem}, for instance, $\tau = k V_{\mathrm{EO}}$ for some $k > 0$. 
+
+To make a fair comparison, for \ref{prob:Budgeted_Allocation_Problem} we use the bisection search to maximize $\gamma$ such that its corresponding first-stage cost is identical to that of the \ref{prob:tolerated_Allocation_Problem} Problem. This is equivalent to solving a budgeted satisficing problem---Step~$1$ of the framework in \S \ref{sec:robust_satisficing_decision_framework}. By varying the target $\tau$, we can generate a frontier for each model. These two robust optimization problems can be conveniently deployed by using the RSOME modeling package. Appendix~\ref{sec:code_numerical} showcases the sample code for running the robust satisficing model as a guideline to implement the proposed methods.
+
+We randomly generate $15$ nodes from a $10 \times 10$ square grid and construct the graph with $30$ shortest arcs; the network is presented in Figure~\ref{fig:network:15nodes_30arcs} in Appendix~\ref{sec:additional_figures}. Specifically, we assume that the unit inventory cost is proportional to the distance to the central point, that is, $c_i = 1 + d_i/5$. The maximum allocation level at each node is $200$; therefore, $\cX = [0,200]^{15}$. The random demand $\tilde{z}_i$ follows a normal distribution modulated by an emergency factor. 
+Specifically, $\tilde{z}_i \sim \mathbb{N}(\mu_i, \mu_i^2) \cdot (1 + \tilde{v})$, where the rate parameter $\mu_i$ is randomly chosen from $\mathbb{U}[10,30]$ and the term $\tilde{v}$ represents the emergent event, modeled as a Bernoulli random variable with a probability of occurrence of 0.05. Once the emergent event occurs, all demands are doubled. We then truncate each demand between $0$ and $200$, yielding $\cZ = [0,200]^{15}$. For evaluating the performance, we first generate $\Omega = 40$ samples to train \ref{prob:MVCSE} and solve three problems. Additionally, we generate $2000$ testing samples and recourse the second stage problem. We replicate the process $20$ times to get the out-of-sample performance, evaluated at the following two performance metrics: 
+\begin{itemize} 
+\item \emph{violation probability} as the percentage of scenarios that the demand can not be fulfilled;
+\item \emph{average total violation} as the expected number of unfulfilled demands.
+\end{itemize}
+Note that we obtain 20 frontiers that correspond to $20$ replications, among which we plot in Figure~\ref{fig:Allocation_performance} the median and the $90\%$ confidence interval (CI) between the 5th percentile and the 95th percentile of the infeasibility profile in Figure~\ref{fig:Allocation_performance}. The performance of three models at the same level of first-stage cost in each replication is provided in Appendix~\ref{sec:additional_figures}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width = 1 \textwidth]{Figures/Infeasibility_Omega40_normal.png}
+    \caption{Infeasibility profile of \ref{Empirical_Problem}, \ref{prob:Budgeted_Allocation_Problem} and \ref{prob:tolerated_Allocation_Problem} models with $\Omega = 40$ training samples.}
+    \label{fig:Allocation_performance}
+\end{figure}
+
+It can be seen that both \ref{prob:Budgeted_Allocation_Problem} and \ref{prob:tolerated_Allocation_Problem} models with $L_1$- and $L_2$-norms outperform the \ref{Empirical_Problem} model in both performance metrics. The models with $L_{1.5}$-norm show better performance than \ref{Empirical_Problem} in view of violation probability. Such an improved performance can be attributed to the \ref{Empirical_Problem} model's heavy reliance on the training samples, resulting in unstable performance, particularly in the other performance metric of violation probability. Although \ref{Empirical_Problem} can avoid infeasibility in $40$ training samples, it could provide less protection in the out-of-sample testing. Furthermore, both robust decision-making frameworks can achieve lower violation probabilities by increasing the target value, and they demonstrate comparable performance at high target values, with \ref{prob:tolerated_Allocation_Problem} with $L_2$-norm performing slightly better. Specifically, at a cost level of $1055.50$,
+\ref{prob:tolerated_Allocation_Problem} with $L_2$-norm has an average total violation of $1.33$, whereas \ref{prob:tolerated_Allocation_Problem} with $L_1$-norm has an average total violation of $1.67$ and \ref{prob:Budgeted_Allocation_Problem} with $L_2$-norm has an average total violation of $1.37$. They all have violation probabilities around $0.02$.
+Additionally, \ref{prob:Budgeted_Allocation_Problem} has more stable performance compared to \ref{prob:tolerated_Allocation_Problem} at low target values, such as $614.15$ and $687.71$. This finding underscores the necessity of conducting Step~1 before Step~2 in our framework in \S \ref{sec:robust_satisficing_decision_framework}.
+
+Finally, we compare outcomes of \ref{prob:Budgeted_Allocation_Problem} and \ref{prob:tolerated_Allocation_Problem} models based on the  $L_1$-norm, employing distinct estimation methods for the parameters $\bmh z$ and $\mb D$. Benchmarking estimation methods include the empirical estimators (\textit{i.e.}, sample mean and covariance) and MCD.
+In the same vein, we evaluate the out-of-sample infeasibility profiles. Results derived from uncontaminated and contaminated training samples are presented in Figure~\ref{fig:3model_without_outliers} and Figure~\ref{fig:3model_w_outliers}, respectively. To simulate contamination, 5\% of the training samples are modified by replacing the demand data for a fixed single node with the upper bound value of 200. Quite notably, the performance of \ref{Empirical_Problem} exhibits significant degradation when training samples are contaminated: it allocates excess inventory to nodes that fail to reduce violation risks, highlighting its pronounced dependence on high-quality data. When comparing varying estimations of $\bmh z$ and $\mb D$, robust decision-making models using our proposed \ref{prob:MVCSE} method demonstrate the most stable performance across conditions. In contrast, the empirical estimators yield suboptimal results in \ref{prob:Budgeted_Allocation_Problem}, while the MCD approach demonstrates significant instability in \ref{prob:tolerated_Allocation_Problem}. These findings underscore the \ref{prob:MVCSE} method's reliability.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width = \textwidth]{Figures/Infeasibility_Omega40_normal_comparison_3models.png}
+        \caption{Infeasible profile of distinct estimation methods without outliers ($\Omega = 40$ training samples).}
+    \label{fig:3model_without_outliers}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width = \textwidth]{Figures/Infeasibility_Omega40_normal_outlier_comparison_3models.png}
+        \caption{Infeasible profile of distinct estimation methods with 5\% outliers ($\Omega = 40$ training samples).}
+    \label{fig:3model_w_outliers}
+\end{figure}
+
+\section{Conclusion}
+\label{sec:con}
+We propose a general framework with comprehensive robust constraints that addresses two layers of uncertainty---outcome uncertainty and estimation uncertainty. This framework synergizes the prevalent robust optimization techniques with the emerging robust satisficing paradigm. As Alfred Whitehead stated, ``The art of progress is to preserve order amid change and to preserve change amid order.'' In our unifying sequential robust satisficing decision framework, the ``hard'' constraints in \emph{the budgeted robust satisficing} phase (Steps~1 and 3) enhance the stability, and the ``soft'' constraints in  \emph{the tolerated robust satisficing} phase (Steps~1 and 3) allow some degree of flexibility in input vectors. By these phases, our approach aims to reduce the conservativeness of robust solutions while enhancing their feasibility. The combination of outcome and estimation uncertainties can provide better protection and get more stable performance, as illustrated in the portfolio optimization example. 
+
+We introduce a novel \ref{prob:MVCS} approach to determine parameters in \emph{outcome disparity metrics}. The \ref{prob:MVCSE} approach is developed with expected deviation penalty functions over empirical distributions, and this data-driven method has demonstrated adaptability in learning various patterns from data, including skewness and side information. In specific settings, it intimately connects with traditional estimation approaches. Additionally, we illustrate that different norms and disparity penalty functions exhibit varying levels of robustness against outliers. 
+
+In summary, our contributions enhance methodologies that learn uncertainty from data and achieve a more favorable trade-off against the \emph{price of robustness}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{informs2014}
+\bibliography{reference}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\begin{appendices}
+
+\section{Proofs}
+
+\begin{proof}{\bf Proof \Cref{thm:StatisticalJustification}.}
+Fixing $\bm z \in \cZ$, for all $r \geq 0$ and $\bm \zeta  \in \hat \cZ$, any $\bm x$ feasible to the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} satisfies
+\[
+f(\bm x,\bm z) - \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ - \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ \leq \tau.
+\]
+Hence, for all $r \geq 0$ and $\bm \zeta  \in \cZ$, we can deduce that
+$$
+\begin{array}{rcl}
+&& \pp{f(\bm{x},\bmt{z}) > \tau + \kappa r + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+}\\
+&\leq&  \bbp\big\{f(\bm{x},\bmt{z}) >  f(\bm{x}, \bmt{z}) - \kappa( \Delta(\bmt z,\bm \zeta) - \gamma)^+ - \hat\kappa(\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+  + \kappa r + \hat \kappa (\hat \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+\big\}\\
+& =& \pp{\kappa( \Delta(\bmt z,\bm \zeta) - \gamma)^+ > \kappa r} \\
+&\leq & \pp{\Delta(\bmt z,\bm \zeta) > r+\gamma}\\
+&=& \pp{\bmt z \notin \cB(\bm \zeta,r+\gamma)}, 
+\end{array}
+$$
+where we note that the second inequality indeed holds for any $\kappa \in [0,\infty]$.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{thm:chap8:ConfidenceRegionBound}.}
+For any $\gamma \geq 0$, we have
+\[
+\begin{array}{rcl}
+\pp{\bmt z \notin \cB(\bmh z, \mb D, \gamma)} & = & \pp{ \|\mb D^{-1} (\bmt z - \bmh z) \| >\gamma} \\
+& \leq & \displaystyle \pp{\psi(\|\mb D^{-1} (\bmt z - \bmh z) \|) > \psi(\gamma)} \\
+& \leq & \displaystyle \frac{\ep{\psi(\|\mb D^{-1} (\bmt z - \bmh z)\|)}}{\psi(\gamma)} \\
+& \leq & \displaystyle \dfrac{1}{\psi(\gamma)} \\
+& \leq & \varphi(\gamma),
+\end{array}
+\]
+where the first inequality is because the deviation penalty function $\psi$ is non-decreasing in $\gamma \geq 0$ and the second inequality applies Markov inequality as $\psi$ is non-negative. 
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:MinVolSolutionSymmetric}.}
+The \ref{prob:MVCS} problem is equivalent to
+\begin{equation}
+\label{prob:MVCSESpecialSym2}
+\begin{array}{cll}
+\inf & \displaystyle\det({\mb D}) \\
+\subj & \displaystyle\displaystyle \min_{\bmh z  \in \bbr^L} \ep{ \psi(\|\mb D^{-1} ( \bmt{z} - \bmh{z} ) \| )} \leq 1 \\
+& \displaystyle{\mb D} \in \mathbb{S}^L_{++}.
+\end{array}  
+\end{equation}
+Observe that the function $g(\bmh z) = \ep{ \psi(\| \mb D^{-1} ( \bmt{z} - \bmh{z} ) \|)}$
+is convex in $\bmh z$. It thus suffices to show that 
+$$
+g(\bm \mu + \bm d) \geq g(\bm \mu) ~~~\forall \bm d \in \bbr^L. 
+$$
+Indeed, by the convexity of $g$, we have for all $\bm d \in \bbr^L$, 
+$$
+\begin{array}{rcl}
+2g(\bm \mu) & \leq & g(\bm \mu + \bm d) +g(\bm \mu - \bm d) \\
+&=& g(\bm \mu + \bm d)  + \ep{\psi(\|\mb D^{-1}(\bmt{z} - \bm{\mu} + \bm d)\|)} \\
+&=& g(\bm \mu + \bm d) + \ep{\psi(\|\mb D^{-1}(-\bmt{z} + \bm{\mu} + \bm d)\|)} \\
+&=& g(\bm \mu + \bm d) + \ep{\psi(\|\mb D^{-1}(\bmt{z} - \bm{\mu} - \bm d)\|)} \\
+&=& g(\bm \mu + \bm d) + g(\bm \mu + \bm d) \\
+&=& 2g(\bm \mu + \bm d). 
+\end{array}
+$$
+The second equability is because the distribution is symmetrical about the mean and the third property is due to the absolute homogeneity of norms. Hence, $\bmh{z} = \bm{\mu}$ is optimal.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:QuadraticMVCSE}.}
+Note that we can express 
+$$
+\ep{\|\mb D^{-1}(\bmt{z} - \bmh{z})\|^2_2} = \ep{(\bmt{z} - \bmh{z})^\top{\mb D}^{-2}(\bmt{z} - \bmh{z})}.
+$$
+With the change of decision variable from $\mb D^{-2}$ to ${\mb W}$, and noting that 
+$$
+\log \det(\mb D) = \log \det({\mb W^{-1/2}}) = -\frac{1}{2} \log \det(\mb W),
+$$ 
+we can express Problem~\eqref{prob:MVCSESpecial} equivalently as the following optimization problem:
+\begin{equation}
+\label{prob:MVCSESpecialTmp1}
+\begin{array}{cll}
+\sup & \log\det({\mb W}) \\
+\subj & \ep{(\bmt{z} - \bmh{z})^\top{\mb W} (\bmt{z} - \bmh{z}))} \leq L \\
+& \bmh z \in \bbr^L, \; \displaystyle{\mb W} \in \mathbb{S}^L_{++}.
+\end{array}  
+\end{equation}
+
+Fix any ${\mb W} \in \mathbb{S}^L_{++}$ and consider the following convex quadratic function
+$$
+g(\bmh z) = \ep{ (\bmt{z} - \bmh{z} )^\top {\mb W} (\bmt{z} - \bmh{z} ))} = \bmh z^\top \mb W \bmh z - 2 \bm \mu^\top \mb W \bmh z + \ep{\bmt z^\top \mb W \bmt z},
+$$
+which has an unique minimum at $\bmh z^\star = \bm \mu$. Crucially, this optimum is independent of $\mb W$. Hence, $\bmh z^\star = \bm \mu$ is also part of an optimal solution to Problem~\eqref{prob:MVCSESpecialTmp1}. Using this solution, we can represent 
+$$
+\ep{(\bmt{z} - \bm{\mu})^\top {\mb W} (\bmt{z} - \bm{\mu}))} = \ep{\tr\left(  {\mb W} (\bmt{z} - \bm \mu )(\bmt{z} - \bm \mu )^\top\right)} = \tr(\mb W \bm \Sigma), 
+$$
+where the second equation follows from the fact that the trace operator is linear, allowing us to interchange the expectation and the trace.
+Hence, Problem~\eqref{prob:MVCSESpecialTmp1} can be simplified as follows:
+\begin{equation}
+\label{prob:MVCSESpecialTmp2}
+\begin{array}{cll}
+\sup & \displaystyle\log\det({\mb W}) \\
+\subj & \displaystyle\displaystyle \tr(\mb W \bm \Sigma) \leq L \\
+& \displaystyle{\mb W} \in \mathbb{S}^L_{++}.
+\end{array}  
+\end{equation}
+
+The objective function of Problem~\eqref{prob:MVCSESpecialTmp2} is concave in ${\mb W}$ and its Lagrangian function is
+$$
+\Lambda({\mb W},\lambda) = \log\det(\mb W) - \lambda \left(\tr( \mb W \bm \Sigma) - L\right)
+$$
+for some $\lambda \geq 0$. Taking the derivative and equating to zero, the optimal solutions $\mb W^\star$ and $\lambda^\star$ satisfy:
+\[
+\mb W^\star = \frac{\bm \Sigma^{-1}}{\lambda^\star}
+~~~\text{and}~~~
+\tr( \mb W^\star \bm \Sigma) = L.
+\]
+Hence, $\tr(\mb I)/\lambda^\star = L$, implying $\lambda^\star=1$ and $\mb W^\star = \bm \Sigma^{-1}$. Therefore, $\mb D^\star = \bm \Sigma^{1/2}$.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:GaussianMVCSE}.}
+Since Gaussian distribution is symmetric, we have from \Cref{chap8:thm:MinVolSolutionSymmetric} that $\bmh z^\star = \bm \mu = \ep{\bmt z}$. Hence, with the change of decision variable from $\mb D^{-1}$ to $\mb Q$, Problem \eqref{prob:MVCSESpecialSym2} is equivalent to
+\begin{equation}
+\label{prob:MVCSESpecialSym3}
+\begin{array}{cll}
+\sup & \log\det({\mb Q}) \\
+\subj & \ep{\|\mb Q ( \bmt{z} - \bm{\mu})\|_p^p} \leq L \\
+& \mb Q \in \mathbb{S}^L_{++}.
+\end{array}  
+\end{equation}
+Suppose $\mb Q = [ \bm q_1 ~\cdots~ \bm q_L]^\top$, under Gaussian distribution we have
+\[
+\ep{\|\mb Q (\bmt{z} - \bm \mu)\|_p^p} = \ep{\sum_{\ell \in [L]} | \bm q_{\ell}^\top (\bmt{z} - \bm \mu)|^p} = \sum_{\ell \in [L]} \ep{|\bm q_\ell^\top (\bmt{z} - \bm \mu)|^p}  = \sum_{\ell \in [L]} (\mb q_\ell^\top \mb{\Sigma} \mb q_\ell)^{p/2} \beta,
+\]
+where $\bm q_\ell^\top ( \bmt{z} - \bm \mu ) \sim \mathcal{N}(0, \bm q_\ell^\top \mb{\Sigma} \bm q_\ell)$ and
+$$
+\beta = \frac{2^{p/2}}{\sqrt{\pi}} \int_{0}^{+\infty} t^{\frac{p-1}{2}} e^{- t} {\rm d}t = \frac{2^{p/2}}{\sqrt{\pi}} \Gamma \left( \frac{p+1}{2} \right).
+$$
+In the last equation, we use the central absolute moments of Gaussian distribution such that
+\[
+\begin{array}{rcl}
+\displaystyle \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2 \pi \bm q_\ell^\top \mb{\Sigma} \bm q_\ell} } |x|^{p} e^{- \frac{1}{2} x^2 / (\bm q_\ell^\top \mb{\Sigma} \bm q_\ell)} {\rm d}x & = & \displaystyle (\bm q_\ell^\top \mb{\Sigma} \bm q_\ell)^{p/2} \cdot 2 \int_{0}^{+\infty} \frac{1}{\sqrt{2 \pi}} x^p e^{- \frac{1}{2} x^2} {\rm d}x \\
+& = & \displaystyle (\bm q_\ell^\top \mb{\Sigma} \bm q_\ell)^{p/2} \cdot \frac{2^{p/2}}{\sqrt{\pi}} \int_{0}^{+\infty} t^{\frac{p-1}{2}} e^{- t} {\rm d}t \\
+& = &  (\bm q_\ell^\top \mb{\Sigma} \bm q_\ell)^{p/2} \beta.
+\end{array}
+\]
+
+The Lagrangian function for Problem \eqref{prob:MVCSESpecialSym3} is as follows:
+$$
+\Lambda (\mb Q, \lambda) = \log\det(\mb Q)  -\lambda \sum_{\ell \in [L]} ( \bm q_\ell^\top \mb{\Sigma} \bm q_\ell)^{p/2} \beta + \lambda L.
+$$
+Using Jacobi's formula, $\nabla_{\mb Q} \log\det(\mb Q) = \mb Q^{-1}$. We can then calculate the gradient with respect to $\bm q_\ell$ as follows:
+\begin{equation}
+\label{chap8:eq:MinimumVolumeSpecialGaussian_Grad}
+\nabla_{\bm q_\ell} \Lambda (\mb Q, \lambda) = \mb Q^{-1} \bm e_{\ell}  - \lambda p \beta ( \bm q_\ell^\top \mb{\Sigma} \bm q_\ell)^{\frac{p}{2} - 1} \mb \Sigma \bm q_\ell.    
+\end{equation}
+
+To verify the optimality of the solution $(\lambda^\star, \mb Q^\star) = (1/p, \beta^{- \frac{1}{p}} \mb \Sigma^{-\frac{1}{2}})$, we note that
+$$
+(\bm q^\star_\ell)^\top \mb{\Sigma} \bm q^\star_\ell = \beta^{-\frac{2}{p}} ( \bm e_{\ell}^\top \mb \Sigma^{-\frac{1}{2}} \mb \Sigma \mb \Sigma^{-\frac{1}{2}} \bm e_{\ell}) = \beta^{-\frac{2}{p}}.
+$$
+Substituting it into Equation~\eqref{chap8:eq:MinimumVolumeSpecialGaussian_Grad}, we have
+$$
+\nabla_{\bm q_\ell} \Lambda (\mb Q^\star, \lambda^\star) = \beta^{\frac{1}{p}} \mb \Sigma^{\frac{1}{2}} \bm e_{\ell}  - \lambda^\star p \beta \cdot \beta^{-\frac{2}{p} \cdot \left(\frac{p}{2} -1 \right)}\cdot \beta^{-\frac{1}{p}} \mb \Sigma^{\frac{1}{2}}  \bm e_{\ell} = \beta^{\frac{1}{p}} \mb \Sigma^{\frac{1}{2}} \bm e_{\ell}  - \lambda^\star p \beta^{\frac{1}{p}} \mb \Sigma^{\frac{1}{2}} \bm e_{\ell} = \bm 0.
+$$
+Additionally, this solution satisfies
+$$
+\sum_{\ell \in [L]} ( (\bm q_\ell^\star)^\top \mb{\Sigma} \bm q_\ell^\star )^{\frac{p}{2}} \beta = \sum_{\ell \in [L]} \beta^{-1} \beta =  L,
+$$
+concluding its optimality since Problem \eqref{prob:MVCSESpecialSym3} is a convex optimization problem.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{thm:AsymmetricRegion2}.}
+Suppose $\bm z$ is feasible to the set as defined in~\eqref{eq:AsymmetricRegion}. Then it would also be feasible to the set as defined~\eqref{eq:AsymmetricRegion2} for the lifted variables
+$$
+\bmu w = (\mb{D}^{-1} (\bm z - \bmh  z))^- \in \bbr^L_+
+~~~{\rm and}~~~
+\bmb w= (\mb{D}^{-1} (\bm z - \bmh  z))^+ \in \bbr^L_+.
+$$
+Conversely, we use the property of absolute norm derived in \cite{bertsimas2006tractable} that for any $\bm v, \bm u \in \bbr^L$ such that $v_\ell\geq |u_\ell|$ for all $\ell \in [L]$, $\|\bm v\|\geq \|\bm u\|$. Hence, if $\bm z$ is feasible in the set as defined in \eqref{eq:AsymmetricRegion2}, then 
+$$
+\begin{array}{rcl}
+&& \| (\DiagIVS(\bmu \sigma) \mb{D}^{-1} (\bm z - \bmh  z))^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} (\bm z - \bmh  z))^+ \|\\
+&=&   \| (\DiagIVS(\bmu \sigma) (\bmb w - \bmu w)^- + (\DiagIVS(\bmb \sigma) (\bmb w - \bmu w)^+  \| \\
+&\leq& \|\DiagIVS(\bmu \sigma) \bmu w + \DiagIVS(\bmb \sigma) \bmb w\| \leq \gamma.
+\end{array}
+$$
+This is because since $\bmu w, \bmb w \geq 0$, we have $(\bmb w - \bmu w)^- \leq \bmu w$ and $(\bmb w - \bmu w)^+ \leq \bmb w$.
+Hence, $\bm z$ is also feasible to the set as defined in~\eqref{eq:AsymmetricRegion}.
+\hfill \Halmos    
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{thm:asymmetricalvolume}.}
+Use the property of absolute norm, observe that 
+\[
+\begin{array}{cl}
+& \displaystyle \int_{\{ \bm u \in \mathbb{R}^L ~|~ \| (\DiagIVS(\bmu \sigma) \bm u)^- + (\DiagIVS(\bmb \sigma) \bm u)^+\| \leq \gamma \}} {\rm d} \bm u \\
+= & \displaystyle  \int_{\{\bm u \in \bbr_-\times \bbr^{L-1} ~|~ \|(\DiagIVS(\bmu \sigma) \bm u)^- + (\DiagIVS(\bmb \sigma) \bm u)^+\| \leq \gamma \}} {\rm d} \bm u \\
+& \displaystyle + \int_{\{\bm u \in \bbr_+\times \bbr^{L-1} ~|~ \|(\DiagIVS(\bmu \sigma)\bm u)^- + (\DiagIVS(\bmb \sigma) \bm u)^+\| \leq \gamma\}} {\rm d} \bm u \\
+= & \displaystyle \ubar{\sigma}_{1} \int_{\{\bm u \in \bbr_-\times \bbr^{L-1} ~|~ \|(\DiagIVS(\bmu \sigma^\dag)  \bm u)^- + (\DiagIVS(\bmb \sigma^\dag) \bm u)^+\| \leq \gamma\}}  {\rm d} \bm u \\
+& \displaystyle  \displaystyle  + \bar{\sigma}_{1} \int_{\{\bm u \in \bbr_+\times \bbr^{L-1} ~|~ \|(\DiagIVS(\bmu \sigma^\dag) \bm u)^- + (\DiagIVS(\bmb \sigma^\dag) \bm u)^+\| \leq \gamma\}}  {\rm d} \bm u \\
+= & \displaystyle (\ubar{\sigma}_{1} + \bar{\sigma}_{1}) \int_{\{\bm u \in \bbr_+\times \bbr^{L-1} ~|~ \| (\DiagIVS(\bmu \sigma^\dag)\bm u)^- +  (\DiagIVS(\bmb \sigma^\dag) \bm u)^+\| \leq \gamma\}}  {\rm d} \bm u \\
+= & \displaystyle \frac{\ubar{\sigma}_{1} + \bar{\sigma}_{1}}{2} \int_{\{\bm u \in \times \bbr^{L} ~|~ \|(\DiagIVS(\bmu \sigma^\dag) \bm u)^- + (\DiagIVS(\bmb \sigma^\dag) \bm u)^+\| \leq \gamma\}}  {\rm d} \bm u,
+\end{array}
+\]
+where $\bmu \sigma^\dag = (1, \ubar{\sigma}_{2}, \dots, \ubar{\sigma}_{L})$ and $\bmb \sigma^\dag = (1, \bar{\sigma}_{2},\dots, \bar{\sigma}_{L})$.
+We continue this transformation until both asymmetric normalization vectors become vectors of all ones. Hence, we have
+$$
+\begin{array}{rcl}
+\mathrm{Vol}(\cB(\bmh z, \mb D, \bmu \sigma, \bmb \sigma , \gamma)) & = & \displaystyle \int_{\{ \bm u \in \mathbb{R}^L ~|~ \|(\DiagIVS(\bmu \sigma) \mb{D}^{-1} \bm u)^- + (\DiagIVS(\bmb \sigma) \mb{D}^{-1} \bm u)^+\| \leq \gamma \} } {\rm d} \bm u \\[5mm]
+& = & \displaystyle \int_{\{ \bm u \in \mathbb{R}^L ~|~ \|(\DiagIVS(\bmu \sigma) \bm u)^- + (\DiagIVS(\bmb \sigma) \bm u)^+\| \leq \gamma \}} {\rm d} \bm u  \det(\mb D) \\[5mm]
+& = & \displaystyle \prod_{\ell \in [L]} \frac{\ubar{\sigma}_{\ell} + \bar{\sigma}_{\ell}}{2} \cdot \int_{\{ \bm u \in \mathbb{R}^L ~|~ \| \bm u\| \leq \gamma \}} {\rm d} \bm u  \det(\mb D) \\[5mm]
+& = & \displaystyle \prod_{\ell \in [L]} \frac{\ubar{\sigma}_{\ell} + \bar{\sigma}_{\ell}}{2} \cdot \det(\mb D) \cdot \mathrm{Vol}(\cB(\bm 0, \mb I, \bm 1, \bm 1,\gamma)) \\[5mm]
+& \propto & \displaystyle \prod_{\ell \in [L]} \frac{\ubar{\sigma}_{\ell} + \bar{\sigma}_{\ell}}{2} \cdot \det(\mb D),
+\end{array}
+$$
+concluding the proof.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:MinimumVolumeDtoQ}.} 
+Given the continuity of the deviation penalty function $\psi$ at $r=0$ and $\psi(0)<1$, we note that the solution $(\bm q, \mb Q) = (\mb 0, \epsilon \mb I)$ is feasible for some $\epsilon >0$. Therefore, the optimal solution must satisfy  $\mb Q \in \bbs^L_{++}$.  Consider the variable substitution from $\mb D^{-1}$ to  $\mb Q$, which is possible because $\mb D  \succ \bm 0$ is a positive definite matrix. Note that $\mb D \in  \bbs^{L}_{++}$ is equivalent to $\mb Q = \mb D^{-1} \in \bbs^{L}_{++}$. With another variable substitution $\bmh{z} = \mb D\bm{q}$, we then have the following equivalence:
+$$
+\ephat{\psi(\|\mb{D}^{-1}( \bmt z - \bmh z) \|)} \leq 1 
+~~~\Longleftrightarrow~~~
+\ephat{\psi(\|\mb{Q} \bmt z - \bm q \|)} \leq 1.
+$$
+Given that $\psi$ is a convex and non-increasing function, $\ep{\psi(\|\mb{Q} \bmt z - \bm q \|)}$ is a convex function with respect to the decision variable $(\bm q,\mb Q)$. Hence, $\ephat{\psi(\|\mb{Q} \bmt z - \bm q \|)} \leq 1$ is a convex constraint.
+
+Consider the case of having a positive regularization vector $\bm r > \bm 0$. By Schur complement,
+$$
+\mb{D} \succeq \Diag(\bm r)
+~~~\Longleftrightarrow~~~
+\mb{D} - \Diag(\bm r) \succeq \bm 0  
+~~~\Longleftrightarrow~~~
+\begin{bmatrix}
+\mb{D} & \mb{I} \\
+\mb{I} & \DiagIVS(\bm r) \\ 
+\end{bmatrix} \succeq 0.
+$$
+By left multiplying 
+$\begin{bmatrix}
+\mb{I} & \mb{0} \\
+- \mb{D}^{-1} & \mb{I}
+\end{bmatrix}$ and right multiplying its transpose, we obtain that
+$$
+\begin{bmatrix}
+\mb{D} & \mb{0} \\
+\mb{0} & \DiagIVS(\bm r) - \mb{D}^{-1}\\ 
+\end{bmatrix} \succeq 0,
+$$
+which implies that $\DiagIVS(\bm r) \succeq \mb{D}^{-1} = \mb Q$. Since $\mb Q$ is also a positive definite matrix in Problem~\eqref{prob:MVCSEDtoQ}, by the same argument, the constraint $\DiagIVS(\bm r) \succeq \mb Q$ implies $\Diag(\bm r) \preceq \mb Q^{-1} = \mb D$. That is to say, the convex constraint $\mb{Q} \preceq \DiagIVS(\bm r)$ after the variable substitution is equivalent to the original constraint $\mb{D} \succeq \Diag(\bm r)$.
+
+The objective of Problem~\eqref{prob:MVCSE} that minimizes 
+$\det(\mb D)=1/\det(\mb Q)$, is equivalent to maximizing $\log\det(\mb Q)$, for which the log determinant function is a concave function. This concludes that Problem~\eqref{prob:MVCSEDtoQ} is a convex optimization problem.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:MinimumVolumeSpecialDiagonal}.}
+Consider the change of decision variable from $d_i$ to $q_i^{-1}$ for each $i \in [L]$,  Problem~\eqref{prob:MVCSESpecialDiagonal} is then equivalent to 
+\[
+\begin{array}{cll}
+\max & \displaystyle \sum_{i \in [L]}\log(q_i) \\
+\subj & \displaystyle\sum_{i \in [L]}q^p_i \ephati{|\tilde z_i - \hat z_i|^p} \leq L \\
+& \bmh z \in \bbr^L, \; \bm  q \in \bbr^L_+.  
+\end{array} 
+\]
+Observe that for each $i \in [L]$, the solution $\hat z_i^\star$ minimizes $\ep{|\tilde z_i - \hat z_i|^p}$. Since this is a convex function with respect to $\hat z_i$, the optimal solution occurs when there exists a zero subgradient. To arrive at the desired result, we note that for $p>1$ the gradient of the function $|r|^p$ is $((r)^+)^{p-1}- ((r)^-)^{p-1}$, while for $p=1$, the gradient of $|r|$ is ${\rm sign}(r)$. Hence, we focus on the following optimization problem:
+\[
+\begin{array}{cll}
+\max & \displaystyle \sum_{i \in [L]}\log(q_i) \\
+\subj & \displaystyle\sum_{i \in [L]}q^p_i\ephati{|\tilde z_i - \hat z^\star_i|^p} \leq L \\
+&\bm  q \in \bbr^L_+.  
+\end{array} 
+\]
+Solving this convex optimization problem by equating the gradient of its Lagrangian function to zero gives 
+$$
+\frac{1}{q^\star_i} = \lambda^\star p {q^\star_i}^{p-1} \ephati{|\tilde z_i - \hat z^\star_i|^p}
+$$
+and
+$$
+\sum_{\ell \in [L]}{q^\star_i}^p\ephati{|\tilde z_i - \hat z^\star_i|^p} = L.
+$$
+This then yields $\lambda^\star = 1/p$ and ${q^\star_i} = \left[\ephati{|\tilde z_i - \hat z^\star_i|^p}\right]^{-1/p}$ for each $i \in [L]$.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{thm:MVCSEAsymmetry_reformulation}.}
+With the change of decision variables from $\ubar \sigma_{\ell}$ and $\bar \sigma_{\ell}$ to their reciprocals $\ubar v_{\ell} = \ubar \sigma^{-1}_{\ell}$ and $\bar v_{\ell} = \bar \sigma^{-1}_{\ell}$ for each $\ell \in [L]$, the objective function of Problem~\eqref{prob:MVCSEAsymmetry_Sub2} minimizes
+$\prod_{\ell \in [L]} \left(\frac{1}{2\ubar v_{\ell}} + \frac{1}{2\bar v_{\ell}}\right)$. By introducing the variables, $\bm t \in \bbr^L$, we can reformulated Problem \eqref{prob:MVCSEAsymmetry_Sub2} to the following problem:
+\[
+\begin{array}{cll}
+\sup & \sqrt[L]{\prod_{\ell \in [L]} t_\ell}  \\
+\subj & \displaystyle\ephat{\psi(\|(\Diag(\bmu v)\mb{D}^{-1}(\bmt z - \bmh z))^- + (\Diag(\bmb v)\mb{D}^{-1}(\bmt z - \bmh z))^+\|)} \leq 1 \\[3mm]
+& \displaystyle \frac{1}{2\ubar v_{\ell}} + \frac{1}{2\bar v_{\ell}} \leq \frac{1}{t_{\ell}} &~\forall \ell \in [L] \\
+& \bm v_1,\bm v_2 \in \bbr^L_{++}.  
+\end{array} 
+\]
+The second constraint, $\frac{1}{2\ubar v_{\ell}} + \frac{1}{2\bar v_{\ell}} \leq \frac{1}{t_{\ell}}$, can be expressed as the following set of constraints:
+$$
+\frac{1}{2 \ubar v_{\ell}} \leq \frac{ \ubar w_{\ell}}{t^2_\ell}, ~~\frac{1}{2 \bar v_{\ell}} \leq \frac{\bar w_{\ell}}{t^2_\ell}, ~~  \frac{\ubar w_{\ell}}{t^2_\ell} + \frac{\bar w_{\ell}}{t^2_\ell}  \leq \frac{1}{t_\ell}, 
+$$
+for some $\ubar w_{\ell},\bar w_{\ell} \geq 0$. This then yields rotated second-order conic constraints as expressed in the Problem~\eqref{prob:MVCSEAsymmetry2}, concluding the proof. 
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof. of Theorem \ref{chap5:thm:SimplifiedJointCriterion}.}
+Since the comprehensive robust constraint~\eqref{eq:ComprehensiveRobustConstraint} can be expressed as
+$$
+\sup_{\bm{z}\in \cZ} \; \{ f(\bm{x}, \bm{z}) - \Phi(\bm z)\} \leq \tau,
+$$
+where
+$$
+\Phi(\bm z) = \inf_{\bm \zeta \in \hat \cZ} \; \{ \kappa (\Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ \}.
+$$
+It thus suffices to show 
+$$
+\Phi(\bm z) = \min\{\kappa,\hat \kappa\}( \Delta(\bm z,\bmh z) - \gamma -\hat \gamma)^+.
+$$
+Since $\Phi(\bm z) \geq 0$ and $\Phi(\bmh z)=0$ (achieved when $\bm \zeta = \bmh z$), we focus on $\bm z \neq \bmh z$, or equivalently, $\Delta(\bm z,\bmh z)>0$. 
+
+Suppose first $\hat \kappa \geq \kappa$. From the property of subjectivity associated with the disparity metric $\Delta$ and the function $(\cdot)^+$, we can establish the following inequalities:
+$$
+\begin{array}{rcl}
+\displaystyle \kappa (  \Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ 
+&\geq&  \displaystyle \kappa (  \Delta(\bm z,\bm \zeta) - \gamma)^+ +  \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+\\
+&\geq&  \displaystyle \kappa ( \Delta(\bm z,\bm \zeta) + \Delta(\bm \zeta,\bmh z) - \gamma - \hat \gamma)^+ \\
+&\geq&  \displaystyle \kappa ( \Delta(\bm z+\bm \zeta,\bmh z+ \bm \zeta) - \gamma - \hat \gamma)^+ \\
+&=&  \displaystyle \kappa ( \Delta(\bm{z},\bmh z) - \gamma - \hat \gamma)^+ 
+\end{array}
+$$
+where the last inequality is due to the subadditive property of the coherent disparity metric and the final equality is due to the translation invariant property. Hence, we have 
+$$
+\Phi(\bm z) = \inf_{\bm \zeta  \in  \hat \cZ} \left\{ \kappa (  \Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ \right\} \geq  \kappa( \Delta(\bm z,\bmh z) - \gamma -\hat \gamma)^+.
+$$
+To show that equality holds, we examine the solution of $\bm \zeta  \in  \hat \cZ$ under two mutually exclusive and collectively exhaustive cases wherein the minimum can be attained. For the first case of $\Delta(\bm z,\bmh z)> \gamma + \hat \gamma$, we consider the solution:
+$$
+\bm \zeta = \bmh z + \frac{\hat \gamma}{\Delta(\bm z,\bmh z)}(\bm z - \bmh z) = \frac{\Delta(\bm z,\bmh z) - \hat \gamma}{\Delta(\bm z,\bmh z)}\bmh z +  \frac{\hat \gamma}{\Delta(\bm z,\bmh z)}\bm z \in \cZ \subseteq \hat \cZ. 
+$$
+Observe that 
+$$
+\Delta(\bm \zeta,\bmh z) = \Delta(\bm \zeta-\bmh z,\bm 0) = \frac{\hat \gamma}{\Delta(\bm z,\bmh z)}  \Delta(\bm z-\bmh z,\bm 0) =  \hat \gamma,
+$$
+and because $\Delta(\bm z,\bmh z)=\Delta(\bm z-\bmh z,\bm 0)> \hat \gamma$, we have 
+$$
+\Delta(\bm z,\bm \zeta)= \Delta(\bm z - \bm \zeta, \bm 0) = \Delta\left( \left( 1- \frac{\hat \gamma}{\Delta(\bm z,\bmh z)}\right)(\bm z - \bmh z),\bm 0\right) = \Delta(\bm z,\bmh z) - \hat \gamma.
+$$
+Hence,
+$$
+\kappa (  \Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ =  \kappa( \Delta(\bm z,\bmh z) - \gamma -\hat \gamma). 
+$$
+Likewise, for the second case of $\Delta(\bm z,\bmh z)\leq \gamma + \hat \gamma$, we consider the solution:
+$$
+\bm \zeta = \bmh z + \frac{\hat \gamma}{\gamma +\hat\gamma }(\bm z - \bmh z) =  \frac{\hat \gamma}{\gamma +\hat\gamma }\bm z + \frac{\gamma}{\gamma +\hat\gamma }\bmh z \in \cZ \subseteq \hat \cZ. 
+$$
+Observe that 
+$$
+\Delta(\bm \zeta,\bmh z) = \frac{\hat \gamma}{\gamma +\hat\gamma } \Delta(\bm z,\bmh z) \leq \hat \gamma
+~~~\text{and}~~~
+\Delta(\bm z,\bm \zeta)=\Delta(\bm z - \bm \zeta,\bm 0) = \Delta\left(  \frac{\gamma}{\gamma +\hat\gamma }(\bm z - \bmh z),\bm 0\right) = \gamma \frac{\Delta(\bm z,\bmh z)}{\gamma + \hat \gamma} \leq \gamma.
+$$
+Hence,
+$$
+\kappa (  \Delta(\bm z,\bm \zeta) - \gamma)^+ + \hat \kappa ( \Delta(\bm \zeta,\bmh z) - \hat \gamma)^+ = 0. 
+$$
+When $\hat \kappa < \kappa$, the proof follows a similar analysis and is thus omitted.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{thm:sideinfo}.}
+Consider the variable change from $\mb D^{-1}$ to $\mb Q$, $\mb D^{-1} \bmh z_0$ to $\bm q$, and $\mb D^{-1} \mbh Z$ to $\mb P$. Given that $\psi$ is a convex and non-increasing function, $\ep{\psi(\|\mb{Q} \bmt z - \bm q - \mb P \bmt s\|)}$ is a convex function with respect to the decision variable $(\bm q,\mb P,\mb Q)$. The remaining constraints are reformulated in the same way as shown in \Cref{chap8:thm:MinimumVolumeDtoQ}.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:MVCSESideInformationL2}.}
+Changing decision variable from $\mb D^{-2} $ to $\mb W$, Problem~\eqref{prob:MVCSE_Side_Info} is equivalent to
+\begin{equation}
+\label{prob:MVCSE_Side_Info_toW}
+\begin{array}{cll}
+\sup & \log\det(\mb W) \\
+\subj & \displaystyle \min_{\bmh z_0\in \bbr^L, \; \mbh Z\in \bbr^{L \times S}} \mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mb W^{1/2} ( \bmt z - \bmh z_0- \mbh Z\bmt s )\|_2^2] \leq L \\
+& \mb{W} \in \bbs^{L}_{++}.  
+\end{array} 
+\end{equation}
+Note that
+$\mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mb W^{1/2} ( \bmt z - \bmh z_0- \mbh Z\bmt s )\|_2^2] = \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt z - \bmh z_0- \mbh Z\bmt s )^\top  \mb W (\bmt z - \bmh z_0- \mbh Z\bmt s)]$ is a quadratic function of $\bmh z_0$ and $\mbh Z$. Since $\mb W \succ \bm 0$, equating the gradients with respect to $\bmh z_0$ and $\mbh Z$ then yields
+$$
+2 \mathbb{E}_{\hat{\mathbb{P}}}\,[\mb W ( \bmt z - \bmh z_0- \mbh Z\bmt s )] = \bm 0 ~~~\Longrightarrow~~~
+\bmh z_0^\star = \bmh \mu_{\bm z} - \mbh Z^\star \bmh \mu_{\bm s},
+$$
+and
+$$
+- 2 \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt z - \bmh z_0^\star - \mbh Z^\star \bmt s) \bmt s^\top] = 0 
+~~~\Longrightarrow~~~
+\bmh \Sigma_{\bm z, \bm s} = \mbh Z^\star \bmh \Sigma_{\bm s}.
+$$
+Hence, $\mbh Z^\star = \bmh \Sigma_{\bm z \bm s} \mbh \Sigma_{\bm s}^{-1}$ and $\bmh z_0^\star = \bmh \mu_{\bm z} - \mbh Z^\star \bmh \mu_{\bm s}$. Consequently,
+\[
+\begin{array}{rcl}
+\mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt z - \bmh z_0^\star - \mbh Z^\star \bmt s )^\top  \mb W ( \bmt z - \bmh z_0^\star - \mbh Z^\star \bmt s)] 
+& = & \mathbb{E}_{\hat{\mathbb{P}}}\,[\tr(\mb W (\bmt z - \bm \mu_{\bm z} - \mbh Z^\star (\bmt s - \bm \mu_{\bm s}) ) (\bmt z - \bm \mu_{\bm z} - \mbh Z^\star (\bmt s - \bm \mu_{\bm s}) )^\top)] \\
+& = & \tr(\mb W (\bmh \Sigma_{\bm z} - \mbh Z^\star \bmh \Sigma_{\bm s \bm z} - \bmh \Sigma_{\bm z \bm s} (\mbh Z^\star)^\top + \mbh Z^\star \bmh \Sigma_{\bm s} (\mbh Z^\star)^\top)) \\
+& = & \tr(\mb W (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})).
+\end{array}
+\]
+Problem~\eqref{prob:MVCSE_Side_Info_toW} then becomes to
+\begin{equation}
+\label{prob:MVCSE_Side_Info_toW2}
+\begin{array}{cll}
+\sup & \log\det(\mb W) \\
+\subj & \displaystyle \tr(\mb W (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})) \leq L \\
+&  \mb{W} \in \bbs^{L}_{++}.  
+\end{array} 
+\end{equation}
+
+The Lagrangian function for this Problem is:
+$$
+\Lambda(\mb W, \lambda) = \log\det(\mb W) - \lambda \tr(\mb W (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})) + \lambda L.
+$$
+We can calculate the gradient with respect $\mb W$ as follows:
+$$
+\nabla_{\mb W} \Lambda(\mb W, \lambda) = \mb W^{-1} - \lambda (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z}).
+$$
+Equating it to zero, the optimal solution shall satisfy:
+$$
+\lambda^\star \mb W^\star = (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z} )^{-1}.
+$$
+Complementary slackness of the KKT conditions requires that
+$$
+\lambda^\star (\tr(\mb W ( \bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})) - L) = 0,
+$$
+implying $\lambda^\star = 1$. Therefore, we obtain the optimal solution of the deviation matrix via
+$$
+\mb W^\star = (\bmh \Sigma_{\bm z} - \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1} \bmh \Sigma_{\bm s \bm z})^{-1} ~\text{and}~ \mb D^\star = (\mb W^\star)^{-\frac{1}{2}}.
+$$
+The optimality is ensured, as Problem~\eqref{prob:MVCSE_Side_Info_toW2} is a convex optimization problem.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\begin{proof}{\bf Proof of \Cref{chap8:thm:OLS_side_info}.}
+The square loss function can be reformulated as follows:
+\[
+\begin{array}{rcl}
+\mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mbh D^{-1}(\bm \zeta_0 + \mb Z \bmt s - \bmt{z})\|^2_2] 
+& = & \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bm \zeta_0 + \mb Z \bmt s - \bmt{z})^{\top} \mbh D^{-2} (\bm \zeta_0 + \mb Z \bmt s - \bmt{z})] \\
+& = & \mathbb{E}_{\hat{\mathbb{P}}}\,[\bm \zeta_0^\top \mbh D^{-2} \bm \zeta_0 + 2 \bm \zeta_0^{\top} \mbh D^{-2} (\mb Z \bmt s - \bmt z) + (\mb Z \bmt s - \bmt z)^{\top} \mbh D^{-2} (\mb Z \bmt s - \bmt z)] \\
+& = & \bm \zeta_0^\top \mbh D^{-2} \bm \zeta_0 + 2 \bm \zeta_0^{\top} \mbh D^{-2} \mathbb{E}_{\hat{\mathbb{P}}}\,[\mb Z \bmt s - \bmt z] + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\mb Z \bmt s - \bmt z)^{\top} \mbh D^{-2} (\mb Z \bmt s - \bmt z)],
+\end{array}
+\]
+which, for any fixed $\mb Z$, is a quadratic function of $\bm \zeta_0$. Minimizing this quadratic function with respect to $\bm \zeta_0$ leads to the following optimal map:
+$$
+\bm \zeta_0^\star (\mb Z) = - \mb Z \ephat{\bmt s} + \ephat{\bmt z} = \bmh \mu_{\bm z} - \mb Z \bmh \mu_{\bm s};
+$$ 
+and results in:
+\begin{equation}
+\begin{array}{cl}
+& \mathscr{L}(\bm \zeta_0^\star (\mb Z),\mb Z; \cD) \\
+= & \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt s - \bmh \mu_{\bm s} )^\top \mb Z^{\top} \mbh D^{-2} \mb Z (\bmt s - \bmh \mu_{\bm s} ) -2 ( \bmt{z} - \bmh \mu_{\bm z} )^\top \mbh D^{-2} \mb Z (\bmt s - \bmh \mu_{\bm s})] \\
+  & + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt{z} - \bmh \mu_{\bm z} )^\top \mbh D^{-2} ( \bmt{z} - \bmh \mu_{\bm z})] \\
+= & \tr(\ephat{(\bmt s - \bmh \mu_{\bm s})(\bmt s - \bmh \mu_{\bm s})^\top} \mb Z^{\top} \mbh D^{-2} \mb Z) - 2 \tr(\ephat{(\bmt s - \bmh \mu_{\bm s})(\bmt{z} - \bmh \mu )^\top}\mbh D^{-2} \mb Z) \\
+  & + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt{z} - \bmh \mu)^\top \mbh D^{-2} (\bmt{z} - \bmh \mu_{\bm z})] \\
+= & \tr(\mb Z^{\top} \mbh D^{-2} \mb Z \bmh \Sigma_{\bm s}) - 2 \tr(\bmh \Sigma_{\bm z \bm s}^\top \mbh D^{-2} \mb Z)  + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt{z} - \bmh \mu_{\bm z})^\top \mbh D^{-2}(\bmt{z} - \bmh \mu)].
+\end{array}
+\label{eq:ch8:OLS_Pred_Loss}
+\end{equation}
+The gradient with respect to $\mb Z$ is 
+\[
+\nabla_{\mb Z} \mathscr{L}(\bm \zeta_0^\star (\mb Z),\mb Z; \cD) = 2 \mbh D^{-2} \mb Z \bmh \Sigma_{\bm s} - 2 \mbh D^{-2} \bmh \Sigma_{\bm z \bm s}.
+\]
+As $\mbh D$ and $\bmh \Sigma_{\bm s}$ are invertible, equating the gradient to zero yields a solution 
+$$
+\mb Z^\star = \bmh \Sigma_{\bm z \bm s} \bmh \Sigma_{\bm s}^{-1},
+$$
+which is optimal as Equation~\eqref{eq:ch8:OLS_Pred_Loss}, with the first term being quadratic and the second term linear, is convex in $\mb Z$. As a result, the OLS estimators are $\mbh Z = \mb Z^\star$ and $\bmh z_0 = \bm \zeta_0^\star (\mb Z^\star)$.
+
+Consequently, we have
+$$
+\mathscr{L}(\bmh z_0,\mbh Z; \cD) = - \bmh z_0^\top \mbh D^{-2} \bmh z_0 + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\mbh Z \bmt s - \bmt z)^{\top} \mbh D^{-2} (\mbh Z \bmt s - \bmt z)].
+$$
+Hence, the estimation disparity metric associated with the square loss function simplifies to:
+$$
+\begin{array}{rcl}
+\hat \Delta ((\bm u, \mb U),(\bm 0,\bm 0))
+&=& \eta (\mathscr{L}(\bmh z_0 + \bm u,\mbh Z + \mb U; \cD) - \mathscr{L}(\bmh z_0,\mbh Z; \cD)) \\
+&=& \eta (\mathbb{E}_{\hat{\mathbb{P}}}\,[\|\mbh D^{-1} (\bmh z_0  + \bm u + (\mbh Z + \mb U) \bmt s - \bmt z) \|_2^2] - \mathscr{L}(\bmh z_0,\mbh Z; \cD)) \\
+&=& \eta \Big(\mathbb{E}_{\hat{\mathbb{P}}}\,[\| \mbh D^{-1} (\bm u + \mb U \bmt s) \|_2^2] + 2 \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bm u + \mb U \bmt s)^\top \mbh D^{-2} (\bmh z_0 + \mbh Z \bmt s - \bmt z)] \\
+& & \quad + \mathbb{E}_{\hat{\mathbb{P}}}\,[\| \mbh D^{-1} (\bmh z_0 + \mbh Z \bmt s - \bmt z) \|_2^2] - \mathscr{L}(\bmh z_0,\mbh Z; \cD) \Big) \\
+&=& \eta (\|\mbh D^{-1} (\bm u + \mb U \bmh \mu_{\bm s})\|_2^2 + \mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt s - \bmh \mu_{\bm s})^\top \mb U^\top \mbh D^{-2} \mb U (\bmt s - \bmh \mu_{\bm s})]) \\
+&=& \eta (\| \mbh D^{-1} (\bm u + \mb U \bmh \mu_{\bm s})\|_2^2 + \tr(\mb U^\top \mbh D^{-2} \mb U \bmh \Sigma_{\bm s})),
+\end{array}
+$$
+where in the fourth equation, we have that
+\[
+\begin{array}{rcl}
+\mathbb{E}_{\hat{\mathbb{P}}}\,[(\bm u + \mb U \bmt s)^\top \mbh D^{-2} (\bmh z_0 + \mbh Z \bmt s - \bmt z)] 
+& = &\mathbb{E}_{\hat{\mathbb{P}}}\,[(\bmt s - \bmh \mu_{\bm s})^\top \mb U^\top \mbh D^{-2} (\mbh Z (\bmt s - \bmh \mu_{\bm s}) - (\bmt z - \bmh \mu_{\bm z}))] \\
+& = & \tr(\mb U^\top \mbh D^{-2}(\mbh Z \bmh \Sigma_{\bm s} - \bmh \Sigma_{\bm z \bm s})) \\
+& = & 0.
+\end{array}
+\]
+The proof is then completed.
+\hfill \Halmos
+\end{proof}
+\vspace{3mm}
+
+\section{Integer Power Cone}
+\label{sec:IntegerPowerCone}
+
+Given natural numbers $\bm \beta \in \mathbb{N}^{L-1}$, we define the integer power cone as follows:
+$$
+\cK^L_{{\rm IP},\bm \beta} := \displaystyle \left\{ (x,\bm r) \in \bbr \times \bbr_+^{L-1}  \left| |x|^{\bm 1^\top \bm \beta} \leq \prod_{\ell \in [L-1]} r^{\beta_\ell}_\ell \right.\right\}.
+$$
+It can be used to express the epigraph of the $L_p$-norm for some finite rational number $p>1$.  
+
+\begin{example}[Rational $L_p$-norm]
+Using the integer power cone, we can express the epigraph of the $L_p$-norm with some finite rational number $p>1$ (\textit{i.e.}, $p=a/b$ with $a,b \in \mathbb{N}$) as follows:
+$$
+\begin{array}{rcl}
+\{(\bm x,r) \in \bbr^{N} \times \bbr_+ ~|~ \|\bm x\|_{a/b} \leq r \}
+&=& \displaystyle \cl \Bigg\{ (\bm x,r) \in \bbr^{N} \times \bbr_{++} ~\Bigg|~ \sum_{n \in [N]} \frac{|x_n|^{a/b}}{r^{(a-b)/b}} \leq r \Bigg.\Bigg\} \\[5mm]
+&=& \displaystyle \cl\left\{ (\bm x,r) \in \bbr^{N} \times \bbr_{+} ~\left|~
+\begin{array}{ll}
+\exists \bm s \in \bbr^N: \\
+\bm 1^\top \bm s \leq r \\
+|x_n|^a \leq s^b_n r^{a-b}  & \forall n \in [N]
+\end{array}
+\right.\right\} \\ [5mm]
+&=& \displaystyle \left\{ (\bm x,r) \in \bbr^{N} \times \bbr_{+} ~\left|~
+\begin{array}{ll}
+\exists \bm s \in \bbr^N: \\
+\bm 1^\top \bm s \leq r \\
+(x_n,s_n,r) \in  \cK_{{\rm IP},(b,a-b)}  & \forall n \in [N]
+\end{array}
+\right.\right\}.
+\end{array}
+$$
+\end{example}
+
+\begin{example}[Determinant Optimization]
+It is well known that the determinant optimization problem
+$$
+\begin{array}{cl}
+\sup & (\det (\mb Q))^{1/L} \\
+\subj & \mb Q \in \cQ
+\end{array}
+$$
+with some $\cQ \subseteq \bbs^L_{++}$ can be expressed as the following semidefinite optimization problem with a geometric mean constraint:
+$$
+\begin{array}{cl}
+\sup &  v\\
+\subj & v \leq \sqrt[L]{\prod_{\ell \in [L]} [\mb L]_{\ell \ell}} \\
+& \begin{bmatrix}\mb Q & \mb L \\
+\mb L^\top & {\rm Diag}(\mb L)
+\end{bmatrix} \succeq \bm 0 \\
+& \mb L ~\mbox{is a lower triangular matrix}\\
+& \mb Q \in \cQ, v \geq 0,
+\end{array}
+$$
+where ${\rm Diag}(\mb L)$ refers to the diagonal matrix whose diagonal entries coincide with those of $\mb L$; that is, $[{\rm Diag}(\mb L)]_{\ell \ell} = [\mb L]_{\ell \ell} ~\forall \ell \in [L]$.
+Here, the geometric mean constraint can be expressed as an integer power cone constraint:
+$$
+(v,[\mb L]_{11},\dots,[\mb L]_{LL} )) \in \cK^{L+1}_{{\rm IP},\bm 1}. 
+$$
+\end{example}
+
+Importantly, the integer power cone can be expressed via elementary rotated second-order cones:
+$$
+\cK_{\rm Q} = \{ (\bm x,r,t) \in \bbr^{N} \times \bbr_+ \times \bbr_+ ~|~ \bm x^\top \bm x \leq rt \}. 
+$$
+In the following, we present the construction of the integer power cone for $L \geq 3$ and we focus on the case of $\bm 1^\top \bm \beta$ is a power of two, \ie $\lceil \log_2(\bm 1^\top \bm \beta) \rceil = \log_2(\bm 1^\top \bm \beta)$. If this is not the case, we can define 
+$$
+\beta_L = 2^{\lceil\log_2(\bm 1^\top \bm \beta) \rceil} - \bm 1^\top \bm \beta,
+$$
+so that $\bm 1^\top \bm \beta + \beta_L$ is a power of two, then we have 
+$$
+\cK^{L}_{{\rm IP},\bm \beta} = \left\{ (x,\bm r) \in \bbr \times \bbr^{L-1}_+ ~\left|~
+\begin{array}{l}
+\exists s \in \bbr_+:\\
+s \geq |x| \\
+(s, (\bm r,s)) \in  \cK^{L+1}_{{\rm IP},(\bm \beta,\beta_L)} 
+\end{array}
+\right.\right\}.
+$$
+This is because that with $(s,\bm r) \in \bbr^L_+$, we have the following equivalence:
+$$
+s^{\bm 1^\top \bm \beta} \leq \prod_{\ell \in [L-1]} r^{\beta_\ell}_\ell 
+~~~\iff~~~
+|s|^{\bm 1^\top \bm \beta+\beta_L} \leq s^{\beta_L} \prod_{\ell \in [L-1]} r^{\beta_\ell}_\ell \\
+~~~\iff~~~
+(s, (\bm r,s)) \in  \cK^{L+1}_{{\rm IP},(\bm \beta,\beta_L)}.
+$$
+
+\begin{theorem}
+\label{thm:IntegerPowerConvert}
+The integer power cone for $L\geq 3$ and $\bm 1^\top \bm \beta$ being a power of two can be constructed using the following recursive procedure.
+\begin{enumerate}[Step 1.]
+
+\item If  $\bm \beta = (\beta_1, \beta_1)$, then
+$$
+\cK^{3}_{{\rm IP},(\beta_1,\beta_1)} =   \cK_{
+\rm Q}.  
+$$
+
+\item Else if there exists $i \in [L-1]$ such that $\beta_i \geq \bm 1^\top \bm \beta/2$. Then if $\beta_i >  \bm 1^\top \bm \beta/2$, let $\underline \cL = [L-1]$, $\underline L = L$ and $\bmu \beta =\bm \beta - (\bm 1^\top \bm \beta/2)\bm e_i$. Otherwise, let $\underline \cL = [L-1]\setminus\{i\}$, $\underline L = L-1$ and  $\bmu \beta = [\beta_\ell]_{\ell \in \underline \cL}$. Consequently, 
+$$
+\cK^{L}_{{\rm IP},\bm \beta} = \left\{ (x,\bm r) \in \bbr\times \bbr^{L-1}_+ ~\left|~ 
+\begin{array}{ll} \exists u \in \bbr_+: \\
+(x,u,r_i) \in \cK_{{\rm Q}} \\
+(u, [r_\ell]_{\ell \in \underline \cL}) \in \cK^{\underline L}_{{\rm IP},\bmu \beta} \\
+\end{array}
+\right.\right\}.
+$$
+Repeat the steps to evaluate $\cK^{\underline L}_{{\rm IP},\bmu \beta}$.
+
+\item Else find two subsets $\underline \cL, \bar \cL  \subseteq [L-1]$ with $|\underline \cL|, |\bar \cL| \geq 2$, $|\underline \cL \cap \bar \cL| \leq 1$, and exponent parameters $\theta_\ell \in \mathbb{N}$ for $\ell \in \underline \cL$ and $\phi_\ell \in \mathbb{N}$ for $\ell \in \bar \cL$ such that 
+$$
+\sum_{\ell \in \underline \cL} \theta_\ell = \sum_{\ell \in \bar\cL} \phi_\ell = \bm 1^\top \bm \beta/2,
+$$
+and
+$$
+\begin{array}{rcll} 
+\theta_\ell &=& \beta_\ell &~\forall \ell \in \underline \cL \setminus \bar \cL \\
+\phi_\ell &=& \beta_\ell &~\forall \ell \in \bar \cL \setminus \underline  \cL \\
+\phi_\ell + \theta_\ell &=& \beta_\ell &~\forall \ell \in \bar \cL \cap  \underline  \cL.
+\end{array}
+$$
+Then 
+$$
+\cK^{L}_{{\rm IP},\bm \beta} = \left\{ (x,\bm r) \in \bbr\times \bbr^{L-1}_+ ~\left|~ 
+\begin{array}{ll} \exists u,  v \in \bbr_+: \\
+(x,u,v) \in \cK_{{\rm Q}} \\
+(u, [r_\ell]_{\ell \in \underline \cL}) \in \cK^{\underline L}_{{\rm IP},\bmu \beta} \\
+(v, [r_\ell]_{\ell \in \bar \cL}) \in \cK^{\bar L}_{{\rm IP},{\bmb \beta}} \\
+\end{array}
+\right.\right\},
+$$
+where $\underline L = | \underline \cL|+1$, $\bar L = | \bar \cL|+1$, $\bmu \beta = [\theta_\ell]_{\ell \in \underline \cL}$, and $\bmb \beta = [\phi_\ell]_{\ell \in \bar \cL}$. Repeat the steps to evaluate $ \cK^{\underline L}_{{\rm IP},\bmu \beta}$ and $\cK^{\bar L}_{{\rm IP},{\bmb \beta}}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}{\bf Proof.}
+Observe that in every step of the recursion, we maintain that $\bm 1^\top \bm \beta$ is a power of two. The correctness of Step~$1$ can be easily verified. 
+
+In Step~$2$, there exists $i \in [L-1]$ such that $\beta_i \geq \bm 1^\top \bm \beta/2$, and $\underline \cL$ and $\bmb \beta$ are constructed to satisfy 
+$$
+\prod_{\ell \in [L-1]} r^{\beta_\ell}_\ell  = r_i^{\bm 1^\top \bm \beta/2}\prod_{\ell \in \underline \cL} r^{\underline \beta_\ell}_\ell.
+$$
+Hence,
+$$
+|x|^{\bm 1^\top \bm \beta} \leq r_i^{\bm 1^\top \bm \beta/2}\prod_{\ell \in \underline \cL} r^{\underline \beta_\ell}_\ell 
+~~~\iff~~~
+\left\{
+\begin{array}{l}
+\exists u \in \bbr_+:\\
+\displaystyle |x|^{\bm 1^\top \bm \beta} \leq {u}^{\bm 1^\top \bm \beta/2} r_i^{\bm 1^\top \bm \beta/2}\\
+\displaystyle {|u|}^{\bm 1^\top \bm \beta/2} \leq  \prod_{\ell \in \underline \cL}r_\ell^{\underline \beta_\ell}.
+\end{array}
+\right.
+$$
+Moreover,  we have
+$$
+|x|^{\bm 1^\top \bm \beta} \leq {u}^{\bm 1^\top \bm \beta/2} r_i^{\bm 1^\top \bm \beta/2} 
+~~~\iff~~~
+(x,u,r_i) \in \cK_{\rm Q},
+$$
+and 
+$$
+{|u|}^{\bm 1^\top \bm \beta/2} \leq  \prod_{\ell \in \underline \cL}r_\ell^{\underline \beta_\ell} 
+~~~\iff~~~
+(u, [r_\ell]_{\ell \in \underline \cL}) \in \cK^{\underline L}_{{\rm IP},\bmu \beta}.
+$$
+
+Finally, in Step~$3$, the construction of $\underline \cL$, $\bar \cL$, $\bm \theta$, $\bm \phi$, $\bmu \beta$, $\bmb \beta$ satisfies
+$$
+\begin{array}{rcl}
+&& \displaystyle |x|^{\bm 1^\top \bm \beta} \leq  \prod_{\ell \in [L-1]}r_\ell^{\beta_\ell} \\
+&~~~\iff~~~& \displaystyle  
+|x|^{\bm 1^\top \bm \beta}  \leq \prod_{\ell \in \underline \cL}r_\ell^{\theta_\ell}\prod_{\ell \in \bar \cL}r_\ell^{\phi_\ell}\\
+&~~~\iff~~~&
+\left\{
+\begin{array}{lcl}
+\exists u,v \in \bbr_+:\\
+\displaystyle {|x|}^{\bm 1^\top \bm \beta} \leq {u}^{\bm 1^\top \bm \beta/2} {v}^{\bm 1^\top \bm \beta/2} &~~~\iff~~~& (s,u,v) \in \cK_{\rm Q}\\
+\displaystyle {|u|}^{\bm 1^\top \bm \beta/2} \leq  \prod_{\ell \in \underline \cL}r_\ell^{\theta_\ell} &~~~\iff~~~& (u, [r_\ell]_{\ell \in \underline \cL}) \in \cK^{\underline L}_{{\rm IP},\bmu \beta} \\
+\displaystyle  {|v|}^{\bm 1^\top \bm \beta/2} \leq  \prod_{\ell \in \bar \cL}r_\ell^{\phi_\ell} &~~~\iff~~~& (u, [r_\ell]_{\ell \in \underline \cL}) \in \cK^{\underline L}_{{\rm IP},\bmu \beta},
+\end{array}\right.
+\end{array}
+$$
+concluding the proof.
+\hfill \Halmos
+\end{proof}
+
+In the recursive method, branching mainly occurs in Step~$3$, particularly when $L \geq 4$. In this phase, each pathway reduces the dimension of the evolving structure by at least one. Thus, the maximum number of recursive branchings is constrained to be less than \(L\). Moreover, the complexity of this process increases with the sum of the exponents, \(\bm{1}^\top \bm{\beta}\). However, at each stage of recursion, this sum is reduced by half, ensuring that the size of the integer power cone remains manageable when it is constructed using basic quadratic cones, even with high values of exponents.
+
+\Cref{thm:IntegerPowerConvert} has been applied in RSOME to automate the transformation of the integer power cone into the format used for second-order conic optimization.
+
+\section{Variance of Input Vector Estimation}
+\label{sec:sensitive_input}
+We consider a symmetric outcome confidence set without incorporating side information. Consider a random input vector $\bmt z$ expressed as $\bmt z = \mb \Sigma^{\frac{1}{2}} \bmt v$ that involves some i.i.d. random factors $\tilde v_\ell$, $\ell \in [L]$, with $L = 10$. Here, $\tilde v_\ell$ follows either a standard normal distribution $\mathbb{N}(0,1)$ or a uniform distribution $\mathbb{U}[0,\sqrt{12}]$ of the same mean $0$ and variance $1$. The positive definite matrix $\bm \Sigma$ introduces correlations among the random components $\tilde z_\ell$, $\ell \in [L]$ but ensures that the variance of each component is $100$.
+$$
+\mb \Sigma = 
+\begin{pmatrix}
+    100.00 & 26.04  & 39.77  & 40.30  & -26.28 & -11.33 & -7.22  & -20.18 & -33.85 & -1.51  \\
+26.04  & 100.00 & 51.87  & 26.51  & -40.63 & -9.35  & -30.00 & 5.93   & 8.55   & -3.98  \\
+39.77  & 51.87  & 100.00 & 19.47  & -31.73 & -18.13 & -43.93 & 0.84   & -31.34 & -10.16 \\
+40.30  & 26.51  & 19.47  & 100.00 & -30.80 & -5.80  & 12.69  & -48.35 & 6.47   & 18.48  \\
+-26.28 & -40.63 & -31.73 & -30.80 & 100.00 & 26.96  & 22.66  & 22.25  & -11.01 & -8.11  \\
+-11.33 & -9.35  & -18.13 & -5.80  & 26.96  & 100.00 & 51.40  & 40.78  & -25.34 & 11.41  \\
+-7.22  & -30.00 & -43.93 & 12.69  & 22.66  & 51.40  & 100.00 & 3.17   & -0.75  & 39.06  \\
+-20.18 & 5.93   & 0.84   & -48.35 & 22.25  & 40.78  & 3.17   & 100.00 & -15.75 & 10.53  \\
+-33.85 & 8.55   & -31.34 & 6.47   & -11.01 & -25.34 & -0.75  & -15.75 & 100.00 & 27.12  \\
+-1.51  & -3.98  & -10.16 & 18.48  & -8.11  & 11.41  & 39.06  & 10.53  & 27.12  & 100.00 
+\end{pmatrix}.
+$$
+
+Given a number $\Omega$ of historical dataset $\mathcal{D} = \{(1,\bm z_1), \dots, (\Omega,\bm z_\Omega)\}$, we employ the \ref{prob:MVCSE} approach to estimate $\bmh z = (\hat z_\ell)_{\ell \in [L]}$. This estimator is a function of historical data and, thereby, is inherently random. To implement the \ref{prob:MVCSE} problem, we employ the $L_{p_1}$-norm and a power deviation penalty function $\psi_{p_2}(r) = r^{p_2}$, and the following case uses a linear penalty, \ie $p_2 =1$. Additionally, we set the regularization vector $\bm r = \bm 1$ for all values of $\Omega$ to avoid the feasibility issue that $\det(\mb D) = 0$ when $\Omega = L = 10$.
+
+To assess the stability and reliability of the estimates, we consider $200$ replications that generate the historical dataset from the underlying $\mathbb{N}(0,1)$ or $\mathbb{U}[0,\sqrt{12}]$ and compute the following average of variances of $\bmh z$'s components over these $200$ replications:
+\[
+\frac{1}{L} \sum_{\ell \in [L]} \mathbb{V}{\rm ar}(\hat{z}_l).
+\]
+We call this average the variance of estimation and report it in Table~\ref{tab:estimation_normal_uniform}, wherein the first two columns present results for the uniform distribution and the normal distribution, respectively. 
+
+\begin{table}[htb]
+%\tiny
+\scriptsize
+\centering
+%\begin{tabular}{c||cccc|cccc|cccc|cccc}
+\begin{tabularx}{1.0\textwidth}
+{>{\hspace{-5pt}}c<{\hspace{-3pt}}||XXXX|XXXX|XXXX|XXXX}
+%{c||XXXX|XXXX|XXXX|XXXX}
+\hline \hline
+&\multicolumn{4}{c|}{Uniform w.o. Outliers} & \multicolumn{4}{c|}{Normal w.o. Outliers} &\multicolumn{4}{c|}{Uniform with Outliers} & \multicolumn{4}{c}{Normal with Outliers}  \\
+\cline{2-17}
+$\Omega$ & $L_1$ & $L_{2}$ & $L_3$ & $L_{4}$ & $L_1$ & $L_{2}$ & $L_3$ & $L_{4}$ & $L_1$ & $L_{2}$ & $L_3$ & $L_{4}$ & $L_1$ & $L_{2}$ & $L_3$ & $L_{4}$   \\
+\hline
+10  & 23.61   & 11.33 & 9.85 & 9.35 & 16.30  & 10.58 & 11.74 & 13.00 & 28.05             & 48.75 & 138.39 & 221.50 & 26.11            & 51.09 & 141.85 & 226.24 \\
+20  & 13.35   & 5.81  & 4.72 & 4.34 & 9.18   & 5.51  & 5.89  & 6.62  & 14.17             & 17.14 & 51.66  & 102.58 & 10.40            & 16.23 & 51.75  & 100.05 \\
+50  & 5.53    & 2.13  & 1.55 & 1.33 & 3.07   & 2.08  & 2.40  & 2.83  & 5.36              & 4.83  & 10.43  & 18.92  & 3.88             & 4.82  & 10.76  & 18.88  \\
+100 & 2.79    & 1.11  & 0.78 & 0.65 & 1.64   & 1.08  & 1.18  & 1.35  & 2.81              & 2.36  & 3.55   & 4.81   & 1.85             & 2.22  & 4.08   & 5.90   \\
+\hline \hline
+%\end{tabular}
+\end{tabularx}
+\vspace{4 pt}
+\caption{Variance of estimation.}
+\label{tab:estimation_normal_uniform}
+\end{table}
+
+For the uniform distribution, the input vector subjected to the $L_3$-norm exhibits the lowest variance of estimation. Also, a general trend indicates that the variance of estimation decreases as the parameter $p_1$ for the $L_{p_1}$-norm increases. Conversely, for the normal distribution, the input vector subject to the $L_2$-norm shows the lowest variance. These observations suggest that different probability distributions may favor different norms. 
+
+Interestingly, these observations are also consistent with the uniformly minimum-variance unbiased estimator (UMVUE) when the uncertainty is one-dimensional (\textit{i.e.}, $L = 1$). The empirical mean $\ephat{\tilde{z}} =  \sum_{\omega = 1}^\Omega z_\omega/\Omega$ is the UMVUE of normal distribution (\citealt{rohatgi2015introduction}), while the average of the smallest and largest order statistics, denoted as $(\hat z_{(1)} + \hat{z}_{(\Omega)})/2$, emerges as the UMVUE of uniform distribution (\citealt{bar1985minimum}). 
+These estimators corroborate our analytical solutions as delineated in \Cref{chap8:thm:MinimumVolumeSpecialDiagonal}, as the empirical mean $\ephat{\tilde z}$ solves $\ephat{(\tilde{z} -\hat{z}^\star )^+} = \ephat{(\tilde{z} - \hat{z}^\star )^-}$ while $(\hat{z}_{(1)} + \hat{z}_{(\Omega)})/2$ satisfies $\operatorname*{ess\,sup}_{\bbphat}(\tilde{z} - \hat{z}^\star ) = \operatorname*{ess\,sup}_{\bbphat} ( \hat{z}^\star - \tilde{z})$---the limiting case of $\ephat{((\tilde z - \hat z^\star)^{+})^{p-1}} = \ephat{((\tilde z - \hat z^\star)^{-})^{p-1}}$ as $p \to +\infty$.
+
+We next consider the possibility that the historical dataset may be contaminated by outliers. In particular, we introduce these outliers as drifts $100$ (resp., $-100$) at a probability of $0.025$ (resp., $0.025$), which are designed to not influence the expectation of the distributions. In other words, the distribution of $\tilde z_\ell$ is now a mixture distribution that assigns $0.95$-weight to the rotated-by-$\bm \Sigma$ normal or uniform random variables and equally assigns $0.025$-weight to the distributions shifted by $100$ and $-100$, respectively. Other procedures remain similar. The results are presented in the third and fourth columns of Table~\ref{tab:estimation_normal_uniform}. It can be seen that the \ref{prob:MVCSE} approach is more sensitive to outliers as the parameter $p_1$ for the $L_{p_1}$-norm decreases.
+
+
+\section{Additional Details}
+\label{sec:additional_figures}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width = 0.7 \textwidth]{Figures/graph_Recourse.png}
+\caption{Resource allocation network: $15$ nodes and $30$ arcs.}
+\label{fig:network:15nodes_30arcs}
+\end{center}
+\footnotesize{
+\textit{Notes.}$\;$The parameter $\mu_i$ for each normally distributed demand is indicated at the node.}
+\end{figure}
+
+We present the replication-by-replication comparison of \ref{prob:tolerated_Allocation_Problem} (resp., \ref{prob:Budgeted_Allocation_Problem}) with \ref{Empirical_Problem} in Figure~\ref{fig:Allocation_performance_replication_RS} (resp., Figure~\ref{fig:Allocation_performance_replication_RO}), wherein each point corresponds to a specific replication. The \ref{prob:tolerated_Allocation_Problem} model, employing both \(L_1\)- and \(L_2\)-norms, demonstrates superior performance compared to \ref{Empirical_Problem} in the majority of replications. Additionally, the \ref{prob:Budgeted_Allocation_Problem} model, across all norms, shows superior performance compared to \ref{Empirical_Problem} in the majority of replications.
+
+\newpage
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width = \textwidth]{Figures/Infeasibility_Omega40_replication_RO.png}
+\caption{Infeasibility profile of \ref{Empirical_Problem} and \ref{prob:Budgeted_Allocation_Problem} models with samples $\Omega = 40$ in each replication.}
+\label{fig:Allocation_performance_replication_RO}
+\end{center}
+\footnotesize{
+\textit{Notes.}$\;$The grey color indicates that \ref{Empirical_Problem} performs better in view of the specific performance metric, while the red color indicates that \ref{prob:Budgeted_Allocation_Problem} performs better.}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width = \textwidth]{Figures/Infeasibility_Omega40_replication_RS.png}
+\caption{Infeasibility profile of \ref{Empirical_Problem} and \ref{prob:tolerated_Allocation_Problem} models with samples $\Omega = 40$ in each replication.}
+\label{fig:Allocation_performance_replication_RS}
+\end{center}
+\footnotesize{
+\textit{Notes.}$\;$The grey color indicates that \ref{Empirical_Problem} performs better in view of the specific performance metric, while the blue color indicates that \ref{prob:tolerated_Allocation_Problem} performs better.}
+\end{figure}
+
+\newpage
+\section{Sample Code of Numerical Cases}
+\label{sec:code_numerical}
+
+\begin{lstlisting}
+import numpy as np
+import rsome as rso
+from rsome import ro
+from rsome import cpt_solver as cpt
+
+def mvcs(z, p1=2, p2=2, display=True):
+    """
+    Return the vector q and the symmetrical matrix Q as the results of estimating
+    the minimum volume confidence set (MVCS), following Eq. (9).
+
+    Parameters
+    ----------
+    z : np.ndarray
+        The training dataset is given as a 2-D array.
+    p1 : int
+        Specify the Lp-norm of the MVCS estimation. The parameter p1 must be
+        an integer larger than one. The default value is two.
+    p2 : int
+        Specify the p-value of the power deviation penalty function. The parameter
+        p2 must be an integer larger than one. See Definition 4.2. The default
+        value is two.
+    display: bool
+        If the log information is displayed.
+
+    Return
+    ------
+    q : np.ndarray
+        A 1-D array for the constant term of the MVCS approach.
+    Q : np.ndarray
+        A 2-D array for the linear term of the MVCS approach.
+    """
+
+    N, L = z.shape
+
+    model = ro.Model()
+    q = model.dvar(L)
+    u = model.dvar(N)
+    v = model.dvar(N)
+    Q = model.dvar((L, L))
+
+    model.max(rso.rootdet(Q))
+    model.st((1/N) * u.sum() <= 1)
+    model.st((1/L) * rso.power(v, p2) <= u)
+    l_norm = lambda x: rso.norm(x, p1)
+    for n in range(N):
+        model.st(l_norm(Q@z[n] - q) <= v[n])
+
+    if display:
+        msg = f"Sample data:       {N} records x {L} inputs \n"
+        msg += f"Norm type:         l{p1}-norm\n"
+        msg += f"Deviation penalty: power={p2}\n"
+        print(msg)
+        print(model.do_math())
+
+    model.solve(cpt, display=display)
+
+    return q.get(), Q.get()
+
+
+def rs_decision(c, arcs, xbar, tau, zin, p1=2, p2=2, display=True):
+    """
+    Return the objective value and optimal solution of the robust satisficing
+    model for the emergency service resource allocation problem.
+
+    Parameters
+    ----------
+    c : np.ndarray
+        A 1-D array representing the per-unit costs of emergency service resources.
+    arcs: list
+        A list of pairs of node indices, representing the routes between locations
+        where the service can be transshipped.
+    xbar : float
+        The maximum resource capacity of each node.
+    tau : float
+        The budget of first-stage cost, in terms of the total cost of inventory at all
+        locations.
+    zin : np.ndarray
+        The training dataset is given as a 2-D array.
+    p1 : int
+        Specify the Lp-norm of the MVCS estimation. The parameter p1 must be
+        an integer larger than one. The default value is two.
+    p2 : int
+        Specify the p-value of the power deviation penalty function. The parameter
+        p2 must be an integer larger than one. See Definition 4.2. The default
+        value is two.
+    display: bool
+        If the log information is displayed.
+
+    Return
+    ------
+    objval : float
+        The optimal objective value of the robust satisficing model
+    xs : np.ndarray
+        A 1-D array representing the optimal solution of the robust satisficing model.
+    """
+
+    I = len(c)
+    ij= np.array([(i, i) for i in range(I)] +
+                 arcs + [a[::-1] for a in arcs])
+    K = ij.shape[0]
+
+    q, Q = mvcs(zin, p1, p2, display)
+    gbar = np.linalg.norm(zin@Q - q, p1, axis=1).max()
+
+    model = ro.Model()
+    z = model.rvar(I)
+    w1 = model.rvar(I)
+    w2 = model.rvar(I)
+    u = model.rvar()
+    zset = (w1 - w2 == Q@z - q,
+            rso.norm(w1 + w2, p1) <= u, u <= gbar,
+            w1 >= 0, w2 >= 0,
+            z >= 0, z <= 100)
+
+    x = model.dvar(I)
+    kappa = model.dvar()
+    y = model.ldr(K)
+    y.adapt(w1)
+    y.adapt(w2)
+    y.adapt(u)
+
+    model.minmax(kappa, zset)
+    model.st(c @ x <= tau)
+    for i in range(I):
+        model.st(y[ij[:, 0] == i].sum() <= x[i])
+        model.st(z[i] - y[ij[:, 1] == i].sum() <= kappa * u)
+    model.st(x >= 0, x <= xbar, y >= 0)
+    model.solve(cpt, display=display)
+
+    objval, xs = model.get(), x.get()
+    return objval, xs
+\end{lstlisting}
+
+In the code above, the function \code{rs\_decision} is utilized to formulate and solve the robust satisficing model, where the function \code{mvcs} defined at the top is called in line 103 to solve the \ref{prob:MVCSE} problem and return parameters of the uncertainty set.
+
+\end{appendices}
+
+\end{document}
+%%%%%%%%%%%%%%%%%\\
